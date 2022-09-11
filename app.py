@@ -28,7 +28,7 @@ def index():
             return redirect(request.path, code=302)
         if request.method == 'POST':
             form = list(dict(request.form.lists()).values())
-            if db.is_voteable(mac):
+            if db.is_votable(mac):
                 db.set_vote_status(mac, False)
                 if form[-1][0] == '1' or form[-1][0] == '2' or form[-1][0] == '3' or form[-1][0] == '4':
                     squad = int(form[-1][0])
@@ -45,7 +45,7 @@ def index():
                     for song in form[0]:
                         db.increase_song_wight(song)
             return redirect(request.path, code=302)
-        return render_template('index.html', data=db.get_songs(), is_voteable=db.is_voteable(mac))
+        return render_template('index.html', data=db.get_songs(), is_voteable=db.is_votable(mac))
 
     except requests.exceptions.InvalidHeader:
         print('неудачная аутентификация')

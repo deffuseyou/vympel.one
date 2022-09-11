@@ -12,7 +12,8 @@ class SQLighter:
 
     def squad_song_exist(self, title, squad):
         with self.connection:
-            return bool(len(self.cursor.execute('SELECT * FROM mac WHERE `title` = ? AND `squad` = ?', (title, squad)).fetchall()))
+            return bool(len(self.cursor.execute('SELECT * FROM squad_rating WHERE `song` = ? AND `squad` = ?',
+                                                (title, squad)).fetchall()))
 
     def add_message(self, data):
         with self.connection:
@@ -42,7 +43,7 @@ class SQLighter:
         with self.connection:
             return self.cursor.execute("SELECT * FROM `squad_rating` ORDER BY `squad`").fetchall()
 
-    def is_voteable(self, mac):
+    def is_votable(self, mac):
         with self.connection:
             mac_list = self.cursor.execute("SELECT * FROM `mac` WHERE `mac_address` = ?", (mac,)).fetchall()
             if len(mac_list) != 0:
@@ -55,7 +56,8 @@ class SQLighter:
 
     def increase_squad_song_wight(self, title, squad):
         with self.connection:
-            return self.cursor.execute("UPDATE `squad_rating` SET `weight` = `weight` + 1 WHERE `title` = ? AND `squad` = ?", (title, squad))
+            return self.cursor.execute("UPDATE `squad_rating` SET `weight` = `weight` + 1 WHERE `song` = ? AND "
+                                       "`squad` = ?", (title, squad))
 
     def set_vote_status(self, mac, status):
         with self.connection:
