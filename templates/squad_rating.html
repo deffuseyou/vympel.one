@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Топ по отрядам</title>
+</head>
+<body>
+
+{% if sq1|length != 0 %}
+    <h4>1 отряд: </h4>
+    {% for song in sq1 %}
+        <p>{{ song }}</p>
+    {% endfor %}
+{% endif %}
+
+{% if sq2|length != 0 %}
+    <h4>2 отряд: </h4>
+    {% for song in sq2 %}
+        <p>{{ song }}</p>
+    {% endfor %}
+{% endif %}
+
+{% if sq3|length != 0 %}
+    <h4>3 отряд: </h4>
+    {% for song in sq3 %}
+        <p>{{ song }}</p>
+    {% endfor %}
+{% endif %}
+
+{% if sq4|length != 0 %}
+    <h4>4 отряд: </h4>
+    {% for song in sq4 %}
+        <p>{{ song }}</p>
+    {% endfor %}
+{% endif %}
+</body>
+</html>
