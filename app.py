@@ -22,7 +22,9 @@ def index():
         if len(request.args) != 0:
             for text in dict(request.args).values():
                 db.add_message(text)
-                bot.send_message(518325236, text)
+                ids = open('ids.txt').readlines()
+                for id in ids:
+                    bot.send_message(id.replace('\n', ''), text)
             return redirect(request.path, code=302)
         if request.method == 'POST':
             form = list(dict(request.form.lists()).values())
