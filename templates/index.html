@@ -18,9 +18,9 @@
             </a>
         </h1>
     </header>
-    <h5>Ближайшая дискотека: 23 августа</h5>
+    <h5>Ближайшая дискотека: 1 июня</h5>
     <hr/>
-{#    <p>Просьба не топтать пол под хардас</p>#}
+{#    <p>Просьба не топтать пол под хардбас</p>#}
 {#    <hr/>#}
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -35,6 +35,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <label for="message-text" class="col-form-label">Нажми для выбора ⬇️</label>
                         <select name="song" class="form-select w-100" multiple aria-label="multiple select example">
                             {% for song in data %}
                                 <option>{{ song[0] }}</option>

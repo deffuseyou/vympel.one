@@ -55,9 +55,10 @@ class SQLighter:
             return self.cursor.execute("UPDATE `song` SET `weight` = `weight` + 1 WHERE `title` = ?", (title,))
 
     def increase_squad_song_wight(self, title, squad):
-        with self.connection:
-            return self.cursor.execute("UPDATE `squad_rating` SET `weight` = `weight` + 1 WHERE `song` = ? AND "
-                                       "`squad` = ?", (title, squad))
+        def increase_squad_song_wight(self, title, squad):
+            with self.connection:
+                return self.cursor.execute("UPDATE `squad_rating` SET `weight` = `weight` + 1 WHERE `song` = ? AND "
+                                           "`squad` = ?", (title, squad))
 
     def set_vote_status(self, mac, status):
         with self.connection:

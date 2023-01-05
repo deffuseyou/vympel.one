@@ -1,4 +1,3 @@
 from sqlighter import SQLighter
 
-db = SQLighter('database.db')
-db.reset()
+SQLighter('database.db').reset()

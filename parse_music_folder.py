@@ -3,7 +3,7 @@ import sqlite3
 from sqlighter import SQLighter
 
 db = SQLighter('database.db')
-path = r'C:\Users\d1409\Documents\Лагерь\Музыка\дискотека'
+path = r'z:\музыка'
 
 songs = next(os.walk(path), (None, None, []))[2]
 
