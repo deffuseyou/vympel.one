@@ -1,7 +1,7 @@
 from flask import render_template
 from sqlighter import SQLighter
 from flask import Flask, request, redirect
-import arp
+import dhcp
 import telegram
 import os
 import requests
@@ -22,6 +22,7 @@ def index():
         if len(request.args) != 0:
             for text in dict(request.args).values():
                 db.add_message(text)
+                # TODO: id в конфиг файл
                 ids = open('ids.txt').readlines()
                 for id in ids:
                     bot.send_message(id.replace('\n', ''), text)

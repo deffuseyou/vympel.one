@@ -1,6 +1,8 @@
 import requests
 import os
 
+# TODO: добавить конфиг файл для ip
+# TODO: добавить логирование
 
 def logout(session_id):
     router_ip = 'http://192.168.0.1'

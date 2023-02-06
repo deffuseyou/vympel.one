@@ -1,4 +1,5 @@
 import sqlite3
+# TODO: перейти на postrges
 
 
 class SQLighter:
