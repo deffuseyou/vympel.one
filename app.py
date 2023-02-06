@@ -16,7 +16,7 @@ bot = telegram.Bot(token=token)
 def index():
     ip = request.remote_addr
     try:
-        mac = arp.get_mac_by_ip(ip)
+        mac = dhcp.get_mac_by_ip(ip)
         if not db.mac_exist(mac):
             db.add_addresses(mac, ip)
         if len(request.args) != 0:
