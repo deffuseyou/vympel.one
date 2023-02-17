@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/socket.io.min.js"></script>
+    <script src="static/js/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}"/>
+    <style>
+        html, body { height: 100%; margin: 0; padding: 0; font-size: 100px;}
+
+        div { position: fixed; width: 50%; height: 50% }
+
+        #squad_1 { top: 0;   left: 0;   background: #4542ff; display: flex;  justify-content: center;    align-items: center;}
+        #squad_2 { top: 0;   left: 50%; background: #eff21f;   display: flex;  justify-content: center;    align-items: center;}
+        #squad_3 { top: 50%; left: 0;   background: #3eba32;  display: flex;  justify-content: center;    align-items: center;}
+        #squad_4 { top: 50%; left: 50%; background: #eb3636;    display: flex;  justify-content: center;    align-items: center;}
+    </style>
+</head>
+<body>
+
+<div id="squad_1" class="vympel">загрузка...</div>
+<div id="squad_2" class="vympel">загрузка...</div>
+<div id="squad_3" class="vympel">загрузка...</div>
+<div id="squad_4" class="vympel">загрузка...</div>
+{#<div id="squad_5"></div>#}
+
+</body>
+</html>

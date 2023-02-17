@@ -1,5 +1,4 @@
 import sqlite3
-# TODO: перейти на postrges
 
 
 class SQLighter:
@@ -56,14 +55,21 @@ class SQLighter:
             return self.cursor.execute("UPDATE `song` SET `weight` = `weight` + 1 WHERE `title` = ?", (title,))
 
     def increase_squad_song_wight(self, title, squad):
-        def increase_squad_song_wight(self, title, squad):
-            with self.connection:
-                return self.cursor.execute("UPDATE `squad_rating` SET `weight` = `weight` + 1 WHERE `song` = ? AND "
-                                           "`squad` = ?", (title, squad))
+        with self.connection:
+            return self.cursor.execute("UPDATE `squad_rating` SET `weight` = `weight` + 1 WHERE `song` = ? AND "
+                                       "`squad` = ?", (title, squad))
 
     def set_vote_status(self, mac, status):
         with self.connection:
             return self.cursor.execute("UPDATE `mac` SET `available` = ? WHERE `mac_address` = ?", (status, mac))
+
+    def get_balance(self,):
+        with self.connection:
+            return self.cursor.execute("SELECT `balance` FROM `wallet`").fetchall()
+
+    def update_balance(self, squad, value):
+        with self.connection:
+            return self.cursor.execute("UPDATE `wallet` SET `balance` = `balance` + ? WHERE `squad` = ?", (value, squad))
 
     def reset(self, ):
         with self.connection:
