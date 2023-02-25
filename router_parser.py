@@ -1,9 +1,9 @@
 import requests
 import os
+import re
+import string
 from config_reader import config_read
 
-
-# TODO: добавить логирование
 
 class Router:
     def __init__(self):
@@ -58,3 +58,23 @@ class Router:
                 mac = client[1].replace('"', '')
                 print(f'{ip} {mac}')
                 return mac
+
+    def whitelist_mac(self, mac_address):
+        if self.__login() == 'IP unreachable' or self.__login() == 'Login error':
+            return self.__login()
+
+        else:
+            session = self.__login()
+
+
+        response = requests.get(self.__router_ip + '/' + session + '/userRpm/AccessCtrlHostsListsRpm.htm?addr_type=0&hosts_lists_name=imya_uzla_10&src_ip_start=&src_ip_end=&mac_addr=08-D8-C4-F2-76-E8&Changed=0&SelIndex=0&fromAdd=1&Page=1&Save=Сохранить',
+                                headers={'Referer': self.__router_ip + '/' + session + '/userRpm/SysRebootRpm.htm',
+                                         'Cookie': self.__auth_token}).text
+        response3 = requests.get(self.__router_ip + '/' + session + '/userRpm/AccessCtrlAccessRulesRpm.htm?rule_name=imya_pravila_5&hosts_lists=8&targets_lists=255&scheds_lists=255&enable=1&Changed=0&SelIndex=0&Page=1&Save=Сохранить',
+                                headers={'Referer': self.__router_ip + '/' + session + '/userRpm/SysRebootRpm.htm',
+                                         'Cookie': self.__auth_token})
+        return response
+
+
+r = Router()
+print(r.whitelist_mac('04-D4-C4-F2-76-E1'))

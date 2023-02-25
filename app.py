@@ -19,6 +19,7 @@ __author__ = 'deffuseyou'
 # TODO: обновить README
 # TODO: добавить вожатых-админов
 # TODO: сделать сслыку-доступ в тырнет
+
 def is_connected():
     try:
         socket.create_connection(("1.1.1.1", 53))
