@@ -30,7 +30,7 @@ def is_connected():
 
 
 logging.basicConfig(handlers=[logging.StreamHandler(),
-                              logging.FileHandler('vympel.music.log')],
+                              logging.FileHandler('vympel.one.log')],
                     format='%(asctime)s [%(levelname)s] %(message)s')
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)

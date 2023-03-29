@@ -9636,3 +9636,2048 @@ werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'balanc
 2023-02-25 19:07:17,521 [INFO] 192.168.0.140 - - [25/Feb/2023 19:07:17] "GET /socket.io/?EIO=4&transport=polling&t=OQ9L24D HTTP/1.1" 200 -
 2023-02-25 19:07:17,555 [INFO] 192.168.0.140 - - [25/Feb/2023 19:07:17] "POST /socket.io/?EIO=4&transport=polling&t=OQ9L24P&sid=IAgEbx04lXqs0Nv6AAAA HTTP/1.1" 200 -
 2023-02-25 19:07:17,555 [INFO] 192.168.0.140 - - [25/Feb/2023 19:07:17] "GET /socket.io/?EIO=4&transport=polling&t=OQ9L24P.0&sid=IAgEbx04lXqs0Nv6AAAA HTTP/1.1" 200 -
+2023-03-02 00:10:32,371 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.0.140:80
+2023-03-02 00:10:32,404 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-02 00:10:33,763 [INFO] [04-D4-C4-F2-76-E1 – 192.168.0.140] открыл главную страницу
+2023-03-02 00:10:33,775 [INFO] 192.168.0.140 - - [02/Mar/2023 00:10:33] "GET / HTTP/1.1" 200 -
+2023-03-02 00:10:33,923 [INFO] 192.168.0.140 - - [02/Mar/2023 00:10:33] "GET /static/css/starter.css HTTP/1.1" 200 -
+2023-03-02 00:10:33,942 [INFO] 192.168.0.140 - - [02/Mar/2023 00:10:33] "GET /static/js/bootstrap.min.js HTTP/1.1" 200 -
+2023-03-02 00:10:33,944 [INFO] 192.168.0.140 - - [02/Mar/2023 00:10:33] "GET /static/css/bootstrap.min.css HTTP/1.1" 200 -
+2023-03-02 00:10:33,960 [INFO] 192.168.0.140 - - [02/Mar/2023 00:10:33] "GET /static/css/styles.css HTTP/1.1" 200 -
+2023-03-02 00:10:34,015 [INFO] 192.168.0.140 - - [02/Mar/2023 00:10:34] "GET /static/js/bootstrap.bundle.min.js HTTP/1.1" 200 -
+2023-03-02 00:10:34,030 [INFO] 192.168.0.140 - - [02/Mar/2023 00:10:34] "GET /static/js/popper.min.js HTTP/1.1" 200 -
+2023-03-02 00:10:34,030 [INFO] 192.168.0.140 - - [02/Mar/2023 00:10:34] "GET /static/fonts/AireExterior.ttf HTTP/1.1" 200 -
+2023-03-02 00:10:34,032 [INFO] 192.168.0.140 - - [02/Mar/2023 00:10:34] "GET /static/js/jquery.slim.min.js HTTP/1.1" 200 -
+2023-03-02 00:10:34,073 [INFO] 192.168.0.140 - - [02/Mar/2023 00:10:34] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-07 21:23:45,144 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.1.181:80
+2023-03-07 21:23:45,148 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-07 21:24:06,715 [INFO] [None – 192.168.1.181] открыл главную страницу
+2023-03-07 21:24:06,719 [INFO] [None – 192.168.1.181] добавлен в базу
+2023-03-07 21:24:06,719 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-07 21:24:06,746 [INFO] 192.168.1.181 - - [07/Mar/2023 21:24:06] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-07 21:24:06,859 [INFO] 192.168.1.181 - - [07/Mar/2023 21:24:06] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-07 21:36:05,036 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.1.181:80
+2023-03-07 21:36:05,036 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-07 21:36:06,154 [INFO] [None – 192.168.1.181] открыл главную страницу
+2023-03-07 21:36:06,154 [INFO] [None – 192.168.1.181] добавлен в базу
+2023-03-07 21:36:06,154 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-07 21:36:06,156 [INFO] 192.168.1.181 - - [07/Mar/2023 21:36:06] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-07 21:43:50,078 [INFO] [None – 192.168.1.181] открыл главную страницу
+2023-03-07 21:43:50,078 [INFO] [None – 192.168.1.181] добавлен в базу
+2023-03-07 21:43:50,078 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-07 21:43:50,079 [INFO] 192.168.1.181 - - [07/Mar/2023 21:43:50] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-07 21:45:29,909 [INFO] [None – 192.168.1.181] открыл главную страницу
+2023-03-07 21:45:29,909 [INFO] [None – 192.168.1.181] добавлен в базу
+2023-03-07 21:45:29,909 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-07 21:45:29,910 [INFO] 192.168.1.181 - - [07/Mar/2023 21:45:29] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-09 21:50:28,529 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-03-09 21:50:28,529 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-09 21:50:47,229 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-03-09 21:50:47,230 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-09 21:50:48,593 [INFO] сервер использовал localhost подключение
+2023-03-09 21:50:48,595 [INFO] 127.0.0.1 - - [09/Mar/2023 21:50:48] "GET / HTTP/1.1" 200 -
+2023-03-09 21:50:48,718 [INFO] 127.0.0.1 - - [09/Mar/2023 21:50:48] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-09 21:52:43,387 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-03-09 21:52:43,387 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-09 21:52:50,593 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://10.8.0.6:80
+2023-03-09 21:52:50,593 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-09 21:52:59,639 [INFO] [None – 10.8.0.6] открыл главную страницу
+2023-03-09 21:52:59,643 [INFO] [None – 10.8.0.6] добавлен в базу
+2023-03-09 21:52:59,643 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-09 21:52:59,679 [INFO] 10.8.0.6 - - [09/Mar/2023 21:52:59] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-09 21:52:59,810 [INFO] 10.8.0.6 - - [09/Mar/2023 21:52:59] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-09 21:53:09,142 [INFO] [None – 10.8.0.5] открыл главную страницу
+2023-03-09 21:53:09,143 [INFO] [None – 10.8.0.5] добавлен в базу
+2023-03-09 21:53:09,143 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-09 21:53:09,144 [INFO] 10.8.0.5 - - [09/Mar/2023 21:53:09] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-09 21:53:09,447 [INFO] 10.8.0.5 - - [09/Mar/2023 21:53:09] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-09 21:53:13,547 [INFO] [None – 10.8.0.6] открыл главную страницу
+2023-03-09 21:53:13,548 [INFO] [None – 10.8.0.6] добавлен в базу
+2023-03-09 21:53:13,548 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-09 21:53:13,549 [INFO] 10.8.0.6 - - [09/Mar/2023 21:53:13] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-09 21:53:49,417 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-03-09 21:53:49,417 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-09 21:53:57,527 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://10.8.0.6:80
+2023-03-09 21:53:57,527 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-09 21:53:58,767 [ERROR] неудачная аутентификация
+2023-03-09 21:53:58,768 [INFO] сервер использовал localhost подключение
+2023-03-09 21:53:58,769 [INFO] 10.8.0.6 - - [09/Mar/2023 21:53:58] "GET / HTTP/1.1" 200 -
+2023-03-09 21:54:06,374 [ERROR] неудачная аутентификация
+2023-03-09 21:54:06,375 [INFO] сервер использовал localhost подключение
+2023-03-09 21:54:06,375 [INFO] 10.8.0.5 - - [09/Mar/2023 21:54:06] "GET / HTTP/1.1" 200 -
+2023-03-09 21:54:06,886 [INFO] 10.8.0.5 - - [09/Mar/2023 21:54:06] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-09 21:54:12,273 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-03-09 21:54:12,273 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-09 21:54:14,437 [ERROR] неудачная аутентификация
+2023-03-09 21:54:14,437 [INFO] сервер использовал localhost подключение
+2023-03-09 21:54:14,437 [INFO] 10.8.0.6 - - [09/Mar/2023 21:54:14] "GET / HTTP/1.1" 200 -
+2023-03-09 21:54:15,437 [ERROR] неудачная аутентификация
+2023-03-09 21:54:15,437 [INFO] сервер использовал localhost подключение
+2023-03-09 21:54:15,437 [INFO] 10.8.0.6 - - [09/Mar/2023 21:54:15] "GET / HTTP/1.1" 200 -
+2023-03-09 21:54:15,730 [ERROR] неудачная аутентификация
+2023-03-09 21:54:15,730 [INFO] сервер использовал localhost подключение
+2023-03-09 21:54:15,730 [INFO] 10.8.0.5 - - [09/Mar/2023 21:54:15] "GET / HTTP/1.1" 200 -
+2023-03-09 21:54:16,257 [INFO] 10.8.0.5 - - [09/Mar/2023 21:54:16] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-09 21:54:22,612 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://10.8.0.6:80
+2023-03-09 21:54:22,612 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-09 21:54:26,687 [ERROR] неудачная аутентификация
+2023-03-09 21:54:26,687 [INFO] сервер использовал localhost подключение
+2023-03-09 21:54:26,687 [INFO] 10.8.0.6 - - [09/Mar/2023 21:54:26] "GET / HTTP/1.1" 200 -
+2023-03-09 21:54:28,253 [ERROR] неудачная аутентификация
+2023-03-09 21:54:28,254 [INFO] сервер использовал localhost подключение
+2023-03-09 21:54:28,254 [INFO] 10.8.0.6 - - [09/Mar/2023 21:54:28] "GET / HTTP/1.1" 200 -
+2023-03-09 21:54:29,981 [ERROR] неудачная аутентификация
+2023-03-09 21:54:29,981 [INFO] сервер использовал localhost подключение
+2023-03-09 21:54:29,982 [INFO] 10.8.0.6 - - [09/Mar/2023 21:54:29] "GET / HTTP/1.1" 200 -
+2023-03-09 21:54:30,159 [ERROR] неудачная аутентификация
+2023-03-09 21:54:30,159 [INFO] сервер использовал localhost подключение
+2023-03-09 21:54:30,159 [INFO] 10.8.0.6 - - [09/Mar/2023 21:54:30] "GET / HTTP/1.1" 200 -
+2023-03-09 21:54:30,317 [ERROR] неудачная аутентификация
+2023-03-09 21:54:30,317 [INFO] сервер использовал localhost подключение
+2023-03-09 21:54:30,317 [INFO] 10.8.0.6 - - [09/Mar/2023 21:54:30] "GET / HTTP/1.1" 200 -
+2023-03-09 21:54:30,462 [ERROR] неудачная аутентификация
+2023-03-09 21:54:30,462 [INFO] сервер использовал localhost подключение
+2023-03-09 21:54:30,462 [INFO] 10.8.0.6 - - [09/Mar/2023 21:54:30] "GET / HTTP/1.1" 200 -
+2023-03-09 21:54:41,474 [ERROR] неудачная аутентификация
+2023-03-09 21:54:41,474 [INFO] сервер использовал localhost подключение
+2023-03-09 21:54:41,474 [INFO] 10.8.0.5 - - [09/Mar/2023 21:54:41] "GET / HTTP/1.1" 200 -
+2023-03-09 21:54:42,002 [INFO] 10.8.0.5 - - [09/Mar/2023 21:54:42] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-09 21:56:00,697 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://10.8.0.6:80
+2023-03-09 21:56:00,697 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-09 21:56:02,746 [INFO] [None – 10.8.0.5] открыл главную страницу
+2023-03-09 21:56:02,747 [INFO] [None – 10.8.0.5] добавлен в базу
+2023-03-09 21:56:02,747 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-09 21:56:02,749 [INFO] 10.8.0.5 - - [09/Mar/2023 21:56:02] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-09 21:56:03,056 [INFO] 10.8.0.5 - - [09/Mar/2023 21:56:03] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-09 21:56:06,170 [INFO] [None – 10.8.0.5] открыл главную страницу
+2023-03-09 21:56:06,170 [INFO] [None – 10.8.0.5] добавлен в базу
+2023-03-09 21:56:06,170 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-09 21:56:06,171 [INFO] 10.8.0.5 - - [09/Mar/2023 21:56:06] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-09 21:56:07,598 [INFO] [None – 10.8.0.6] открыл главную страницу
+2023-03-09 21:56:07,599 [INFO] [None – 10.8.0.6] добавлен в базу
+2023-03-09 21:56:07,599 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-09 21:56:07,600 [INFO] 10.8.0.6 - - [09/Mar/2023 21:56:07] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-09 21:56:09,139 [INFO] [None – 10.8.0.6] открыл главную страницу
+2023-03-09 21:56:09,140 [INFO] [None – 10.8.0.6] добавлен в базу
+2023-03-09 21:56:09,140 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-09 21:56:09,141 [INFO] 10.8.0.6 - - [09/Mar/2023 21:56:09] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-09 21:56:09,420 [INFO] [None – 10.8.0.6] открыл главную страницу
+2023-03-09 21:56:09,421 [INFO] [None – 10.8.0.6] добавлен в базу
+2023-03-09 21:56:09,421 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-09 21:56:09,422 [INFO] 10.8.0.6 - - [09/Mar/2023 21:56:09] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-09 21:56:09,626 [INFO] [None – 10.8.0.6] открыл главную страницу
+2023-03-09 21:56:09,626 [INFO] [None – 10.8.0.6] добавлен в базу
+2023-03-09 21:56:09,627 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-09 21:56:09,627 [INFO] 10.8.0.6 - - [09/Mar/2023 21:56:09] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-09 21:56:09,783 [INFO] [None – 10.8.0.6] открыл главную страницу
+2023-03-09 21:56:09,784 [INFO] [None – 10.8.0.6] добавлен в базу
+2023-03-09 21:56:09,785 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-09 21:56:09,785 [INFO] 10.8.0.6 - - [09/Mar/2023 21:56:09] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-09 21:56:09,971 [INFO] [None – 10.8.0.6] открыл главную страницу
+2023-03-09 21:56:09,972 [INFO] [None – 10.8.0.6] добавлен в базу
+2023-03-09 21:56:09,972 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-09 21:56:09,973 [INFO] 10.8.0.6 - - [09/Mar/2023 21:56:09] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-12 12:39:57,573 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.1.139:80
+2023-03-12 12:39:57,573 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-12 12:40:08,338 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.1.139:80
+2023-03-12 12:40:08,338 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-12 12:40:13,190 [INFO] [None – 192.168.1.139] открыл главную страницу
+2023-03-12 12:40:13,191 [INFO] [None – 192.168.1.139] добавлен в базу
+2023-03-12 12:40:13,191 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-12 12:40:13,193 [INFO] 192.168.1.139 - - [12/Mar/2023 12:40:13] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-12 12:40:13,761 [INFO] 192.168.1.139 - - [12/Mar/2023 12:40:13] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-12 12:48:21,633 [INFO] [None – 192.168.1.139] открыл главную страницу
+2023-03-12 12:48:21,633 [INFO] [None – 192.168.1.139] добавлен в базу
+2023-03-12 12:48:21,633 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-12 12:48:21,634 [INFO] 192.168.1.139 - - [12/Mar/2023 12:48:21] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-12 12:48:21,756 [INFO] 192.168.1.139 - - [12/Mar/2023 12:48:21] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-12 12:50:06,514 [INFO] [None – 192.168.1.191] открыл главную страницу
+2023-03-12 12:50:06,515 [INFO] [None – 192.168.1.191] добавлен в базу
+2023-03-12 12:50:06,515 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-12 12:50:06,516 [INFO] 192.168.1.191 - - [12/Mar/2023 12:50:06] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-12 12:50:06,670 [INFO] 192.168.1.191 - - [12/Mar/2023 12:50:06] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-12 12:50:52,332 [INFO] [None – 192.168.1.191] открыл главную страницу
+2023-03-12 12:50:52,332 [INFO] [None – 192.168.1.191] добавлен в базу
+2023-03-12 12:50:52,332 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-12 12:50:52,333 [INFO] 192.168.1.191 - - [12/Mar/2023 12:50:52] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-12 12:51:07,257 [INFO] [None – 192.168.1.191] открыл главную страницу
+2023-03-12 12:51:07,258 [INFO] [None – 192.168.1.191] добавлен в базу
+2023-03-12 12:51:07,258 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-12 12:51:07,259 [INFO] 192.168.1.191 - - [12/Mar/2023 12:51:07] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-12 13:00:22,389 [INFO] [None – 192.168.1.139] открыл главную страницу
+2023-03-12 13:00:22,390 [INFO] [None – 192.168.1.139] добавлен в базу
+2023-03-12 13:00:22,390 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-12 13:00:22,391 [INFO] 192.168.1.139 - - [12/Mar/2023 13:00:22] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-12 13:05:19,281 [INFO] [None – 192.168.1.139] открыл главную страницу
+2023-03-12 13:05:19,281 [INFO] [None – 192.168.1.139] добавлен в базу
+2023-03-12 13:05:19,281 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-12 13:05:19,282 [INFO] 192.168.1.139 - - [12/Mar/2023 13:05:19] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-12 13:37:59,552 [INFO] 192.168.1.140 - - [12/Mar/2023 13:37:59] "OPTIONS / HTTP/1.1" 200 -
+2023-03-12 13:38:02,650 [INFO] 192.168.1.140 - - [12/Mar/2023 13:38:02] "[33mOPTIONS /ssd HTTP/1.1[0m" 404 -
+2023-03-12 14:05:37,929 [INFO] 192.168.1.140 - - [12/Mar/2023 14:05:37] "[33mOPTIONS /SystemResources/xor%20midi%20control.exe.mun HTTP/1.1[0m" 404 -
+2023-03-12 14:08:17,016 [INFO] 192.168.1.140 - - [12/Mar/2023 14:08:17] "[33mOPTIONS /SystemResources/MonaServer.exe.mun HTTP/1.1[0m" 404 -
+2023-03-16 22:00:15,222 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-03-16 22:00:15,222 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-16 22:03:08,345 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.1.139:80
+2023-03-16 22:03:08,345 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-16 22:03:10,022 [INFO] [None – 192.168.1.139] открыл главную страницу
+2023-03-16 22:03:10,022 [INFO] [None – 192.168.1.139] добавлен в базу
+2023-03-16 22:03:10,023 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 22:03:10,024 [INFO] 192.168.1.139 - - [16/Mar/2023 22:03:10] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 22:03:10,119 [INFO] 192.168.1.139 - - [16/Mar/2023 22:03:10] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-16 22:05:27,939 [INFO] [None – 192.168.1.139] открыл главную страницу
+2023-03-16 22:05:27,939 [INFO] [None – 192.168.1.139] добавлен в базу
+2023-03-16 22:05:27,939 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 22:05:27,940 [INFO] 192.168.1.139 - - [16/Mar/2023 22:05:27] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 22:05:28,116 [INFO] 192.168.1.139 - - [16/Mar/2023 22:05:28] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-16 22:05:43,560 [INFO] [None – 192.168.1.139] открыл главную страницу
+2023-03-16 22:05:43,560 [INFO] [None – 192.168.1.139] добавлен в базу
+2023-03-16 22:05:43,560 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 22:05:43,561 [INFO] 192.168.1.139 - - [16/Mar/2023 22:05:43] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 22:07:14,988 [INFO] [None – 192.168.1.139] открыл главную страницу
+2023-03-16 22:07:14,988 [INFO] [None – 192.168.1.139] добавлен в базу
+2023-03-16 22:07:14,988 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 22:07:14,989 [INFO] 192.168.1.139 - - [16/Mar/2023 22:07:14] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 22:07:15,071 [INFO] 192.168.1.139 - - [16/Mar/2023 22:07:15] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-16 22:07:15,082 [INFO] [None – 192.168.1.139] открыл главную страницу
+2023-03-16 22:07:15,083 [INFO] [None – 192.168.1.139] добавлен в базу
+2023-03-16 22:07:15,083 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 22:07:15,084 [INFO] 192.168.1.139 - - [16/Mar/2023 22:07:15] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 22:17:20,870 [INFO] [None – 192.168.1.139] открыл главную страницу
+2023-03-16 22:17:20,870 [INFO] [None – 192.168.1.139] добавлен в базу
+2023-03-16 22:17:20,870 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 22:17:20,871 [INFO] 192.168.1.139 - - [16/Mar/2023 22:17:20] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 22:41:07,078 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.1.138:80
+2023-03-16 22:41:07,079 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-16 22:41:08,649 [INFO] [None – 192.168.1.138] открыл главную страницу
+2023-03-16 22:41:08,650 [INFO] [None – 192.168.1.138] добавлен в базу
+2023-03-16 22:41:08,650 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 22:41:08,652 [INFO] 192.168.1.138 - - [16/Mar/2023 22:41:08] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 22:41:08,742 [INFO] 192.168.1.138 - - [16/Mar/2023 22:41:08] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-16 22:41:16,843 [INFO] [None – 192.168.1.138] открыл главную страницу
+2023-03-16 22:41:16,843 [INFO] [None – 192.168.1.138] добавлен в базу
+2023-03-16 22:41:16,843 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 22:41:16,844 [INFO] 192.168.1.138 - - [16/Mar/2023 22:41:16] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 22:41:19,487 [INFO] [None – 192.168.1.138] открыл главную страницу
+2023-03-16 22:41:19,487 [INFO] [None – 192.168.1.138] добавлен в базу
+2023-03-16 22:41:19,487 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 22:41:19,488 [INFO] 192.168.1.138 - - [16/Mar/2023 22:41:19] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 22:41:25,297 [INFO] [None – 192.168.1.140] открыл главную страницу
+2023-03-16 22:41:25,297 [INFO] [None – 192.168.1.140] добавлен в базу
+2023-03-16 22:41:25,297 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 22:41:25,298 [INFO] 192.168.1.140 - - [16/Mar/2023 22:41:25] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 22:41:39,744 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.1.138:80
+2023-03-16 22:41:39,744 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-16 22:42:17,165 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.1.138:80
+2023-03-16 22:42:17,165 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-16 22:46:52,093 [INFO] [None – 192.168.1.138] открыл главную страницу
+2023-03-16 22:46:52,093 [INFO] [None – 192.168.1.138] добавлен в базу
+2023-03-16 22:46:52,093 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 22:46:52,095 [INFO] 192.168.1.138 - - [16/Mar/2023 22:46:52] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 22:50:02,617 [INFO] [None – 192.168.1.138] открыл главную страницу
+2023-03-16 22:50:02,617 [INFO] [None – 192.168.1.138] добавлен в базу
+2023-03-16 22:50:02,617 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 22:50:02,618 [INFO] 192.168.1.138 - - [16/Mar/2023 22:50:02] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 22:50:09,232 [INFO] [None – 192.168.1.138] открыл главную страницу
+2023-03-16 22:50:09,232 [INFO] [None – 192.168.1.138] добавлен в базу
+2023-03-16 22:50:09,232 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 22:50:09,233 [INFO] 192.168.1.138 - - [16/Mar/2023 22:50:09] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 22:59:27,599 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.1.138:80
+2023-03-16 22:59:27,599 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-16 23:01:28,437 [INFO] [None – 192.168.1.138] открыл главную страницу
+2023-03-16 23:01:28,437 [INFO] [None – 192.168.1.138] добавлен в базу
+2023-03-16 23:01:28,437 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 23:01:28,439 [INFO] 192.168.1.138 - - [16/Mar/2023 23:01:28] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 23:02:09,239 [INFO] [None – 192.168.1.138] открыл главную страницу
+2023-03-16 23:02:09,239 [INFO] [None – 192.168.1.138] добавлен в базу
+2023-03-16 23:02:09,240 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 23:02:09,240 [INFO] 192.168.1.138 - - [16/Mar/2023 23:02:09] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 23:02:14,198 [INFO] [None – 192.168.1.138] открыл главную страницу
+2023-03-16 23:02:14,198 [INFO] [None – 192.168.1.138] добавлен в базу
+2023-03-16 23:02:14,198 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 23:02:14,199 [INFO] 192.168.1.138 - - [16/Mar/2023 23:02:14] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 23:09:46,404 [INFO] [None – 192.168.1.1] открыл главную страницу
+2023-03-16 23:09:46,405 [INFO] [None – 192.168.1.1] добавлен в базу
+2023-03-16 23:09:46,405 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 23:09:46,406 [INFO] 192.168.1.1 - - [16/Mar/2023 23:09:46] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 23:09:46,534 [INFO] 192.168.1.1 - - [16/Mar/2023 23:09:46] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-16 23:11:28,448 [INFO] [None – 192.168.1.138] открыл главную страницу
+2023-03-16 23:11:28,449 [INFO] [None – 192.168.1.138] добавлен в базу
+2023-03-16 23:11:28,449 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 23:11:28,450 [INFO] 192.168.1.138 - - [16/Mar/2023 23:11:28] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 23:21:42,982 [INFO] [None – 192.168.1.138] открыл главную страницу
+2023-03-16 23:21:42,983 [INFO] [None – 192.168.1.138] добавлен в базу
+2023-03-16 23:21:42,983 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 23:21:42,984 [INFO] 192.168.1.138 - - [16/Mar/2023 23:21:42] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 23:27:40,997 [INFO] [None – 192.168.1.138] открыл главную страницу
+2023-03-16 23:27:40,997 [INFO] [None – 192.168.1.138] добавлен в базу
+2023-03-16 23:27:40,997 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 23:27:40,998 [INFO] 192.168.1.138 - - [16/Mar/2023 23:27:40] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 23:51:02,480 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.1.138:80
+2023-03-16 23:51:02,480 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-16 23:51:03,960 [INFO] [None – 192.168.1.138] открыл главную страницу
+2023-03-16 23:51:03,960 [INFO] [None – 192.168.1.138] добавлен в базу
+2023-03-16 23:51:03,960 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-16 23:51:03,962 [INFO] 192.168.1.138 - - [16/Mar/2023 23:51:03] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-16 23:51:04,052 [INFO] 192.168.1.138 - - [16/Mar/2023 23:51:04] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-17 00:00:56,127 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.1.138:80
+2023-03-17 00:00:56,127 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-17 00:06:03,648 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.1.181:80
+2023-03-17 00:06:03,649 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-17 00:08:09,809 [INFO] [None – 192.168.1.181] открыл главную страницу
+2023-03-17 00:08:09,809 [INFO] [None – 192.168.1.181] добавлен в базу
+2023-03-17 00:08:09,810 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-17 00:08:09,811 [INFO] 192.168.1.181 - - [17/Mar/2023 00:08:09] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-17 00:08:09,906 [INFO] 192.168.1.181 - - [17/Mar/2023 00:08:09] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-17 00:15:46,022 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.1.181:80
+2023-03-17 00:15:46,022 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-17 00:15:57,934 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:81
+ * Running on http://192.168.1.181:81
+2023-03-17 00:15:57,934 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-17 00:16:00,456 [INFO] [None – 192.168.1.181] открыл главную страницу
+2023-03-17 00:16:00,457 [INFO] [None – 192.168.1.181] добавлен в базу
+2023-03-17 00:16:00,457 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-17 00:16:00,459 [INFO] 192.168.1.181 - - [17/Mar/2023 00:16:00] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-17 00:16:00,555 [INFO] 192.168.1.181 - - [17/Mar/2023 00:16:00] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-17 00:30:47,275 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:81
+ * Running on http://192.168.1.181:81
+2023-03-17 00:30:47,275 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-17 00:30:48,491 [INFO] [None – 192.168.1.181] открыл главную страницу
+2023-03-17 00:30:48,492 [INFO] [None – 192.168.1.181] добавлен в базу
+2023-03-17 00:30:48,492 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-17 00:30:48,494 [INFO] 192.168.1.181 - - [17/Mar/2023 00:30:48] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-17 00:30:53,475 [INFO] [None – 192.168.1.181] открыл главную страницу
+2023-03-17 00:30:53,476 [INFO] [None – 192.168.1.181] добавлен в базу
+2023-03-17 00:30:53,476 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-17 00:30:53,477 [INFO] 192.168.1.181 - - [17/Mar/2023 00:30:53] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-17 00:31:10,442 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:81
+ * Running on http://192.168.1.181:81
+2023-03-17 00:31:10,442 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-17 00:31:11,637 [INFO] [None – 192.168.1.181] открыл главную страницу
+2023-03-17 00:31:11,637 [INFO] [None – 192.168.1.181] добавлен в базу
+2023-03-17 00:31:11,637 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-17 00:31:11,639 [INFO] 192.168.1.181 - - [17/Mar/2023 00:31:11] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-17 00:31:46,402 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:81
+ * Running on http://192.168.1.181:81
+2023-03-17 00:31:46,402 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-17 00:31:47,385 [INFO] [None – 192.168.1.181] открыл главную страницу
+2023-03-17 00:31:47,385 [INFO] [None – 192.168.1.181] добавлен в базу
+2023-03-17 00:31:47,385 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-17 00:31:47,387 [INFO] 192.168.1.181 - - [17/Mar/2023 00:31:47] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-17 00:31:54,187 [INFO] [None – 192.168.1.181] открыл главную страницу
+2023-03-17 00:31:54,187 [INFO] [None – 192.168.1.181] добавлен в базу
+2023-03-17 00:31:54,187 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-17 00:31:54,188 [INFO] 192.168.1.181 - - [17/Mar/2023 00:31:54] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-17 00:32:01,406 [INFO] [None – 192.168.1.181] открыл главную страницу
+2023-03-17 00:32:01,406 [INFO] [None – 192.168.1.181] добавлен в базу
+2023-03-17 00:32:01,406 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-17 00:32:01,407 [INFO] 192.168.1.181 - - [17/Mar/2023 00:32:01] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 02:12:34,526 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:81
+ * Running on http://192.168.0.181:81
+2023-03-19 02:12:34,542 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-19 02:18:45,433 [INFO] [None – 192.168.0.181] открыл главную страницу
+2023-03-19 02:18:45,433 [INFO] [None – 192.168.0.181] добавлен в базу
+2023-03-19 02:18:45,433 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 02:18:45,435 [INFO] 192.168.0.181 - - [19/Mar/2023 02:18:45] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 02:18:45,533 [INFO] 192.168.0.181 - - [19/Mar/2023 02:18:45] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-19 02:18:59,228 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.0.181:80
+2023-03-19 02:18:59,228 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-19 02:19:19,174 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 02:19:19,174 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 02:19:19,174 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 02:19:19,176 [INFO] 10.8.1.1 - - [19/Mar/2023 02:19:19] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 02:20:01,435 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 02:20:01,437 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 02:20:01,437 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 02:20:01,438 [INFO] 10.8.1.1 - - [19/Mar/2023 02:20:01] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 02:20:01,694 [INFO] 10.8.1.1 - - [19/Mar/2023 02:20:01] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-19 02:20:04,839 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 02:20:04,839 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 02:20:04,839 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 02:20:04,840 [INFO] 10.8.1.1 - - [19/Mar/2023 02:20:04] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 02:20:20,065 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 02:20:20,065 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 02:20:20,065 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 02:20:20,066 [INFO] 10.8.1.1 - - [19/Mar/2023 02:20:20] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 02:20:22,154 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 02:20:22,154 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 02:20:22,154 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 02:20:22,155 [INFO] 10.8.1.1 - - [19/Mar/2023 02:20:22] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 02:20:23,918 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 02:20:23,919 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 02:20:23,919 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 02:20:23,920 [INFO] 10.8.1.1 - - [19/Mar/2023 02:20:23] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 02:20:55,299 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 02:20:55,300 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 02:20:55,300 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 02:20:55,302 [INFO] 10.8.1.1 - - [19/Mar/2023 02:20:55] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 02:21:00,446 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 02:21:00,446 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 02:21:00,446 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 02:21:00,447 [INFO] 10.8.1.1 - - [19/Mar/2023 02:21:00] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 02:29:32,302 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 02:29:32,303 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 02:29:32,303 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 02:29:32,304 [INFO] 10.8.1.1 - - [19/Mar/2023 02:29:32] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 02:29:33,966 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 02:29:33,967 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 02:29:33,967 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 02:29:33,967 [INFO] 10.8.1.1 - - [19/Mar/2023 02:29:33] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 02:29:42,683 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 02:29:42,683 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 02:29:42,683 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 02:29:42,684 [INFO] 10.8.1.1 - - [19/Mar/2023 02:29:42] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 03:15:41,197 [INFO] [None – 192.168.0.140] открыл главную страницу
+2023-03-19 03:15:41,197 [INFO] [None – 192.168.0.140] добавлен в базу
+2023-03-19 03:15:41,197 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 03:15:41,199 [INFO] 192.168.0.140 - - [19/Mar/2023 03:15:41] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 03:15:41,330 [INFO] 192.168.0.140 - - [19/Mar/2023 03:15:41] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-19 03:20:12,678 [INFO] [None – 192.168.0.187] открыл главную страницу
+2023-03-19 03:20:12,678 [INFO] [None – 192.168.0.187] добавлен в базу
+2023-03-19 03:20:12,678 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 03:20:12,678 [INFO] 192.168.0.187 - - [19/Mar/2023 03:20:12] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 03:20:12,726 [INFO] 192.168.0.187 - - [19/Mar/2023 03:20:12] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-03-19 15:55:51,206 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.0.140:80
+2023-03-19 15:55:51,206 [INFO] [33mPress CTRL+C to quit[0m
+2023-03-19 15:59:08,032 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 15:59:08,033 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 15:59:08,033 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 15:59:08,034 [INFO] 10.8.1.1 - - [19/Mar/2023 15:59:08] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 15:59:08,456 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 15:59:08,456 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 15:59:08,456 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 15:59:08,457 [INFO] 10.8.1.1 - - [19/Mar/2023 15:59:08] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 15:59:08,939 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 15:59:08,939 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 15:59:08,939 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 15:59:08,940 [INFO] 10.8.1.1 - - [19/Mar/2023 15:59:08] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 15:59:09,642 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 15:59:09,642 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 15:59:09,642 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 15:59:09,643 [INFO] 10.8.1.1 - - [19/Mar/2023 15:59:09] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 16:02:52,550 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 16:02:52,550 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 16:02:52,550 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 16:02:52,551 [INFO] 10.8.1.1 - - [19/Mar/2023 16:02:52] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 16:02:53,176 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 16:02:53,176 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 16:02:53,176 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 16:02:53,177 [INFO] 10.8.1.1 - - [19/Mar/2023 16:02:53] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 16:02:54,406 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 16:02:54,406 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 16:02:54,406 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 16:02:54,407 [INFO] 10.8.1.1 - - [19/Mar/2023 16:02:54] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 16:03:16,575 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 16:03:16,575 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 16:03:16,575 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 16:03:16,576 [INFO] 10.8.1.1 - - [19/Mar/2023 16:03:16] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 16:03:17,680 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 16:03:17,680 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 16:03:17,680 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 16:03:17,681 [INFO] 10.8.1.1 - - [19/Mar/2023 16:03:17] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 16:03:18,665 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 16:03:18,665 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 16:03:18,665 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 16:03:18,666 [INFO] 10.8.1.1 - - [19/Mar/2023 16:03:18] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 16:03:20,096 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 16:03:20,096 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 16:03:20,096 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 16:03:20,097 [INFO] 10.8.1.1 - - [19/Mar/2023 16:03:20] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 16:03:21,048 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 16:03:21,048 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 16:03:21,048 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 16:03:21,049 [INFO] 10.8.1.1 - - [19/Mar/2023 16:03:21] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 16:03:22,205 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 16:03:22,205 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 16:03:22,205 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 16:03:22,206 [INFO] 10.8.1.1 - - [19/Mar/2023 16:03:22] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 16:03:23,205 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 16:03:23,205 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 16:03:23,205 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 16:03:23,206 [INFO] 10.8.1.1 - - [19/Mar/2023 16:03:23] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 16:03:24,250 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 16:03:24,250 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 16:03:24,250 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 16:03:24,251 [INFO] 10.8.1.1 - - [19/Mar/2023 16:03:24] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 16:03:25,218 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 16:03:25,218 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 16:03:25,218 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 16:03:25,219 [INFO] 10.8.1.1 - - [19/Mar/2023 16:03:25] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 16:03:26,170 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 16:03:26,170 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 16:03:26,170 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 16:03:26,171 [INFO] 10.8.1.1 - - [19/Mar/2023 16:03:26] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2023-03-19 16:03:27,016 [INFO] [None – 10.8.1.1] открыл главную страницу
+2023-03-19 16:03:27,016 [INFO] [None – 10.8.1.1] добавлен в базу
+2023-03-19 16:03:27,016 [ERROR] Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\venv\Lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\projects\vympel.music\app.py", line 68, in index
+    db.add_addresses(mac, ip)
+  File "D:\projects\vympel.music\sqlighter.py", line 32, in add_addresses
+    self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+sqlite3.IntegrityError: NOT NULL constraint failed: mac.mac_address
+2023-03-19 16:03:27,017 [INFO] 10.8.1.1 - - [19/Mar/2023 16:03:27] "[35m[1mGET / HTTP/1.1[0m" 500 -
