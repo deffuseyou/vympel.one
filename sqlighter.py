@@ -1,76 +1,86 @@
-import sqlite3
+import psycopg2
 
 
 class SQLighter:
-    def __init__(self, database):
-        self.connection = sqlite3.connect(database, check_same_thread=False)
+    def __init__(self, database, user, password, host, port):
+        """Подключаемся к БД и сохраняем курсор соединения"""
+        self.connection = psycopg2.connect(database=database,
+                                           user=user,
+                                           password=password,
+                                           host=host,
+                                           port=port)
         self.cursor = self.connection.cursor()
 
-    def mac_exist(self, mac):
+    def client_exist(self, ip_address):
         with self.connection:
-            return bool(len(self.cursor.execute('SELECT * FROM mac WHERE `mac_address` = ?', (mac,)).fetchall()))
+            self.cursor.execute('SELECT * FROM client WHERE ip_address = %s', (ip_address,))
+            return bool(len(self.cursor.fetchall())) is not None
 
     def squad_song_exist(self, title, squad):
         with self.connection:
-            return bool(len(self.cursor.execute('SELECT * FROM squad_rating WHERE `song` = ? AND `squad` = ?',
-                                                (title, squad)).fetchall()))
+            self.cursor.execute('SELECT * FROM squad_rating WHERE song = %s AND squad = %s',(title, squad))
+            return bool(len(self.cursor.fetchall()))
 
-    def add_message(self, data):
+    def add_message_to_rubka(self, content, datetime):
         with self.connection:
-            self.cursor.execute("INSERT INTO `message` (`data`) VALUES(?)", (data,))
+            self.cursor.execute("INSERT INTO message_to_rubka (content, datetime) VALUES(%s, %s)", (content, datetime))
 
     def add_song_to_squad(self, song, squad):
         with self.connection:
-            self.cursor.execute("INSERT INTO `squad_rating` (`song`, `squad`) VALUES(?,?)", (song, squad))
+            self.cursor.execute("INSERT INTO squad_rating (song, squad) VALUES(%s,%s)", (song, squad))
 
     def add_song(self, title):
         with self.connection:
-            self.cursor.execute("INSERT INTO `song` (`title`) VALUES(?)", (title,))
+            self.cursor.execute("INSERT INTO music_library (song) VALUES(%s)", (title,))
 
-    def add_addresses(self, mac, ip):
+    def add_address(self, ip_address):
         with self.connection:
-            self.cursor.execute("INSERT INTO `mac` (`mac_address`, `ip_address`) VALUES(?,?)", (mac, ip))
+            self.cursor.execute("INSERT INTO client (ip_address) VALUES(%s)", (ip_address,))
 
     def get_songs(self):
         with self.connection:
-            return self.cursor.execute("SELECT `title` FROM `song` ORDER BY `title`").fetchall()
+            self.cursor.execute("SELECT song FROM music_library ORDER BY song")
+            return self.cursor.fetchall()
+
 
     def get_songs_top(self):
         with self.connection:
-            return self.cursor.execute("SELECT * FROM `song` WHERE `weight` > 0 ORDER BY `weight`").fetchall()
+            self.cursor.execute("SELECT * FROM music_library WHERE weight > 0 ORDER BY weight")
+            return self.cursor.fetchall()
 
     def get_squad_rating(self):
         with self.connection:
-            return self.cursor.execute("SELECT * FROM `squad_rating` ORDER BY `squad`").fetchall()
+            self.cursor.execute("SELECT * FROM squad_rating ORDER BY squad")
+            return self.cursor.fetchall()
 
-    def is_votable(self, mac):
+    def is_votable(self, ip_address):
         with self.connection:
-            mac_list = self.cursor.execute("SELECT * FROM `mac` WHERE `mac_address` = ?", (mac,)).fetchall()
-            if len(mac_list) != 0:
-                return mac_list[0][1]
-            return True
+            self.cursor.execute("SELECT is_voteable FROM client WHERE ip_address = %s", (ip_address,))
+            return self.cursor.fetchone()[0]
 
     def increase_song_wight(self, title):
         with self.connection:
-            return self.cursor.execute("UPDATE `song` SET `weight` = `weight` + 1 WHERE `title` = ?", (title,))
+            return self.cursor.execute("UPDATE music_library SET weight = weight + 1 WHERE song = %s", (title,))
 
     def increase_squad_song_wight(self, title, squad):
         with self.connection:
-            return self.cursor.execute("UPDATE `squad_rating` SET `weight` = `weight` + 1 WHERE `song` = ? AND "
-                                       "`squad` = ?", (title, squad))
+            return self.cursor.execute("UPDATE squad_rating SET weight = weight + 1 WHERE song = %s AND "
+                                       "squad = %s", (title, squad))
 
-    def set_vote_status(self, mac, status):
+    def set_vote_status(self, ip_address, status):
         with self.connection:
-            return self.cursor.execute("UPDATE `mac` SET `available` = ? WHERE `mac_address` = ?", (status, mac))
+            return self.cursor.execute("UPDATE client SET is_voteable = %s WHERE ip_address = %s", (status, ip_address))
 
-    def get_balance(self,):
+    def get_balance(self, ):
         with self.connection:
-            return self.cursor.execute("SELECT `balance` FROM `wallet`").fetchall()
+            self.cursor.execute("SELECT balance FROM wallet")
+            return self.cursor.fetchall()
+
 
     def update_balance(self, squad, value):
         with self.connection:
-            return self.cursor.execute("UPDATE `wallet` SET `balance` = `balance` + ? WHERE `squad` = ?", (value, squad))
+            return self.cursor.execute("UPDATE wallet SET balance = balance + %s WHERE squad = %s", (value, squad))
 
     def reset(self, ):
         with self.connection:
-            return self.cursor.execute("UPDATE `mac` SET `available` = ?", (True,))
+            return self.cursor.execute("UPDATE client SET is_voteable = %s", (True,))

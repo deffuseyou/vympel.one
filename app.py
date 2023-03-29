@@ -10,8 +10,10 @@ import logging
 import socket
 from config_reader import config_read
 import router_parser
+from datetime import datetime, timezone, timedelta
 
 __author__ = 'deffuseyou'
+
 
 # TODO: перейти на postrges
 # TODO: cделать нормальную страницу отряда
@@ -35,7 +37,11 @@ logging.basicConfig(handlers=[logging.StreamHandler(),
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-db = SQLighter('database.db')
+db = SQLighter(database='vympel.one',
+               user='postgres',
+               password=os.environ['admin_password'],
+               host='192.168.0.100',
+               port=5432)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -59,45 +65,48 @@ def content_update():
 @app.route('/', methods=['GET', 'POST'])
 def index():
     ip = request.remote_addr
+    print(type(ip))
     if ip != '127.0.0.1':
         try:
-            mac = router.get_mac_by_ip(ip)
-            logger.info(f'[{mac} – {ip}] открыл главную страницу')
-            if not db.mac_exist(mac):
-                logger.info(f'[{mac} – {ip}] добавлен в базу')
-                db.add_addresses(mac, ip)
+            logger.info(f'[{ip}] открыл главную страницу')
+            print(db.client_exist(ip))
+            if not db.client_exist(ip):
+                logger.info(f'[{ip}] добавлен в базу')
+                db.add_address(ip)
             if len(request.args) != 0:
                 for text in dict(request.args).values():
-                    db.add_message(text)
-                    logger.info(f'[{mac} – {ip}] отправил сообщение {text}')
+                    db.add_message_to_rubka(text, datetime.now(tz=timezone(timedelta(hours=3), name='МСК')))
+                    logger.info(f'[{ip}] отправил сообщение {text}')
                     if is_connected():
                         for telegram_id in config_read()['admin-telegram-id']:
                             bot.send_message(telegram_id, f'{text}')
-                        logger.info(f'[{mac} – {ip}] сообщение в тг отправлено ')
+                        logger.info(f'[{ip} – {ip}] сообщение в тг отправлено ')
                     else:
-                        logger.info(f'[{mac} – {ip}] сообщение в тг не отправлено, отсутствует подключение к интернету')
+                        logger.info(f'[{ip} – {ip}] сообщение в тг не отправлено, отсутствует подключение к интернету')
                 return redirect(request.path, code=302)
             if request.method == 'POST':
                 form = list(dict(request.form.lists()).values())
-                if db.is_votable(mac):
-                    db.set_vote_status(mac, False)
-                    if form[-1][0] == '1' or form[-1][0] == '2' or form[-1][0] == '3' or form[-1][0] == '4':
-                        squad = int(form[-1][0])
-                        for song in form[0]:
-                            if song == '1' or song == '2' or song == '3' or song == '4':
-                                return render_template('index.html')
+                squad = form[-1][0]
+                songs = form[0]
+
+                if db.is_votable(ip):
+                    if ip != '192.168.0.140':
+                        db.set_vote_status(ip, False)
+
+                    if squad in '1234':
+                        for song in songs:
                             if db.squad_song_exist(song, squad):
                                 db.increase_squad_song_wight(song, squad)
                             else:
                                 db.add_song_to_squad(song, squad)
                             db.increase_song_wight(song)
-                            logger.info(f'[{mac} – {ip}] проголосовал как отрядник')
+                            logger.info(f'[{ip} – {ip}] проголосовал как отрядник')
                     else:
                         for song in form[0]:
                             db.increase_song_wight(song)
-                            logger.info(f'[{mac} – {ip}] проголосовал как работник')
+                            logger.info(f'[{ip} – {ip}] проголосовал как работник')
                 return redirect(request.path, code=302)
-            return render_template('index.html', data=db.get_songs(), is_voteable=db.is_votable(mac))
+            return render_template('index.html', data=db.get_songs(), is_voteable=db.is_votable(ip))
         except requests.exceptions.InvalidHeader:
             logger.error('неудачная аутентификация')
     logger.info('сервер использовал localhost подключение')
