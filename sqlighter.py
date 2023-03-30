@@ -3,7 +3,6 @@ import psycopg2
 
 class SQLighter:
     def __init__(self, database, user, password, host, port):
-        """Подключаемся к БД и сохраняем курсор соединения"""
         self.connection = psycopg2.connect(database=database,
                                            user=user,
                                            password=password,
@@ -18,7 +17,7 @@ class SQLighter:
 
     def squad_song_exist(self, title, squad):
         with self.connection:
-            self.cursor.execute('SELECT * FROM squad_rating WHERE song = %s AND squad = %s',(title, squad))
+            self.cursor.execute('SELECT * FROM squad_rating WHERE song = %s AND squad = %s', (title, squad))
             return bool(len(self.cursor.fetchall()))
 
     def add_message_to_rubka(self, content, datetime):
@@ -41,7 +40,6 @@ class SQLighter:
         with self.connection:
             self.cursor.execute("SELECT song FROM music_library ORDER BY song")
             return self.cursor.fetchall()
-
 
     def get_songs_top(self):
         with self.connection:
@@ -75,7 +73,6 @@ class SQLighter:
         with self.connection:
             self.cursor.execute("SELECT balance FROM wallet")
             return self.cursor.fetchall()
-
 
     def update_balance(self, squad, value):
         with self.connection:

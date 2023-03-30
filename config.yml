@@ -1,7 +1,11 @@
-router-ip: 'http://192.168.1.1'
+router:
+  ip: 'http://192.168.1.1'
+  user: 'root'
+  password: ''
 admin-ip:
   - '192.168.0.140'
   - '192.168.0.141'
 admin-telegram-id:
   - 518325236
-last-host: '1'
+music-folder: 'z:\музыка'
+whitelist-path: '/etc/qwert.txt'

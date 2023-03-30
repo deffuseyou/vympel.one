@@ -3,21 +3,25 @@
 <head>
     <title>Список песен с рейтингом</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <style>
         @media (max-width: 576px) {
             .container {
                 margin-top: 50px;
             }
+
             .list-group-item {
                 font-size: 16px;
             }
         }
+
         h4 {
             margin-top: 7px;
         }
+
         .container {
-                margin-top: 20px;
+            margin-top: 20px;
         }
 
         .song-info {
@@ -46,13 +50,13 @@
 </head>
 <body>
 
-    <div class="container">
-        <h2 class="mb-3">Топ песен по отрядам</h2>
-        {% if sq1|length != 0 %}
-            <h4>1 отряд: </h4>
-                <ul class="list-group">
-                {{ sq4 }}
-                {% for song in sq1 %}
+<div class="container">
+    <h2 class="mb-3">Топ песен по отрядам</h2>
+    {% if sq1|length != 0 %}
+        <h4>1 отряд: </h4>
+        <ul class="list-group">
+            {{ sq4 }}
+            {% for song in sq1 %}
                 <li class="list-group-item">
                     <span class="badge badge-dark badge-pill rating-badge">{{ song[0] }}</span>
                     <div class="song-info">
@@ -60,13 +64,13 @@
                         <span class="song-artist">{{ song[1].split(' - ')[0] }}</span>
                     </div>
                 </li>
-                {% endfor %}
-                </ul>
-        {% endif %}
-        {% if sq2|length != 0 %}
-            <h4>2 отряд: </h4>
-                <ul class="list-group">
-                {% for song in sq2 %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% if sq2|length != 0 %}
+        <h4>2 отряд: </h4>
+        <ul class="list-group">
+            {% for song in sq2 %}
                 <li class="list-group-item">
                     <span class="badge badge-dark badge-pill rating-badge">{{ song[0] }}</span>
                     <div class="song-info">
@@ -74,13 +78,13 @@
                         <span class="song-artist">{{ song[1].split(' - ')[0] }}</span>
                     </div>
                 </li>
-                {% endfor %}
-                </ul>
-        {% endif %}
-        {% if sq3|length != 0 %}
-            <h4>3 отряд: </h4>
-                <ul class="list-group">
-                {% for song in sq3 %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% if sq3|length != 0 %}
+        <h4>3 отряд: </h4>
+        <ul class="list-group">
+            {% for song in sq3 %}
                 <li class="list-group-item">
                     <span class="badge badge-dark badge-pill rating-badge">{{ song[0] }}</span>
                     <div class="song-info">
@@ -88,13 +92,13 @@
                         <span class="song-artist">{{ song[1].split(' - ')[0] }}</span>
                     </div>
                 </li>
-                {% endfor %}
-                </ul>
-        {% endif %}
-        {% if sq4|length != 0 %}
-            <h4>4 отряд: </h4>
-                <ul class="list-group">
-                {% for song in sq4 %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% if sq4|length != 0 %}
+        <h4>4 отряд: </h4>
+        <ul class="list-group">
+            {% for song in sq4 %}
                 <li class="list-group-item">
                     <span class="badge badge-dark badge-pill rating-badge">{{ song[0] }}</span>
                     <div class="song-info">
@@ -102,9 +106,9 @@
                         <span class="song-artist">{{ song[1].split(' - ')[0] }}</span>
                     </div>
                 </li>
-                {% endfor %}
-                </ul>
-        {% endif %}
-    </div>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
 </body>
 </html>

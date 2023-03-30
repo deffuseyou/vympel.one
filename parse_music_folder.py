@@ -1,16 +1,16 @@
 import os
 import sqlite3
 from sqlighter import SQLighter
+from config_reader import config_read
 
 db = SQLighter(database='vympel.one',
                user='postgres',
                password=os.environ['admin_password'],
                host='192.168.0.100',
                port=5432)
-path = r'z:\музыка'
 
+path = fr'{config_read()["music-folder"]}'
 songs = next(os.walk(path), (None, None, []))[2]
-
 
 for song in songs:
     try:

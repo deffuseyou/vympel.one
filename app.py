@@ -9,18 +9,17 @@ import requests
 import logging
 import socket
 from config_reader import config_read
-import router_parser
 from datetime import datetime, timezone, timedelta
+from router import add_ip
 
 __author__ = 'deffuseyou'
 
 
-# TODO: перейти на postrges
 # TODO: cделать нормальную страницу отряда
-# TODO: wallet со слешем сделать через if
 # TODO: обновить README
 # TODO: добавить вожатых-админов
-# TODO: сделать сслыку-доступ в тырнет
+# TODO: добавить иконки и title
+# TODO: сделать ссылку-доступ в тырнет
 
 def is_connected():
     try:
@@ -49,19 +48,10 @@ app.config['DEBUG'] = True
 
 token = os.environ['vm_bot_token']
 bot = telegram.Bot(token=token)
-router = router_parser.Router()
 
 socketio = SocketIO(app, async_mode=None)
 thread = Thread()
 thread_stop_event = Event()
-
-
-def content_update():
-    while not thread_stop_event.is_set():
-        socketio.emit('update', {'balance': db.get_balance()}, namespace='/updater')
-        socketio.sleep(1)
-
-
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -92,7 +82,7 @@ def index():
                 songs = form[0]
 
                 if db.is_votable(ip):
-                    if ip != '192.168.0.140':
+                    if ip not in config_read()['admin-ip']:
                         db.set_vote_status(ip, False)
 
                     if squad in '1234':
@@ -102,17 +92,30 @@ def index():
                             else:
                                 db.add_song_to_squad(song, squad)
                             db.increase_song_wight(song)
-                            logger.info(f'[{ip} – {ip}] проголосовал как отрядник')
+                            logger.info(f'[{ip}] проголосовал как отрядник')
                     else:
                         for song in form[0]:
                             db.increase_song_wight(song)
-                            logger.info(f'[{ip} – {ip}] проголосовал как работник')
+                            logger.info(f'[{ip}] проголосовал как работник')
                 return redirect(request.path, code=302)
             return render_template('index.html', data=db.get_songs(), is_voteable=db.is_votable(ip))
         except requests.exceptions.InvalidHeader:
             logger.error('неудачная аутентификация')
     logger.info('сервер использовал localhost подключение')
     return 'использование localhost или 127.0.0.1 не допускается'
+
+
+@app.route('/internet', methods=['GET', 'POST'])
+def internet():
+    if request.method == 'POST':
+        password = request.form['password']
+        if password == 'qwerty':
+            # add_ip(request.remote_addr)
+            return redirect('https://vk.com/dol_vympel')
+        else:
+            return redirect('/')
+    return render_template('internet.html')
+
 
 
 @app.route('/wallet')
@@ -155,6 +158,12 @@ def song_rating():
     for i in db.get_songs_top()[::-1]:
         chart.append([i[1], i[0]])
     return render_template('song_rating.html', chart=chart)
+
+
+def content_update():
+    while not thread_stop_event.is_set():
+        socketio.emit('update', {'balance': db.get_balance()}, namespace='/updater')
+        socketio.sleep(1)
 
 
 @socketio.on('connect', namespace='/updater')
