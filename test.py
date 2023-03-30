@@ -3,7 +3,7 @@ import paramiko
 
 host = '192.168.1.1'
 user = 'root'
-password = ''
+password = 'pusdes69'
 port = 22
 
 # Подключение к удаленному серверу
