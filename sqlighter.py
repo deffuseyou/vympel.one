@@ -14,7 +14,7 @@ class SQLighter:
     def client_exist(self, ip_address):
         with self.connection:
             self.cursor.execute('SELECT * FROM client WHERE ip_address = %s', (ip_address,))
-            return bool(len(self.cursor.fetchall())) is not None
+            return bool(len(self.cursor.fetchall()))
 
     def squad_song_exist(self, title, squad):
         with self.connection:
@@ -50,7 +50,7 @@ class SQLighter:
 
     def get_squad_rating(self):
         with self.connection:
-            self.cursor.execute("SELECT * FROM squad_rating ORDER BY squad")
+            self.cursor.execute("SELECT * FROM squad_rating ORDER BY squad, weight DESC")
             return self.cursor.fetchall()
 
     def is_votable(self, ip_address):

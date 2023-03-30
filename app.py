@@ -62,6 +62,8 @@ def content_update():
         socketio.sleep(1)
 
 
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     ip = request.remote_addr
@@ -134,27 +136,24 @@ def personal_wallet(squad):
 
 @app.route('/squad-rating', methods=['GET'])
 def squad_rating():
-    sq1 = []
-    sq2 = []
-    sq3 = []
-    sq4 = []
+    sq1, sq2, sq3, sq4 = [], [], [], []
     for i in db.get_squad_rating():
         if i[1] == 1:
-            sq1.append(f'({i[2]}) {i[0]}')
+            sq1.append([i[2], i[0]])
         if i[1] == 2:
-            sq2.append(f'({i[2]}) {i[0]}')
+            sq2.append([i[2], i[0]])
         if i[1] == 3:
-            sq3.append(f'({i[2]}) {i[0]}')
+            sq3.append([i[2], i[0]])
         if i[1] == 4:
-            sq4.append(f'({i[2]}) {i[0]}')
+            sq4.append([i[2], i[0]])
     return render_template('squad_rating.html', sq1=sq1, sq2=sq2, sq3=sq3, sq4=sq4)
 
 
 @app.route('/song-rating', methods=['GET'])
 def song_rating():
     chart = []
-    for j in db.get_songs_top()[::-1]:
-        chart.append(f'({j[1]}) {j[0]}')
+    for i in db.get_songs_top()[::-1]:
+        chart.append([i[1], i[0]])
     return render_template('song_rating.html', chart=chart)
 
 
