@@ -36,15 +36,14 @@
             margin-left: -5px;
             margin-right: 10px;
         }
-
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h3 class="mb-3">Топ песен по отрядам</h3>
+    <h3 class="mb-3 text-center">топ песен по отрядам</h3>
     {% if sq1|length != 0 %}
-        <h5>1 отряд: </h5>
+        <h5>1 отряд</h5>
         <ul class="list-group">
             {% for song in sq1 %}
                 <li class="list-group-item">
@@ -57,7 +56,7 @@
             {% endfor %}
         </ul>
     {% else %}
-        <h5>1 отряд: </h5>
+        <h5>1 отряд</h5>
         <ul class="list-group">
             <li class="list-group-item">
                 <span class="badge badge-dark badge-pill rating-badge">0</span>
@@ -68,7 +67,7 @@
         </ul>
     {% endif %}
     {% if sq2|length != 0 %}
-        <h5>2 отряд: </h5>
+        <h5>2 отряд</h5>
         <ul class="list-group">
             {% for song in sq2 %}
                 <li class="list-group-item">
@@ -81,7 +80,7 @@
             {% endfor %}
         </ul>
     {% else %}
-        <h5>1 отряд: </h5>
+        <h5>2 отряд</h5>
         <ul class="list-group">
             <li class="list-group-item">
                 <span class="badge badge-dark badge-pill rating-badge">0</span>
@@ -92,7 +91,7 @@
         </ul>
     {% endif %}
     {% if sq3|length != 0 %}
-        <h5>3 отряд: </h5>
+        <h5>3 отряд</h5>
         <ul class="list-group">
             {% for song in sq3 %}
                 <li class="list-group-item">
@@ -105,7 +104,7 @@
             {% endfor %}
         </ul>
     {% else %}
-        <h5>1 отряд: </h5>
+        <h5>3 отряд</h5>
         <ul class="list-group">
             <li class="list-group-item">
                 <span class="badge badge-dark badge-pill rating-badge">0</span>
@@ -116,7 +115,7 @@
         </ul>
     {% endif %}
     {% if sq4|length != 0 %}
-        <h5>4 отряд: </h5>
+        <h5>4 отряд</h5>
         <ul class="list-group">
             {% for song in sq4 %}
                 <li class="list-group-item">
@@ -129,7 +128,7 @@
             {% endfor %}
         </ul>
     {% else %}
-        <h5>1 отряд: </h5>
+        <h5>4 отряд</h5>
         <ul class="list-group">
             <li class="list-group-item">
                 <span class="badge badge-dark badge-pill rating-badge">0</span>

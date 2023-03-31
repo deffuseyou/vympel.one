@@ -24,7 +24,7 @@
             </a>
         </h1>
     </header>
-    <h5>Ближайшая дискотека: 1 июня</h5>
+    <h5>ближайшая дискотека: 1 июня</h5>
     <hr/>
     {#    <p>Просьба не топтать пол под хардбас</p>#}
     {#    <hr/>#}
@@ -36,13 +36,13 @@
             <div class="modal-content">
                 <form method="post">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Выбор песен</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">выбор песен</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <label for="message-text" class="col-form-label">Нажми для выбора ⬇️</label>
+                        <label for="message-text" class="col-form-label">нажми для выбора ⬇️</label>
                         <select name="song" class="form-select w-100" multiple aria-label="multiple select example">
                             {% for song in data %}
                                 <option>{{ song[0] }}</option>
@@ -52,7 +52,7 @@
 
                         <p></p>
                         <div class="form-group">
-                            <label for="message-text" class="col-form-label">Отряд:</label>
+                            <label for="message-text" class="col-form-label">отряд:</label>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="squad" id="squad_1"
                                        value="1">
@@ -77,8 +77,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                        <button type="submit" class="btn btn-primary">Отправить</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">закрыть</button>
+                        <button type="submit" class="btn btn-primary">отправить</button>
                     </div>
                 </form>
             </div>
@@ -89,7 +89,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel1">Сообщение</h5>
+                    <h5 class="modal-title" id="exampleModalLabel1">сообщение</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -101,14 +101,14 @@
                         <!--                            <input type="text" class="form-control" id="recipient-name">-->
                         <!--                        </div>-->
                         <div class="form-group">
-                            <label for="message-text" class="col-form-label">Сообщение:</label>
+                            <label for="message-text" class="col-form-label">сообщение:</label>
                             <textarea name="message" class="form-control" id="message-text"></textarea>
                         </div>
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                        <button type="submit" class="btn btn-primary">Отправить</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">закрыть</button>
+                        <button type="submit" class="btn btn-primary">отправить</button>
                     </div>
                 </form>
             </div>
@@ -121,18 +121,18 @@
             <ul class="icon-list">
                 {% if is_voteable %}
                     <li><a data-toggle="modal" data-target="#exampleModal"
-                           href="https://getbootstrap.com/docs/4.6/getting-started/introduction">Выбор песен</a></li>
+                           href="https://getbootstrap.com/docs/4.6/getting-started/introduction">выбор песен</a></li>
                 {% endif %}
-                <li><a href="{{ url_for('song_rating') }}">Топ песен</a></li>
-                <li><a href="{{ url_for('squad_rating') }}">Топ по отрядам</a></li>
-                <li><a href="{{ url_for('wallet') }}">Баланс отрядов</a></li>
+                <li><a href="{{ url_for('song_rating') }}">топ песен</a></li>
+                <li><a href="{{ url_for('squad_rating') }}">топ по отрядам</a></li>
+                <li><a href="{{ url_for('wallet') }}">баланс отрядов</a></li>
                 <li><a data-toggle="modal" data-target="#exampleModal1"
-                       href="https://getbootstrap.com/docs/4.6/getting-started/build-tools">Анонимное сообщение</a></li>
-                <li><a href="{{ url_for('files') }}">Скачать фотографии</a></li>
+                       href="https://getbootstrap.com/docs/4.6/getting-started/build-tools">анонимное сообщение</a></li>
+                <li><a href="{{ url_for('files') }}">скачать фотографии</a></li>
             </ul>
         </div>
     </div>
-    <p class="text-muted">Если нашли ошибку в работе сайта, просьба обращаться в рубку.</p>
+    <p class="text-muted">если нашли ошибку в работе сайта, просьба обращаться в рубку.</p>
 </div>
 <script src="{{ url_for('static', filename='js/jquery.slim.min.js') }}"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
