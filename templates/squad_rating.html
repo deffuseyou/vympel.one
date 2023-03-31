@@ -46,7 +46,6 @@
     {% if sq1|length != 0 %}
         <h5>1 отряд: </h5>
         <ul class="list-group">
-            {{ sq4 }}
             {% for song in sq1 %}
                 <li class="list-group-item">
                     <span class="badge badge-dark badge-pill rating-badge">{{ song[0] }}</span>
@@ -56,6 +55,16 @@
                     </div>
                 </li>
             {% endfor %}
+        </ul>
+    {% else %}
+        <h5>1 отряд: </h5>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="badge badge-dark badge-pill rating-badge">0</span>
+                <div class="song-info">
+                    <span class="song-artist">Пока нет голосов...</span>
+                </div>
+            </li>
         </ul>
     {% endif %}
     {% if sq2|length != 0 %}
@@ -71,6 +80,16 @@
                 </li>
             {% endfor %}
         </ul>
+    {% else %}
+        <h5>1 отряд: </h5>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="badge badge-dark badge-pill rating-badge">0</span>
+                <div class="song-info">
+                    <span class="song-artist">Пока нет голосов...</span>
+                </div>
+            </li>
+        </ul>
     {% endif %}
     {% if sq3|length != 0 %}
         <h5>3 отряд: </h5>
@@ -85,6 +104,16 @@
                 </li>
             {% endfor %}
         </ul>
+    {% else %}
+        <h5>1 отряд: </h5>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="badge badge-dark badge-pill rating-badge">0</span>
+                <div class="song-info">
+                    <span class="song-artist">Пока нет голосов...</span>
+                </div>
+            </li>
+        </ul>
     {% endif %}
     {% if sq4|length != 0 %}
         <h5>4 отряд: </h5>
@@ -98,6 +127,16 @@
                     </div>
                 </li>
             {% endfor %}
+        </ul>
+    {% else %}
+        <h5>1 отряд: </h5>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="badge badge-dark badge-pill rating-badge">0</span>
+                <div class="song-info">
+                    <span class="song-artist">Пока нет голосов...</span>
+                </div>
+            </li>
         </ul>
     {% endif %}
 </div>
