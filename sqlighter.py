@@ -12,7 +12,7 @@ class SQLighter:
 
     def client_exist(self, ip_address):
         with self.connection:
-            self.cursor.execute('SELECT * FROM client WHERE ip_address = %s', (ip_address,))
+            self.cursor.execute('SELECT ip_address FROM client WHERE ip_address = %s', (ip_address,))
             return bool(len(self.cursor.fetchall()))
 
     def squad_song_exist(self, title, squad):

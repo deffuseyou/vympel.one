@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Скачать фото</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        /* стили для мобильных устройств */
+        body {
+            font-size: 16px;
+        }
+
+        p {
+            margin-top: -10px;
+        }
+
+        .container {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: -10px;
+        }
+
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        a {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        /* стили для десктопных устройств */
+        @media (min-width: 768px) {
+            body {
+                font-size: 20px;
+            }
+
+            ul {
+                margin-top: 0;
+            }
+
+            li {
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                margin: 10px;
+            }
+
+            li:last-child {
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3 class="mb-3 align-center">Файлы</h3>
+    <p class="text-muted">Нажми, чтобы скачать фото архивом</p>
+    <ul>
+        {% for folder in folders %}
+            <li>
+                <span class="icon">&#x1F4C1;</span>
+                <a href="{{ url_for('sub_files', path = dir + "/" + folder) }}">{{ folder }}</a>
+            </li>
+        {% endfor %}
+
+        {% for file in files %}
+            <li>
+                <span class="icon">&#x1F4C4;</span>
+                <a href="{{ url_for('sub_files', path = dir + "/" + file) }}">{{ file|replace(".zip", "") }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+</body>
+</html>

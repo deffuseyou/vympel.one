@@ -7,5 +7,8 @@ admin-ip:
   - '192.168.0.141'
 admin-telegram-id:
   - 518325236
+  - 864662054
+  - 839840272
 music-folder: 'z:\музыка'
 whitelist-path: '/etc/qwert.txt'
+files-path: 'd:/'

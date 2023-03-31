@@ -1,27 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Список песен с рейтингом</title>
+    <title>Топ песен</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <style>
-        @media (max-width: 576px) {
-            .container {
-                margin-top: 50px;
-            }
-
-            .list-group-item {
-                font-size: 16px;
-            }
-        }
-
-        h4 {
+        h5 {
             margin-top: 7px;
         }
 
         .container {
-            margin-top: 20px;
+            margin-top: 15px;
+            margin-bottom: 15px;
         }
 
         .song-info {
@@ -51,9 +42,9 @@
 <body>
 
 <div class="container">
-    <h2 class="mb-3">Топ песен по отрядам</h2>
+    <h3 class="mb-3">Топ песен по отрядам</h3>
     {% if sq1|length != 0 %}
-        <h4>1 отряд: </h4>
+        <h5>1 отряд: </h5>
         <ul class="list-group">
             {{ sq4 }}
             {% for song in sq1 %}
@@ -68,7 +59,7 @@
         </ul>
     {% endif %}
     {% if sq2|length != 0 %}
-        <h4>2 отряд: </h4>
+        <h5>2 отряд: </h5>
         <ul class="list-group">
             {% for song in sq2 %}
                 <li class="list-group-item">
@@ -82,7 +73,7 @@
         </ul>
     {% endif %}
     {% if sq3|length != 0 %}
-        <h4>3 отряд: </h4>
+        <h5>3 отряд: </h5>
         <ul class="list-group">
             {% for song in sq3 %}
                 <li class="list-group-item">
@@ -96,7 +87,7 @@
         </ul>
     {% endif %}
     {% if sq4|length != 0 %}
-        <h4>4 отряд: </h4>
+        <h5>4 отряд: </h5>
         <ul class="list-group">
             {% for song in sq4 %}
                 <li class="list-group-item">

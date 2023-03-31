@@ -1,11 +1,17 @@
 @font-face {
-  font-family: AireExterior;
-  src: url('../fonts/AireExterior.ttf');
+    font-family: AireExterior;
+    src: url('../fonts/AireExterior.ttf');
+}
+
+body {
+    color: #000000;
 }
 
 .vympel {
-  font-family: "AireExterior", sans-serif;
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
+    font-family: "AireExterior", sans-serif;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    color: #000000;
 }
+

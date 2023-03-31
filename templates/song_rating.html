@@ -6,18 +6,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <style>
-        @media (max-width: 576px) {
-            .container {
-                margin-top: 50px;
-            }
-
-            .list-group-item {
-                font-size: 16px;
-            }
-        }
-
         .container {
-            margin-top: 20px;
+            margin-top: 15px;
+            margin-bottom: 15px;
         }
 
         .song-info {
@@ -46,7 +37,7 @@
 </head>
 <body>
 <div class="container">
-    <h2 class="mb-3">Топ песен</h2>
+    <h3 class="mb-3">Топ песен</h3>
     <ul class="list-group">
         {% for song in chart %}
             <li class="list-group-item">

@@ -26,8 +26,8 @@
     </header>
     <h5>Ближайшая дискотека: 1 июня</h5>
     <hr/>
-{#    <p>Просьба не топтать пол под хардбас</p>#}
-{#    <hr/>#}
+    {#    <p>Просьба не топтать пол под хардбас</p>#}
+    {#    <hr/>#}
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -54,24 +54,24 @@
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">Отряд:</label>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                                <input class="form-check-input" type="radio" name="squad" id="squad_1"
                                        value="1">
-                                <label class="form-check-label" for="inlineRadio1">1</label>
+                                <label class="form-check-label" for="squad_1">1</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                                <input class="form-check-input" type="radio" name="squad" id="squad_2"
                                        value="2">
-                                <label class="form-check-label" for="inlineRadio2">2</label>
+                                <label class="form-check-label" for="squad_2">2</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
+                                <input class="form-check-input" type="radio" name="squad" id="squad_3"
                                        value="3">
-                                <label class="form-check-label" for="inlineRadio2">3</label>
+                                <label class="form-check-label" for="squad_3">3</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4"
+                                <input class="form-check-input" type="radio" name="squad" id="squad_4"
                                        value="4">
-                                <label class="form-check-label" for="inlineRadio2">4</label>
+                                <label class="form-check-label" for="squad_4">4</label>
                             </div>
                         </div>
                     </div>
@@ -119,15 +119,16 @@
     <div class="row">
         <div class="col-md-6">
             <ul class="icon-list">
-                <li><a href="{{ url_for('wallet') }}">Баланс отрядов</a></li>
                 {% if is_voteable %}
                     <li><a data-toggle="modal" data-target="#exampleModal"
                            href="https://getbootstrap.com/docs/4.6/getting-started/introduction">Выбор песен</a></li>
                 {% endif %}
                 <li><a href="{{ url_for('song_rating') }}">Топ песен</a></li>
                 <li><a href="{{ url_for('squad_rating') }}">Топ по отрядам</a></li>
+                <li><a href="{{ url_for('wallet') }}">Баланс отрядов</a></li>
                 <li><a data-toggle="modal" data-target="#exampleModal1"
                        href="https://getbootstrap.com/docs/4.6/getting-started/build-tools">Анонимное сообщение</a></li>
+                <li><a href="{{ url_for('files') }}">Скачать фотографии</a></li>
             </ul>
         </div>
     </div>
