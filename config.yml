@@ -9,6 +9,6 @@ admin-telegram-id:
   - 518325236
   - 864662054
   - 839840272
-music-folder: 'z:\музыка'
+music-path: 'z:\музыка'
 whitelist-path: '/etc/qwert.txt'
 files-path: 'd:/'

@@ -53,7 +53,7 @@ def parse_music_folder():
                    host='192.168.0.100',
                    port=5432)
 
-    path = fr'{config_read()["music-folder"]}'
+    path = fr'{config_read()["music-path"]}'
     songs = next(os.walk(path), (None, None, []))[2]
 
     for song in songs:
