@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>Доступ в интернет</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.internet.min.css') }}">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="{{ url_for('static', filename='css/bootstrap.internet.min.css') }}" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -63,6 +63,7 @@
             }
         }
 
+
     </style>
 </head>
 <body>
@@ -71,10 +72,10 @@
         <div class="col-xs-12 col-md-4 col-md-offset-4">
             <form method="POST">
                 <div class="form-group">
-                    <input type="password" class="form-control" id="password" name="password" required maxlength="20">
+                    <input class="form-control" id="password" maxlength="20" name="password" required type="password">
                 </div>
                 <div class="form-group text-center">
-                    <button type="submit" class="btn btn-black">
+                    <button class="btn btn-black" type="submit">
                         ввод
                     </button>
                 </div>

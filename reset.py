@@ -1,5 +1,6 @@
-from sqlighter import SQLighter
 import os
+
+from sqlighter import SQLighter
 
 db = SQLighter(database='vympel.one',
                user='postgres',

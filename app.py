@@ -111,6 +111,11 @@ def internet():
     return render_template('internet.html')
 
 
+@app.route('/send-files')
+def send_files():
+    return redirect('http://192.168.0.100:81')
+
+
 @app.route('/wallet')
 def wallet():
     return render_template('wallet.html')
@@ -186,7 +191,7 @@ def test_connect():
 
 @socketio.on('disconnect', namespace='/updater')
 def test_disconnect():
-    print('Client disconnected')
+    pass
 
 
 @app.errorhandler(404)

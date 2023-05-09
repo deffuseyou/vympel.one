@@ -71,7 +71,7 @@ class SQLighter:
 
     def get_balance(self, ):
         with self.connection:
-            self.cursor.execute("SELECT balance FROM wallet")
+            self.cursor.execute("SELECT balance FROM wallet ORDER BY squad")
             return self.cursor.fetchall()
 
     def update_balance(self, squad, value):

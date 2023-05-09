@@ -11,4 +11,4 @@ admin-telegram-id:
   - 839840272
 music-path: 'z:\музыка'
 whitelist-path: '/etc/qwert.txt'
-files-path: 'd:/'
+files-path: 'z:/'
