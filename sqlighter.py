@@ -36,6 +36,15 @@ class SQLighter:
         with self.connection:
             self.cursor.execute("INSERT INTO client (ip_address) VALUES(%s)", (ip_address,))
 
+    def add_uploaded_photo(self, path, url):
+        with self.connection:
+            self.cursor.execute("INSERT INTO uploaded_photo (path, url) VALUES(%s, %s)", (path, url))
+
+    def get_uploaded_photo(self):
+        with self.connection:
+            self.cursor.execute("SELECT path FROM uploaded_photo")
+            return self.cursor.fetchall()
+
     def get_songs(self):
         with self.connection:
             self.cursor.execute("SELECT song FROM music_library ORDER BY song")

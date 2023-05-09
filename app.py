@@ -113,7 +113,15 @@ def internet():
 
 @app.route('/send-files')
 def send_files():
-    return redirect('http://192.168.0.100:81')
+    return redirect('http://vympel.one:81')
+
+
+@app.route('/photo-processing')
+def internet1():
+    # upload_photo()
+    # zip_photo()
+    return redirect('http://192.168.0.140:81')
+
 
 
 @app.route('/wallet')
