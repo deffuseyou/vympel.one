@@ -50,7 +50,7 @@
                         <label for="message-text" class="col-form-label">нажми для выбора ⬇️</label>
                         <select name="song" class="form-select w-100" multiple aria-label="multiple select example">
                             {% for song in data %}
-                            <option>{{ song[0] }}</option>
+                                <option>{{ song[0] }}</option>
                             {% endfor %}
                         </select>
                         <div class="form-group">
@@ -122,8 +122,8 @@
         <div class="col-md-6">
             <ul class="icon-list">
                 {% if is_voteable %}
-                <li><a data-toggle="modal" data-target="#exampleModal"
-                       href="https://getbootstrap.com/docs/4.6/getting-started/introduction">выбор песен</a></li>
+                    <li><a data-toggle="modal" data-target="#exampleModal"
+                           href="https://getbootstrap.com/docs/4.6/getting-started/introduction">выбор песен</a></li>
                 {% endif %}
                 <li><a href="{{ url_for('song_rating') }}">топ песен</a></li>
                 <li><a href="{{ url_for('squad_rating') }}">топ по отрядам</a></li>
