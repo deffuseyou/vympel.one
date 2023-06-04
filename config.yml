@@ -4,12 +4,18 @@ router:
   password: ''
 admin-ip:
   - '192.168.0.140'
-  - '192.168.0.141'
+  - '192.168.0.218'
 admin-telegram-id:
   - 518325236
   - 864662054
   - 839840272
+  - 1061060541
 music-path: 'z:/музыка'
-photo-path: 'z:/фото'
 files-path: 'z:/'
 whitelist-path: '/etc/qwert.txt'
+photo-path: 'z:/фото'
+albums:
+  - 292215594
+  - 292215662
+  - 292215665
+  - 292215667

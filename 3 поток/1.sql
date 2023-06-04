@@ -1,0 +1,1 @@
+UPDATE `wallet` SET `balance` = `balance` + 200 WHERE `squad` = 1;
