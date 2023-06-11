@@ -179,7 +179,7 @@ def sub_files(path):
                                files=[f for f in os.listdir(new_path) if os.path.isfile(os.path.join(new_path, f))],
                                dir=path)
     elif os.path.isfile(new_path):
-        return send_file(os.path.join(new_path), as_attachment=True)
+        return send_file(os.path.join(new_path), as_attachment=True, download_name='')
     else:
         return render_template('404.html'), 404
 
