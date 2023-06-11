@@ -109,6 +109,15 @@ def upload_photo():
     return 'фото начали загружаться'
 
 
+
+@app.route('/karaoke', methods=['GET', 'POST'])
+def karaoke():
+    if request.method == 'POST':
+        search_query = request.form['password']
+        download_and_play_karaoke(search_query)
+    return render_template('karaoke.html')
+
+
 @app.route('/internet', methods=['GET', 'POST'])
 def internet():
     if request.method == 'POST':

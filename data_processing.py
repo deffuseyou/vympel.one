@@ -2,10 +2,12 @@ import os
 import shutil
 import socket
 import sqlite3
+import subprocess
 
 import paramiko
 import vk_api
 import yaml
+import yt_dlp
 
 # from speechkit import Session, SpeechSynthesis
 from sqlighter import SQLighter
@@ -66,6 +68,23 @@ def parse_music_folder():
             print(f'Песня "{song.replace(".mp3", "")}" добавлена')
         except sqlite3.IntegrityError:
             pass
+
+
+def download_and_play_karaoke(search_query):
+    ydl = yt_dlp.YoutubeDL({'format': "bv*+ba/b",
+                            'outtmpl': 'z:\\караоке\\%(title)s.%(ext)s'})
+
+    ydl.download(f"ytsearch:{search_query}")
+
+    with yt_dlp.YoutubeDL() as ydl:
+        search_results = ydl.extract_info(f"ytsearch:{search_query}", download=False)
+        if 'entries' in search_results:
+            first_video = search_results['entries'][0]
+            video_title = first_video['title']
+            video_link = first_video['id']
+            title = f'{video_title}.webm'
+
+    subprocess.call(['C:\Program Files\MPC-HC\mpc-hc64.exe', f'z:/караоке/{title}'])
 
 
 def zip_photo():
