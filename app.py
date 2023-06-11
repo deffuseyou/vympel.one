@@ -1,11 +1,13 @@
-from flask_socketio import SocketIO
-from flask import Flask, render_template, send_file, request, redirect
-from threading import Thread, Event
-import telegram
-import requests
 import logging
-from data_processing import *
 from datetime import *
+from threading import Thread, Event
+import threading
+import requests
+import telegram
+from flask import Flask, render_template, send_file, request, redirect
+from flask_socketio import SocketIO
+
+from data_processing import *
 
 __author__ = 'deffuseyou'
 
@@ -92,11 +94,19 @@ def index():
                         logger.info(f'[{ip}] проголосовал как работник')
 
                 return redirect(request.path, code=302)
-            return render_template('index.html', data=db.get_songs(), is_voteable=db.is_votable(ip))
+            return render_template('index.html', data=db.get_songs(), is_voteable=db.is_votable(ip),
+                                   is_admin=ip in config_read()['admin-ip'])
         except requests.exceptions.InvalidHeader:
             logger.error('неудачная аутентификация')
     logger.info('сервер использовал localhost подключение')
     return 'использование localhost или 127.0.0.1 не допускается'
+
+
+@app.route('/upload-photo')
+def upload_photo():
+    threading.Thread(target=photo_uploader).start()
+    threading.Thread(target=zip_photo).start()
+    return 'фото начали загружаться'
 
 
 @app.route('/internet', methods=['GET', 'POST'])
@@ -104,7 +114,7 @@ def internet():
     if request.method == 'POST':
         password = request.form['password']
         if password == 'qwerty':
-            # add_ip(request.remote_addr)
+            add_ip(request.remote_addr)
             return redirect('https://vk.com/dol_vympel')
         else:
             return redirect('/')

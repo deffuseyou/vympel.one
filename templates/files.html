@@ -66,8 +66,14 @@
 <body>
 <div class="container">
     <h3 class="mb-3 align-center">файлы</h3>
-    <p class="text-muted">нажми, чтобы скачать фото архивом</p>
+
     <ul>
+        {% if folders|length == 0 and files|length == 0     %}
+            <p class="text-muted">пока что тут пусто...</p>
+        {% else %}
+        <p class="text-muted">нажми, чтобы скачать фото архивом</p>
+        {% endif %}
+
         {% for folder in folders %}
             <li>
                 <span class="icon">&#x1F4C1;</span>

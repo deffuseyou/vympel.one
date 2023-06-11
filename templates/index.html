@@ -121,6 +121,9 @@
     <div class="row">
         <div class="col-md-6">
             <ul class="icon-list">
+                {% if is_admin %}
+                    <li><a href="{{ url_for('upload_photo') }}">загрузить фото</a></li>
+                {% endif %}
                 {% if is_voteable %}
                     <li><a data-toggle="modal" data-target="#exampleModal"
                            href="https://getbootstrap.com/docs/4.6/getting-started/introduction">выбор песен</a></li>

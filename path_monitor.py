@@ -23,6 +23,7 @@ class PathHandler(FileSystemEventHandler):
 
 
 if __name__ == "__main__":
+    print(config_read()['album_ids'])
     path = config_read()["monitor-path"]
     path_handler = PathHandler()
     observer = Observer()
