@@ -14,6 +14,7 @@ music-path: 'z:/музыка'
 files-path: 'z:/фото/архивы/2023/1 поток/'
 whitelist-path: '/etc/qwert.txt'
 photo-path: 'z:/фото'
+monitor-path: 'z:/вд/2023/1 поток'
 albums:
   - 292215594
   - 292215662
