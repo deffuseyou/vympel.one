@@ -4,6 +4,7 @@ router:
   password: 'pusdes69'
 admin-ip:
   - '192.168.0.100'
+ph-ip: '192.168.0.108'
 admin-telegram-id:
   - 518325236
   - 864662054

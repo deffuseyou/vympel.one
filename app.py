@@ -96,7 +96,7 @@ def index():
 
                 return redirect(request.path, code=302)
             return render_template('index.html', data=db.get_songs(), is_voteable=db.is_votable(ip),
-                                   is_admin=ip in config_read()['admin-ip'])
+                                   is_ph=ip == config_read()['ph-ip'])
         except requests.exceptions.InvalidHeader:
             logger.error('неудачная аутентификация')
     logger.info('сервер использовал localhost подключение')
