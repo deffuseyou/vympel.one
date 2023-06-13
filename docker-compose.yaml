@@ -1,0 +1,12 @@
+version: '3'
+services:
+  app:
+    container_name: http_server
+    image: vympel.one
+    build:
+      dockerfile: Dockerfile
+    restart: on-failure
+    env_file:
+      - .env
+    ports:
+      - "80:80"
