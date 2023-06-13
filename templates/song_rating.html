@@ -39,15 +39,26 @@
 <div class="container">
     <h3 class="mb-3 text-center">топ песен</h3>
     <ul class="list-group">
-        {% for song in chart %}
+        {% if sq1|length != 0 %}
+            {% for song in chart %}
+                <li class="list-group-item">
+                    <span class="badge badge-dark badge-pill rating-badge">{{ song[0] }}</span>
+                    <div class="song-info">
+                        <span class="song-title">{{ song[1].split(' - ')[1] }}</span>
+                        <span class="song-artist">{{ song[1].split(' - ')[0] }}</span>
+                    </div>
+                </li>
+            {% endfor %}
+        {% else %}
+        <ul class="list-group">
             <li class="list-group-item">
-                <span class="badge badge-dark badge-pill rating-badge">{{ song[0] }}</span>
+                <span class="badge badge-dark badge-pill rating-badge">0</span>
                 <div class="song-info">
-                    <span class="song-title">{{ song[1].split(' - ')[1] }}</span>
-                    <span class="song-artist">{{ song[1].split(' - ')[0] }}</span>
+                    <span class="song-artist">Пока нет голосов...</span>
                 </div>
             </li>
-        {% endfor %}
+        </ul>
+        {% endif %}
     </ul>
 </div>
 </body>
