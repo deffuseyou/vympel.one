@@ -39,7 +39,7 @@
 <div class="container">
     <h3 class="mb-3 text-center">топ песен</h3>
     <ul class="list-group">
-        {% if sq1|length != 0 %}
+        {% if chart|length != 0 %}
             {% for song in chart %}
                 <li class="list-group-item">
                     <span class="badge badge-dark badge-pill rating-badge">{{ song[0] }}</span>
@@ -54,7 +54,7 @@
             <li class="list-group-item">
                 <span class="badge badge-dark badge-pill rating-badge">0</span>
                 <div class="song-info">
-                    <span class="song-artist">Пока нет голосов...</span>
+                    <span class="song-artist">пока что нет голосов...</span>
                 </div>
             </li>
         </ul>

@@ -10,7 +10,7 @@ admin-telegram-id:
   - 864662054
   - 839840272
   - 1061060541
-music-path: 'z:/музыка'
+music-path: 'z:/музыка/дискотека'
 files-path: 'z:/фото/архивы/2023/1 поток/'
 whitelist-path: '/etc/qwert.txt'
 photo-path: 'z:/фото'

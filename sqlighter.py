@@ -89,4 +89,8 @@ class SQLighter:
 
     def reset(self, ):
         with self.connection:
-            return self.cursor.execute("UPDATE client SET is_voteable = %s", (True,))
+            self.cursor.execute("UPDATE client SET is_voteable = %s", (True,))
+            self.cursor.execute("DELETE FROM music_library")
+            self.cursor.execute("DELETE FROM squad_rating")
+            print("все сброшено!")
+
