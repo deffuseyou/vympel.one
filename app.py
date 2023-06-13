@@ -1,7 +1,8 @@
 import logging
+import threading
 from datetime import *
 from threading import Thread, Event
-import threading
+
 import requests
 import telegram
 from flask import Flask, render_template, send_file, request, redirect
@@ -30,7 +31,7 @@ db = SQLighter(database='vympel.one',
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-app.config['DEBUG'] = True
+#app.config['DEBUG'] = True
 
 token = os.environ['vm_bot_token']
 bot = telegram.Bot(token=token)
@@ -122,7 +123,7 @@ def karaoke():
 def internet():
     if request.method == 'POST':
         password = request.form['password']
-        if password == 'qwerty':
+        if password == 'qwerty69':
             add_ip(request.remote_addr)
             return redirect('https://vk.com/dol_vympel')
         else:
