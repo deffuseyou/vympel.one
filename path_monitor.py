@@ -4,7 +4,7 @@ from watchdog.events import *
 from watchdog.observers import Observer
 from data_processing import config_read
 
-token = os.environ['vm_bot_token']
+token = os.environ['TG_BOT_TOKEN']
 bot = telegram.Bot(token=token)
 
 

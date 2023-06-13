@@ -55,7 +55,7 @@ def is_connected():
 def parse_music_folder():
     db = SQLighter(database='vympel.one',
                    user='postgres',
-                   password=os.environ['admin_password'],
+                   password=os.environ['ADMIN_PASSWORD'],
                    host='192.168.0.100',
                    port=5432)
 
@@ -99,7 +99,7 @@ def zip_photo():
 
 
 def upload_to_album(album_id, file, db):
-    vk_session = vk_api.VkApi(token=os.environ['vk_token'])
+    vk_session = vk_api.VkApi(token=os.environ['VK_TOKEN'])
     vk = vk_session.get_api()
 
     # идентификатор группы
@@ -127,13 +127,10 @@ def upload_to_album(album_id, file, db):
 def photo_uploader():
     db = SQLighter(database='vympel.one',
                    user='postgres',
-                   password=os.environ['admin_password'],
+                   password=os.environ['ADMIN_PASSWORD'],
                    host='192.168.0.100',
                    port=5432)
     uploaded_photo = list(zip(*db.get_uploaded_photo()))[0]
-    # авторизация
-    vk_session = vk_api.VkApi(token=os.environ['vk_token'])
-    vk = vk_session.get_api()
 
     config = config_read()
     # путь к папке с фотографиями

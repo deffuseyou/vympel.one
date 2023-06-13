@@ -25,7 +25,7 @@ logger.setLevel(logging.INFO)
 
 db = SQLighter(database='vympel.one',
                user='postgres',
-               password=os.environ['admin_password'],
+               password=os.environ['ADMIN_PASSWORD'],
                host='192.168.0.100',
                port=5432)
 
@@ -33,7 +33,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 #app.config['DEBUG'] = True
 
-token = os.environ['vm_bot_token']
+token = os.environ['TG_BOT_TOKEN']
 bot = telegram.Bot(token=token)
 
 socketio = SocketIO(app, async_mode=None)
@@ -75,32 +75,33 @@ def index():
             # обрабатываем отправленные песни
             if request.method == 'POST' and db.is_votable(ip):
                 form = list(dict(request.form.lists()).values())
-                squad = form[-1][0]
-                songs = form[0]
+                if len(form) != 0:
+                    squad = form[-1][0]
+                    songs = form[0]
 
-                if ip not in config_read()['admin-ip']:
-                    db.set_vote_status(ip, False)
+                    if ip not in config_read()['admin-ip']:
+                        db.set_vote_status(ip, False)
 
-                if squad in '1234':
-                    for song in songs:
-                        if db.squad_song_exist(song, squad):
-                            db.increase_squad_song_wight(song, squad)
-                        else:
-                            db.add_song_to_squad(song, squad)
-                        db.increase_song_wight(song)
-                        logger.info(f'[{ip}] проголосовал как отрядник')
-                else:
-                    for song in form[0]:
-                        db.increase_song_wight(song)
-                        logger.info(f'[{ip}] проголосовал как работник')
+                    if squad in '1234':
+                        for song in songs:
+                            if db.squad_song_exist(song, squad):
+                                db.increase_squad_song_wight(song, squad)
+                            else:
+                                db.add_song_to_squad(song, squad)
+                            db.increase_song_wight(song)
+                            logger.info(f'[{ip}] проголосовал как отрядник')
+                    else:
+                        for song in form[0]:
+                            db.increase_song_wight(song)
+                            logger.info(f'[{ip}] проголосовал как работник')
 
-                return redirect(request.path, code=302)
+                    return redirect(request.path, code=302)
             return render_template('index.html', data=db.get_songs(), is_voteable=db.is_votable(ip),
                                    is_ph=ip == config_read()['ph-ip'])
         except requests.exceptions.InvalidHeader:
             logger.error('неудачная аутентификация')
     logger.info('сервер использовал localhost подключение')
-    return 'использование localhost или 127.0.0.1 не допускается'
+    return redirect('http://vympel.one')
 
 
 @app.route('/upload-photo')
