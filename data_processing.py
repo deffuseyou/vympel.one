@@ -110,18 +110,24 @@ def upload_to_album(album_id, file, db):
 
     print(file)
     with open(file, 'rb') as photo:
-        response = vk_session.http.post(upload_url, files={'photo': ('photo.jpg', photo)})
-        photo_data = \
-            vk.photos.save(group_id=group_id, album_id=album_id,
-                           server=response.json()['server'],
-                           photos_list=response.json()['photos_list'],
-                           hash=response.json()['hash'])[0]
-        # выводим ссылку на загруженную фотографию
-        print(f"{file}".replace(config_read()['photo-path'], ''))
-        print(photo_data)
-        db.add_uploaded_photo(f"{file}".replace(config_read()['photo-path'], ''),
-                              'https://vk.com/photo{}_{}'.format(photo_data['owner_id'],
-                                                                 photo_data['id']))
+        try:
+            response = vk_session.http.post(upload_url, files={'photo': ('photo.jpg', photo)})
+            photo_data = \
+                vk.photos.save(group_id=group_id, album_id=album_id,
+                               server=response.json()['server'],
+                               photos_list=response.json()['photos_list'],
+                               hash=response.json()['hash'])[0]
+            # выводим ссылку на загруженную фотографию
+            print(f"{file}".replace(config_read()['photo-path'], ''))
+            print(photo_data)
+            db.add_uploaded_photo(f"{file}".replace(config_read()['photo-path'], ''),
+                                  'https://vk.com/photo{}_{}'.format(photo_data['owner_id'],
+                                                                     photo_data['id']))
+        except Exception as e:
+            print(e)
+            upload_to_album(album_id, file, db)
+
+
 
 
 def photo_uploader():

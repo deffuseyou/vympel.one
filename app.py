@@ -31,7 +31,7 @@ db = SQLighter(database='vympel.one',
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-#app.config['DEBUG'] = True
+# app.config['DEBUG'] = True
 
 token = os.environ['TG_BOT_TOKEN']
 bot = telegram.Bot(token=token)
@@ -65,7 +65,7 @@ def index():
                     # проверяем подключение к интернету и отправляет оповещение в тг
                     if is_connected():
                         for telegram_id in config_read()['admin-telegram-id']:
-                            bot.send_message(telegram_id, f'{text}')
+                            bot.send_message(telegram_id, f'Сообщение:\n{text}')
                         logger.info(f'[{ip}] сообщение в тг отправлено ')
                     else:
                         logger.info(f'[{ip}] сообщение в тг не отправлено, отсутствует подключение к интернету')
@@ -97,7 +97,7 @@ def index():
 
                     return redirect(request.path, code=302)
             return render_template('index.html', data=db.get_songs(), is_voteable=db.is_votable(ip),
-                                   is_ph=ip == config_read()['ph-ip'])
+                                   is_ph=ip in config_read()['ph-ip'])
         except requests.exceptions.InvalidHeader:
             logger.error('неудачная аутентификация')
     logger.info('сервер использовал localhost подключение')
