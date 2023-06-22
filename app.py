@@ -89,7 +89,7 @@ def index():
                             else:
                                 db.add_song_to_squad(song, squad)
                             db.increase_song_wight(song)
-                            logger.info(f'[{ip}] проголосовал как отрядник')
+                        logger.info(f'[{ip}] проголосовал как отрядник')
                     else:
                         for song in form[0]:
                             db.increase_song_wight(song)
@@ -230,3 +230,4 @@ def not_found_error(e):
 
 if __name__ == "__main__":
     socketio.run(app, host='0.0.0.0', port=80)
+    # cat /proc/net/arp | grep '192.168.0.100 ' | awk '{print $4}'
