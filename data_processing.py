@@ -11,6 +11,7 @@ import yt_dlp
 
 # from speechkit import Session, SpeechSynthesis
 from sqlighter import SQLighter
+from collections import Counter
 
 
 def config_read():
@@ -25,6 +26,25 @@ def is_connected():
     except OSError:
         pass
     return False
+
+
+def transform_tuple(tuple_input):
+    count_dict = {}
+    transformed_tuple = []
+
+    # Подсчет количества вхождений элементов в кортеже
+    for element in tuple_input:
+        if element not in count_dict:
+            count_dict[element] = 1
+        else:
+            count_dict[element] += 1
+
+    # Добавление элементов в преобразованный кортеж согласно правилам
+    for element in tuple_input:
+        if count_dict[element] % 2 != 0:  # Удаление элемента, если встречается четное число раз
+            transformed_tuple.append(element)
+
+    return transformed_tuple
 
 
 # def message_read(message):
@@ -126,8 +146,6 @@ def upload_to_album(album_id, file, db):
         except Exception as e:
             print(e)
             upload_to_album(album_id, file, db)
-
-
 
 
 def photo_uploader():

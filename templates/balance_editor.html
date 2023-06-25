@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>редактирование баланса</title>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/socket.io.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        .container {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .custom-switch-label {
+            border: 1px solid black;
+            padding: 20px;
+            display: block;
+            text-align: center;
+            font-weight: 500;
+            background-color: #ffffff;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .custom-switch-label.active {
+            background-color: #000000;
+            color: white;
+        }
+
+        #amount:focus {
+            border-color: black;
+            box-shadow: none;
+            outline: 0;
+        }
+
+        .btn-black {
+            border: 0;
+            background-color: #000000;
+            color: white;
+        }
+
+        .btn-black:hover {
+            background-color: #282828;
+            color: white;
+        }
+
+        .btn-black:active {
+            background-color: #3f3f3f;
+            border: 0;
+            color: white;
+        }
+
+        .input-sum {
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3 class="mb-3 text-center">редактирование баланса</h3>
+    <form method="POST">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label id="squad_1_e" for="switch1" class="custom-switch-label">1 отряд: загрузка...</label>
+                </div>
+                <div class="form-group">
+                    <label id="squad_2_e" for="switch2" class="custom-switch-label">2 отряд: загрузка...</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label id="squad_3_e" for="switch3" class="custom-switch-label">3 отряд: загрузка...</label>
+                </div>
+                <div class="form-group">
+                    <label id="squad_4_e" for="switch4" class="custom-switch-label">4 отряд: загрузка...</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="input-sum" for="amount">введи сумму:</label>
+                    <input type="text" id="amount" class="form-control" name="amount">
+                </div>
+                <button id="addButton" class="btn btn-black" type="submit">добавить</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var labels = document.getElementsByClassName("custom-switch-label");
+
+        Array.prototype.forEach.call(labels, function (label) {
+            label.addEventListener("click", function () {
+                if (label.classList.contains("active")) {
+                    label.classList.remove("active");
+                } else {
+                    label.classList.add("active");
+                }
+
+                var input = document.createElement("input");
+                input.type = "hidden";
+                input.name = "squad";
+                input.value = label.innerText[0];
+
+                document.querySelector("form").appendChild(input);
+            });
+        });
+    });
+
+</script>
+</body>
+</html>

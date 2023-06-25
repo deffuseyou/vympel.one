@@ -2,19 +2,15 @@ import logging
 import threading
 from datetime import *
 from threading import Thread, Event
-
 import requests
 import telegram
 from flask import Flask, render_template, send_file, request, redirect
 from flask_socketio import SocketIO
-
 from data_processing import *
 
 __author__ = 'deffuseyou'
 
-# TODO: cделать нормальную страницу отряда
 # TODO: обновить README
-# TODO: добавить иконки и title
 
 
 logging.basicConfig(handlers=[logging.StreamHandler(),
@@ -97,11 +93,12 @@ def index():
 
                     return redirect(request.path, code=302)
             return render_template('index.html', data=db.get_songs(), is_voteable=db.is_votable(ip),
-                                   is_ph=ip in config_read()['ph-ip'])
+                                   is_ph=ip in config_read()['ph-ip'],
+                                   is_admin=ip in config_read()['admin-ip'])
         except requests.exceptions.InvalidHeader:
             logger.error('неудачная аутентификация')
     logger.info('сервер использовал localhost подключение')
-    return redirect('http://vympel.one')
+    return redirect(config_read()['host'])
 
 
 @app.route('/upload-photo')
@@ -110,6 +107,25 @@ def upload_photo():
     threading.Thread(target=zip_photo).start()
     return 'фото начали загружаться'
 
+
+@app.route('/balance-editor', methods=['GET', 'POST'])
+def balance_editor():
+    ip = request.remote_addr
+
+    if request.method == 'POST':
+        squads = list(set(transform_tuple(request.form.getlist('squad'))))
+
+        try:
+            amount = int(request.form['amount'])
+        except ValueError:
+            amount = 0
+
+        print(squads, amount)
+        db.update_balances(squads, amount)
+        return redirect('/')
+    if ip in config_read()['admin-ip']:
+        return render_template('balance_editor.html')
+    return redirect(config_read()['files-path'])
 
 
 @app.route('/karaoke', methods=['GET', 'POST'])
@@ -134,15 +150,7 @@ def internet():
 
 @app.route('/send-files')
 def send_files():
-    return redirect('http://vympel.one:81')
-
-
-@app.route('/photo-processing')
-def internet1():
-    # upload_photo()
-    # zip_photo()
-    return redirect('http://192.168.0.140:81')
-
+    return redirect(config_read()['files-path'] + ':81')
 
 
 @app.route('/wallet')

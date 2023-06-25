@@ -83,9 +83,10 @@ class SQLighter:
             self.cursor.execute("SELECT balance FROM wallet ORDER BY squad")
             return self.cursor.fetchall()
 
-    def update_balance(self, squad, value):
+    def update_balances(self, squads, value):
         with self.connection:
-            return self.cursor.execute("UPDATE wallet SET balance = balance + %s WHERE squad = %s", (value, squad))
+            for squad in squads:
+                self.cursor.execute("UPDATE wallet SET balance = balance + %s WHERE squad = %s", (value, squad))
 
     def reset(self, ):
         with self.connection:

@@ -29,7 +29,7 @@
     </header>
     <h5>ближайшая дискотека: 21 июня</h5>
     <hr/>
-    {# <p>Просьба не топтать пол под хардбас</p>#}
+    {# <p>просьба не топтать пол под хардбас</p>#}
     {#
     <hr/>
     #}
@@ -121,9 +121,6 @@
     <div class="row">
         <div class="col-md-6">
             <ul class="icon-list">
-                {% if is_ph %}
-                    <li><a href="{{ url_for('upload_photo') }}">загрузить фото</a></li>
-                {% endif %}
                 {% if is_voteable %}
                     <li><a data-toggle="modal" data-target="#exampleModal"
                            href="https://getbootstrap.com/docs/4.6/getting-started/introduction">выбор песен</a></li>
@@ -131,10 +128,20 @@
                 <li><a href="{{ url_for('song_rating') }}">топ песен</a></li>
                 <li><a href="{{ url_for('squad_rating') }}">топ по отрядам</a></li>
                 <li><a href="{{ url_for('send_files') }}">обмен файлами</a></li>
-<!--                <li><a href="{{ url_for('wallet') }}">баланс отрядов</a></li>-->
+                <li><a href="{{ url_for('wallet') }}">баланс отрядов</a></li>
                 <li><a data-toggle="modal" data-target="#exampleModal1"
                        href="https://getbootstrap.com/docs/4.6/getting-started/build-tools">анонимное сообщение</a></li>
                 <li><a href="{{ url_for('files') }}">скачать фотографии</a></li>
+
+                {% if is_ph and is_admin %}
+                    <hr/>
+                {% endif %}
+                {% if is_ph %}
+                    <li><a href="{{ url_for('upload_photo') }}">загрузить фото</a></li>
+                {% endif %}
+                {% if is_admin %}
+                    <li><a href="{{ url_for('balance_editor') }}">управление балансом</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>
