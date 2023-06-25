@@ -136,10 +136,12 @@
                 {% if is_ph and is_admin %}
                     <hr/>
                 {% endif %}
-                {% if is_ph %}
+                {% if is_ph or is_admin%}
                     <li><a href="{{ url_for('upload_photo') }}">загрузить фото</a></li>
                 {% endif %}
                 {% if is_admin %}
+                    <li><a href="{{ url_for('karaoke') }}">караоке</a></li>
+                    <li><a href="{{ url_for('internet') }}">интернет</a></li>
                     <li><a href="{{ url_for('balance_editor') }}">управление балансом</a></li>
                 {% endif %}
             </ul>

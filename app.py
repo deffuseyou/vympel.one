@@ -132,7 +132,7 @@ def balance_editor():
 def karaoke():
     if request.method == 'POST':
         search_query = request.form['password']
-        download_and_play_karaoke(search_query)
+        download_and_play_karaoke(search_query, request.remote_addr)
     return render_template('karaoke.html')
 
 
@@ -238,4 +238,3 @@ def not_found_error(e):
 
 if __name__ == "__main__":
     socketio.run(app, host='0.0.0.0', port=80)
-    # cat /proc/net/arp | grep '192.168.0.100 ' | awk '{print $4}'

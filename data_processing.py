@@ -90,7 +90,7 @@ def parse_music_folder():
             pass
 
 
-def download_and_play_karaoke(search_query):
+def download_and_play_karaoke(search_query, ip):
     ydl = yt_dlp.YoutubeDL({'format': "bv*+ba/b",
                             'outtmpl': 'z:\\караоке\\%(title)s.%(ext)s'})
 
@@ -104,7 +104,10 @@ def download_and_play_karaoke(search_query):
             video_link = first_video['id']
             title = f'{video_title}.webm'
 
-    subprocess.call(['C:\Program Files\MPC-HC\mpc-hc64.exe', f'z:/караоке/{title}'])
+    ssh = paramiko.SSHClient()
+    ssh.connect(ip, username='admin', password=os.environ['ADMIN_PASSWORD'])
+    ssh.exec_command(fr'c:\Program Files\MPC-HC\mpc-hc64.exe "z:\лагерь\караоке\{title}"')
+    ssh.close()
 
 
 def zip_photo():
@@ -195,6 +198,16 @@ def add_ip(ip_address):
     with sftp_client.open(config['whitelist-path'], 'a+') as file:
         # Запись данных в файл
         file.write(f'{ip_address}\n')
+
+        command = f"cat /proc/net/arp | grep '{ip_address}' | " + "awk '{print $4}'"
+        stdin, stdout, stderr = ssh_client.exec_command(command)
+        mac_address = stdout.read().decode('utf-8').upper()
+
+        ssh_client.exec_command(f"uci set dhcp.@host[-1].ip = f'{ip_address}'")
+        ssh_client.exec_command(f"uci set dhcp.@host[-1].mac = f'{mac_address}'")
+        ssh_client.exec_command("uci commit dhcp")
+        ssh_client.exec_command("/etc/init.d/dnsmasq restart")
+
         # Выполнение команды перезагрузки фаервола
         ssh_client.exec_command('/etc/init.d/firewall restart')
 
