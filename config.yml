@@ -2,7 +2,20 @@ router:
   ip: '192.168.1.1'
   user: 'root'
   password: 'pusdes69'
-host: 'http://192.170.0.181'
+
+db:
+  host: '192.168.0.100'
+  port: 5432
+  database: 'vympel.one'
+  user: 'postgres'
+
+host: '192.170.0.181'
+
+admin-telegram-id:
+  - 518325236
+  - 864662054
+  - 839840272
+  - 1061060541
 admin-ip:
   - '192.170.0.181'
   - '192.170.0.117'
@@ -10,17 +23,17 @@ admin-ip:
 ph-ip:
   - '192.170.0.181'
   - '192.168.0.100'
-admin-telegram-id:
-  - 518325236
-  - 864662054
-  - 839840272
-  - 1061060541
+
 music-path: 'z:/музыка/дискотека'
 files-path: 'z:/фото/архивы/2023/1 поток/'
 whitelist-path: '/etc/qwert.txt'
 photo-path: 'z:/фото'
-now-photo-path: 'z:\фото\2023\1 поток'
+now-photo-path: 'z:/фото/2023/1 поток'
 monitor-path: 'z:/вд/2023/1 поток'
+
+disco-dates:
+  - 01.06.2023
+
 album_ids:
   - "масленица":
       - 293714146

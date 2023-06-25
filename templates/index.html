@@ -1,21 +1,17 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <title>vympel</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/starter.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}"/>
-
-    <title>vympel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <style>
         .vympel {
             margin-top: -30px;
         }
-
-
     </style>
 </head>
 <body>
@@ -27,13 +23,12 @@
             </a>
         </h1>
     </header>
-    <h5>ближайшая дискотека: 21 июня</h5>
-    <hr/>
+    <h5>ближайшая дискотека: {{ disco_date}}</h5>
+    <hr>
     {# <p>просьба не топтать пол под хардбас</p>#}
     {#
     <hr/>
     #}
-
     <!-- Modal -->
     <div class="modal fade" id="songChoice" tabindex="-1" role="dialog" aria-labelledby="songChoiceLabel"
          aria-hidden="true">
@@ -55,29 +50,15 @@
                         </select>
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">отряд:</label>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="squad" id="squad_1"
-                                       value="1">
-                                <label class="form-check-label" for="squad_1">1</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="squad" id="squad_2"
-                                       value="2">
-                                <label class="form-check-label" for="squad_2">2</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="squad" id="squad_3"
-                                       value="3">
-                                <label class="form-check-label" for="squad_3">3</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="squad" id="squad_4"
-                                       value="4">
-                                <label class="form-check-label" for="squad_4">4</label>
-                            </div>
+                            {% for squad in range(1, 4 + 1) %}
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="squad" id="squad_{{ squad }}"
+                                           value="{{ squad }}">
+                                    <label class="form-check-label" for="squad_{{ squad }}">{{ squad }}</label>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">закрыть</button>
                         <button type="submit" class="btn btn-primary">отправить</button>
@@ -106,7 +87,6 @@
                             <label for="message-text" class="col-form-label">сообщение:</label>
                             <textarea name="message" class="form-control" id="message-text"></textarea>
                         </div>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">закрыть</button>
@@ -116,8 +96,6 @@
             </div>
         </div>
     </div>
-
-
     <div class="row">
         <div class="col-md-6">
             <ul class="icon-list">
@@ -132,8 +110,8 @@
                 <li><a data-toggle="modal" data-target="#anonMessage"
                        href="https://getbootstrap.com/docs/4.6/getting-started/build-tools">анонимное сообщение</a></li>
                 <li><a href="{{ url_for('files') }}">скачать фотографии</a></li>
-                {% if is_ph or is_admin%}
-                    <hr/>
+                {% if is_ph or is_admin %}
+                    <hr>
                     <li><a href="{{ url_for('upload_photo') }}">загрузить фото</a></li>
                 {% endif %}
                 {% if is_admin %}

@@ -7,6 +7,9 @@ import telegram
 from flask import Flask, render_template, send_file, request, redirect
 from flask_socketio import SocketIO
 from data_processing import *
+import locale
+
+locale.setlocale(locale.LC_TIME, 'ru')
 
 __author__ = 'deffuseyou'
 
@@ -19,11 +22,11 @@ logging.basicConfig(handlers=[logging.StreamHandler(),
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-db = SQLighter(database='vympel.one',
-               user='postgres',
+db = SQLighter(database=config_read()['db']['database'],
+               user=config_read()['db']['user'],
                password=os.environ['ADMIN_PASSWORD'],
-               host='192.168.0.100',
-               port=5432)
+               host=config_read()['db']['host'],
+               port=config_read()['db']['port'])
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -98,11 +101,12 @@ def index():
                     return redirect(request.path, code=302)
             return render_template('index.html', data=db.get_songs(), is_voteable=db.is_votable(ip),
                                    is_ph=ip in config_read()['ph-ip'],
-                                   is_admin=ip in config_read()['admin-ip'])
+                                   is_admin=ip in config_read()['admin-ip'],
+                                   disco_date=closest_disco_date(config_read()['disco-dates']))
         except requests.exceptions.InvalidHeader:
             logger.error('неудачная аутентификация')
     logger.info('сервер использовал localhost подключение')
-    return redirect(config_read()['host'])
+    return redirect('http://' + config_read()['host'])
 
 
 @app.route('/upload-photo')

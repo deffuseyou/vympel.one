@@ -13,6 +13,17 @@ import yt_dlp
 from sqlighter import SQLighter
 from collections import Counter
 
+from datetime import datetime
+
+
+def closest_disco_date(dates):
+    converted_dates = [datetime.strptime(date, "%d.%m.%Y") for date in dates]
+    closest_date = min(converted_dates, key=lambda x: abs(x - datetime.now()))
+    months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+              'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+
+    return closest_date.strftime("%d {month}").format(month=months[closest_date.month - 1]).lstrip('0')
+
 
 def config_read():
     config = yaml.load(open('config.yml'), Loader=yaml.SafeLoader)
