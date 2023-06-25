@@ -202,7 +202,7 @@ def give_internet_access(ip_address):
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh_client.connect(hostname=config['router']['ip'],
                        username=config['router']['user'],
-                       password=config['router']['password'])
+                       password=os.environ['ROUTER_PASSWORD'])
 
     # Открытие файла для дозаписи
     sftp_client = ssh_client.open_sftp()

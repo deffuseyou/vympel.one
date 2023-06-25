@@ -1,7 +1,6 @@
 router:
   ip: '192.168.1.1'
   user: 'root'
-  password: 'pusdes69'
 
 db:
   host: '192.168.0.100'
