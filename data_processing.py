@@ -184,7 +184,7 @@ def photo_uploader():
     into_folder(folder_path)
 
 
-def add_ip(ip_address):
+def give_internet_access(ip_address):
     config = config_read()
     # Подключение к удаленному серверу
     ssh_client = paramiko.SSHClient()

@@ -140,8 +140,8 @@ def karaoke():
 def internet():
     if request.method == 'POST':
         password = request.form['password']
-        if password == 'qwerty69':
-            add_ip(request.remote_addr)
+        if password == os.environ['INTERNET_ACCESS_PASSWORD']:
+            give_internet_access(request.remote_addr)
             return redirect('https://vk.com/dol_vympel')
         else:
             return redirect('/')
