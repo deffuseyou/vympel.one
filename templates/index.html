@@ -132,11 +132,9 @@
                 <li><a data-toggle="modal" data-target="#exampleModal1"
                        href="https://getbootstrap.com/docs/4.6/getting-started/build-tools">анонимное сообщение</a></li>
                 <li><a href="{{ url_for('files') }}">скачать фотографии</a></li>
-
-                {% if is_ph and is_admin %}
-                    <hr/>
-                {% endif %}
+            5
                 {% if is_ph or is_admin%}
+                    <hr/>
                     <li><a href="{{ url_for('upload_photo') }}">загрузить фото</a></li>
                 {% endif %}
                 {% if is_admin %}
