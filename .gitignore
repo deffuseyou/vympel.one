@@ -2,5 +2,6 @@
 venv/
 __pycache__/
 vympel.one.log
+telegram_bot.log
 desktop.ini
 .env

@@ -20,9 +20,9 @@ class SQLighter:
             self.cursor.execute('SELECT * FROM squad_rating WHERE song = %s AND squad = %s', (title, squad))
             return bool(len(self.cursor.fetchall()))
 
-    def add_message_to_rubka(self, content, datetime):
+    def add_message(self, content, datetime):
         with self.connection:
-            self.cursor.execute("INSERT INTO message_to_rubka (content, datetime) VALUES(%s, %s)", (content, datetime))
+            self.cursor.execute("INSERT INTO message (content, datetime) VALUES(%s, %s)", (content, datetime))
 
     def add_song_to_squad(self, song, squad):
         with self.connection:

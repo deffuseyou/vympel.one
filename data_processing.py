@@ -56,7 +56,7 @@ def transform_tuple(tuple_input):
 
 def transmit_message(text):
     engine = pyttsx3.init()
-    engine.setProperty('voice', engine.getProperty('voices')[0].id)  # Выберите желаемый голос
+    engine.setProperty('voice', engine.getProperty('voices')[0].id)
     engine.say(text)
     engine.runAndWait()
 

@@ -8,6 +8,10 @@ from flask import Flask, render_template, send_file, request, redirect
 from flask_socketio import SocketIO
 from data_processing import *
 import locale
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+
+# Обработчик команды /start
+
 
 locale.setlocale(locale.LC_TIME, 'ru')
 
@@ -58,13 +62,15 @@ def index():
             # считываем сообщение
             if len(request.args) != 0:
                 for text in dict(request.args).values():
-                    db.add_message_to_rubka(text, datetime.now(tz=timezone(timedelta(hours=3), name='МСК')))
+                    db.add_message(text, datetime.now(tz=timezone(timedelta(hours=3), name='МСК')))
                     logger.info(f'[{ip}] отправил сообщение {text}')
 
                     # проверяем подключение к интернету и отправляет оповещение в тг
                     if is_connected():
+                        keyboard = [[InlineKeyboardButton("транслировать", callback_data='transmit_massage')]]
+                        reply_markup = InlineKeyboardMarkup(keyboard)
                         for telegram_id in config_read()['admin-telegram-id']:
-                            bot.send_message(telegram_id, f'Сообщение:\n{text}')
+                            bot.send_message(telegram_id, f'Сообщение:\n{text}', reply_markup=reply_markup)
                         logger.info(f'[{ip}] сообщение в тг отправлено ')
                     else:
                         logger.info(f'[{ip}] сообщение в тг не отправлено, отсутствует подключение к интернету')
