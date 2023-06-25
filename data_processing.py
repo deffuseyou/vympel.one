@@ -21,7 +21,7 @@ def config_read():
 
 def is_connected():
     try:
-        socket.create_connection(("1.1.1.1", 53))
+        socket.create_connection(("1.1.1.1", 80))
         return True
     except OSError:
         pass

@@ -35,13 +35,13 @@
     #}
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="songChoice" tabindex="-1" role="dialog" aria-labelledby="songChoiceLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form method="post">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">выбор песен</h5>
+                        <h5 class="modal-title" id="songChoiceLabel">выбор песен</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -86,12 +86,12 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="anonMessage" tabindex="-1" role="dialog" aria-labelledby="songChoiceLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel1">сообщение</h5>
+                    <h5 class="modal-title" id="songChoiceLabel1">сообщение</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -122,17 +122,16 @@
         <div class="col-md-6">
             <ul class="icon-list">
                 {% if is_voteable %}
-                    <li><a data-toggle="modal" data-target="#exampleModal"
+                    <li><a data-toggle="modal" data-target="#songChoice"
                            href="https://getbootstrap.com/docs/4.6/getting-started/introduction">выбор песен</a></li>
                 {% endif %}
                 <li><a href="{{ url_for('song_rating') }}">топ песен</a></li>
                 <li><a href="{{ url_for('squad_rating') }}">топ по отрядам</a></li>
                 <li><a href="{{ url_for('send_files') }}">обмен файлами</a></li>
                 <li><a href="{{ url_for('wallet') }}">баланс отрядов</a></li>
-                <li><a data-toggle="modal" data-target="#exampleModal1"
+                <li><a data-toggle="modal" data-target="#anonMessage"
                        href="https://getbootstrap.com/docs/4.6/getting-started/build-tools">анонимное сообщение</a></li>
                 <li><a href="{{ url_for('files') }}">скачать фотографии</a></li>
-            5
                 {% if is_ph or is_admin%}
                     <hr/>
                     <li><a href="{{ url_for('upload_photo') }}">загрузить фото</a></li>

@@ -27,7 +27,7 @@ db = SQLighter(database='vympel.one',
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-# app.config['DEBUG'] = True
+app.config['DEBUG'] = True
 
 token = os.environ['TG_BOT_TOKEN']
 bot = telegram.Bot(token=token)
@@ -70,16 +70,20 @@ def index():
 
             # обрабатываем отправленные песни
             if request.method == 'POST' and db.is_votable(ip):
-                form = list(dict(request.form.lists()).values())
-                if len(form) != 0:
-                    squad = form[-1][0]
-                    songs = form[0]
+                form = dict(request.form.lists())
+                if 'song' in form:
+                    songs = form['song']
+                    if 'squad' in form:
+                        squad = form['squad'][0]
+                    else:
+                        squad = '5'
 
                     if ip not in config_read()['admin-ip']:
                         db.set_vote_status(ip, False)
 
                     if squad in '1234':
                         for song in songs:
+                            print(song, squad)
                             if db.squad_song_exist(song, squad):
                                 db.increase_squad_song_wight(song, squad)
                             else:
@@ -87,9 +91,9 @@ def index():
                             db.increase_song_wight(song)
                         logger.info(f'[{ip}] проголосовал как отрядник')
                     else:
-                        for song in form[0]:
+                        for song in songs:
                             db.increase_song_wight(song)
-                            logger.info(f'[{ip}] проголосовал как работник')
+                        logger.info(f'[{ip}] проголосовал как работник')
 
                     return redirect(request.path, code=302)
             return render_template('index.html', data=db.get_songs(), is_voteable=db.is_votable(ip),
