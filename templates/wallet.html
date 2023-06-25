@@ -55,6 +55,30 @@
             align-items: center;
         }
     </style>
+    <script>
+        // Обработчик клика на div
+        $(document).ready(function() {
+            $("#squad_1").click(function() {
+                // Переход на другую страницу
+                window.location.href = 'http://' + document.domain + ':' + location.port + '/wallet/1';
+            });
+
+            $("#squad_2").click(function() {
+                // Переход на другую страницу
+                window.location.href = 'http://' + document.domain + ':' + location.port + '/wallet/2';
+            });
+
+            $("#squad_3").click(function() {
+                // Переход на другую страницу
+                window.location.href = 'http://' + document.domain + ':' + location.port + '/wallet/3';
+            });
+
+            $("#squad_4").click(function() {
+                // Переход на другую страницу
+                window.location.href = 'http://' + document.domain + ':' + location.port + '/wallet/4';
+            });
+        });
+    </script>
 </head>
 <body>
 

@@ -166,7 +166,7 @@ def wallet_slash():
 @app.route('/wallet/<squad>')
 def personal_wallet(squad):
     if squad in '12345':
-        page = f'balance_{squad}_squad.html'
+        page = f'wallet_{squad}_squad.html'
         return render_template(page)
     else:
         return render_template('404.html'), 404
