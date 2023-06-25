@@ -1,18 +1,14 @@
 import os
 import shutil
+import zipfile
 import socket
 import sqlite3
-import subprocess
-
 import paramiko
 import vk_api
 import yaml
 import yt_dlp
-
-# from speechkit import Session, SpeechSynthesis
+import pyttsx3
 from sqlighter import SQLighter
-from collections import Counter
-
 from datetime import datetime
 
 
@@ -58,29 +54,11 @@ def transform_tuple(tuple_input):
     return transformed_tuple
 
 
-# def message_read(message):
-#     oauth_token = "AQAAAAAsHJkgAAhjwXshft5QgUuRkX0Wubhjlk"
-#     catalog_id = "b1gd129pp9ha0vnvf5g7"
-#
-#     # Экземпляр класса `Session` можно получать из разных данных
-#     session = Session.from_yandex_passport_oauth_token(oauth_token, catalog_id)
-#
-#     # Создаем экземпляр класса `SpeechSynthesis`, передавая `session`,
-#     # который уже содержит нужный нам IAM-токен
-#     # и другие необходимые для API реквизиты для входа
-#     synthesizeAudio = SpeechSynthesis(session)
-#
-#     # Метод `.synthesize()` позволяет синтезировать речь и сохранять ее в файл
-#     synthesizeAudio.synthesize(
-#         'out.wav', text='Привет мир!',
-#         voice='oksana', format='lpcm', sampleRateHertz='16000'
-#     )
-#
-#     # `.synthesize_stream()` возвращает объект типа `io.BytesIO()` с аудиофайлом
-#     audio_data = synthesizeAudio.synthesize_stream(
-#         text='Привет мир, снова!',
-#         voice='oksana', format='lpcm', sampleRateHertz='16000'
-#     )
+def transmit_message(text):
+    engine = pyttsx3.init()
+    engine.setProperty('voice', engine.getProperty('voices')[0].id)  # Выберите желаемый голос
+    engine.say(text)
+    engine.runAndWait()
 
 
 def parse_music_folder():
@@ -126,10 +104,23 @@ def zip_photo():
 
     for subfolder in subfolders:
         if any(os.scandir(subfolder)):
-            archive_name = os.path.join(config_read()['files-path'], os.path.basename(subfolder))
-
-            shutil.make_archive(archive_name, 'zip', subfolder)
-            print(f'Создан архив {archive_name}')
+            archive_name = os.path.join(config_read()['archives-path'], os.path.basename(subfolder))
+            archive_path = archive_name + '.zip'
+            print(archive_path)
+            if os.path.exists(archive_path):
+                try:
+                    with zipfile.ZipFile(archive_path, 'r') as archive:
+                        print(len(os.listdir(subfolder)), len(archive.namelist()))
+                        if abs(len(os.listdir(subfolder)) - len(archive.namelist())) > 1:
+                            shutil.make_archive(archive_name, 'zip', subfolder)
+                            print(f'Дополнен архив {archive_name}')
+                except zipfile.BadZipFile:
+                    os.remove(archive_path)
+                    zip_photo()
+            else:
+                print('нет файла')
+                shutil.make_archive(archive_name, 'zip', subfolder)
+                print(f'Создан архив {archive_name}')
 
 
 def upload_to_album(album_id, file, db):

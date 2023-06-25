@@ -9,6 +9,7 @@ db:
   user: 'postgres'
 
 host: '192.170.0.181'
+snapdrop-host: '192.168.0.100'
 
 admin-telegram-id:
   - 518325236
@@ -24,7 +25,7 @@ ph-ip:
   - '192.168.0.100'
 
 music-path: 'z:/музыка/дискотека'
-files-path: 'z:/фото/архивы/2023/1 поток/'
+archives-path: 'z:/фото/архивы/2023/1 поток/'
 whitelist-path: '/etc/qwert.txt'
 photo-path: 'z:/фото'
 now-photo-path: 'z:/фото/2023/1 поток'

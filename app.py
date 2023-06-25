@@ -133,7 +133,7 @@ def balance_editor():
         return redirect('/')
     if ip in config_read()['admin-ip']:
         return render_template('balance_editor.html')
-    return redirect(config_read()['files-path'])
+    return redirect('http://' + config_read()['host'])
 
 
 @app.route('/karaoke', methods=['GET', 'POST'])
@@ -158,7 +158,7 @@ def internet():
 
 @app.route('/send-files')
 def send_files():
-    return redirect(config_read()['files-path'] + ':81')
+    return redirect('http://' + config_read()['snapdrop-host'] + ':81')
 
 
 @app.route('/wallet')
@@ -200,7 +200,7 @@ def song_rating():
 
 @app.route('/files')
 def files():
-    path = config_read()['files-path']
+    path = config_read()['archives-path']
     return render_template('files.html',
                            folders=[f for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))],
                            files=[f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))],
@@ -209,7 +209,7 @@ def files():
 
 @app.route('/files/<path:path>')
 def sub_files(path):
-    new_path = config_read()['files-path'] + path
+    new_path = config_read()['archives-path'] + path
     if os.path.isdir(new_path):
         return render_template('files.html',
                                folders=[f for f in os.listdir(new_path) if os.path.isdir(os.path.join(new_path, f))],
