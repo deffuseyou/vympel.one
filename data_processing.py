@@ -34,6 +34,15 @@ def is_connected():
         pass
     return False
 
+def send_message_to_telegram(name, message):
+    if is_connected():
+        keyboard = [[InlineKeyboardButton("транслировать", callback_data='transmit_massage')]]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        for telegram_id in config_read()['admin-telegram-id']:
+            bot.send_message(telegram_id, f'Сообщение от {name}:\n{message}', reply_markup=reply_markup)
+        logger.info(f'[{ip} ({name})] сообщение в тг отправлено ')
+    else:
+        logger.info(f'[{ip} ({name})] сообщение в тг не отправлено, отсутствует подключение к интернету')
 
 def transform_tuple(tuple_input):
     count_dict = {}

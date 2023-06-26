@@ -4,8 +4,12 @@
     <script src="static/js/jquery.min.js"></script>
     <script type="text/javascript" src="static/js/socket.io.min.js"></script>
     <script src="static/js/script.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}"/>
     <style>
+        @font-face {
+            font-family: AireExterior;
+            src: url('static/fonts/AireExterior.ttf');
+        }
+
         html, body {
             height: 100%;
             margin: 0;
@@ -54,26 +58,34 @@
             justify-content: center;
             align-items: center;
         }
+
+        .vympel {
+            font-family: "AireExterior", sans-serif;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            color: #000000;
+        }
     </style>
     <script>
         // Обработчик клика на div
-        $(document).ready(function() {
-            $("#squad_1").click(function() {
+        $(document).ready(function () {
+            $("#squad_1").click(function () {
                 // Переход на другую страницу
                 window.location.href = 'http://' + document.domain + ':' + location.port + '/wallet/1';
             });
 
-            $("#squad_2").click(function() {
+            $("#squad_2").click(function () {
                 // Переход на другую страницу
                 window.location.href = 'http://' + document.domain + ':' + location.port + '/wallet/2';
             });
 
-            $("#squad_3").click(function() {
+            $("#squad_3").click(function () {
                 // Переход на другую страницу
                 window.location.href = 'http://' + document.domain + ':' + location.port + '/wallet/3';
             });
 
-            $("#squad_4").click(function() {
+            $("#squad_4").click(function () {
                 // Переход на другую страницу
                 window.location.href = 'http://' + document.domain + ':' + location.port + '/wallet/4';
             });

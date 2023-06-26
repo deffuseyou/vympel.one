@@ -77,14 +77,14 @@
         {% for folder in folders %}
             <li>
                 <span class="icon">&#x1F4C1;</span>
-                <a href="{{ url_for('sub_files', path = dir + "/" + folder) }}">{{ folder }}</a>
+                <a href="{{ url_for('sub_download_photo', path = dir + "/" + folder) }}">{{ folder }}</a>
             </li>
         {% endfor %}
 
         {% for file in files %}
             <li>
                 <span class="icon">&#x1F4C4;</span>
-                <a href="{{ url_for('sub_files', path = dir + "/" + file) }}">{{ file|replace(".zip", "") }}</a>
+                <a href="{{ url_for('sub_download_photo', path = dir + "/" + file) }}">{{ file|replace(".zip", "") }}</a>
             </li>
         {% endfor %}
     </ul>

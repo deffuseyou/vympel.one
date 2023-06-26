@@ -7,8 +7,25 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/starter.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <style>
+        @font-face {
+            font-family: AireExterior;
+            src: url('static/fonts/AireExterior.ttf');
+        }
+
+        body {
+            color: #000000;
+        }
+
+        .vympel {
+            font-family: "AireExterior", sans-serif;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            color: #000000;
+            margin-top: -30px;
+        }
     </style>
 </head>
 <body>
@@ -106,13 +123,13 @@
                 <li><a href="{{ url_for('wallet') }}">баланс отрядов</a></li>
                 <li><a data-toggle="modal" data-target="#anonMessage"
                        href="https://getbootstrap.com/docs/4.6/getting-started/build-tools">сообщение в рубку</a></li>
-                <li><a href="{{ url_for('files') }}">загрузка фотографий</a></li>
+                <li><a href="{{ url_for('download_photo') }}">загрузка фотографий</a></li>
                 {% if is_ph or is_admin %}
                     </ul>
                     </div>
                     <div class="col-md-6">
                     <ul class="icon-list">
-                    <li><a href="{{ url_for('upload_photo') }}">загрузить фото</a></li>
+                    <li><a href="/" onclick="handleLinkClick(event)">выгрузить фото</a></li>
                 {% endif %}
                 {% if is_admin %}
                     <li><a href="{{ url_for('karaoke') }}">караоке</a></li>
@@ -130,5 +147,22 @@
 <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
+{% if is_ph or is_admin %}
+    <script>
+        function handleLinkClick(event) {
+            // предотвращаем переход по ссылке по умолчанию
+            event.preventDefault();
+
+            // отправляем на бэкэнд
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/upload-photo", true);
+            xhr.send();
+
+            alert("фото начали выгружаться!");
+        }
+
+    </script>
+{% endif %}
+
 </body>
 </html>

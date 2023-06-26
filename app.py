@@ -76,7 +76,8 @@ def index():
                             bot.send_message(telegram_id, f'Сообщение от {name}:\n{message}', reply_markup=reply_markup)
                         logger.info(f'[{ip} ({name})] сообщение в тг отправлено ')
                     else:
-                        logger.info(f'[{ip} ({name})] сообщение в тг не отправлено, отсутствует подключение к интернету')
+                        logger.info(
+                            f'[{ip} ({name})] сообщение в тг не отправлено, отсутствует подключение к интернету')
                 else:
                     db.add_message(message, datetime.now(tz=timezone(timedelta(hours=3),
                                                                      name='МСК')))
@@ -133,11 +134,11 @@ def index():
     return redirect('http://' + config_read()['host'])
 
 
-@app.route('/upload-photo')
+@app.route('/upload-photo', methods=['POST'])
 def upload_photo():
     threading.Thread(target=photo_uploader).start()
     threading.Thread(target=zip_photo).start()
-    return 'фото начали загружаться'
+    return 'success'
 
 
 @app.route('/balance-editor', methods=['GET', 'POST'])
@@ -190,16 +191,26 @@ def wallet():
     return render_template('wallet.html')
 
 
+@app.route('/wallet/5-old')
+def wallet_5_old():
+    return render_template('wallet_5_old.html')
+
+
 @app.route('/wallet/')
 def wallet_slash():
-    return render_template('wallet_slash.html')
+    return redirect('http://' + config_read()['host'] + '/wallet')
 
 
 @app.route('/wallet/<squad>')
 def personal_wallet(squad):
     if squad in '12345':
-        page = f'wallet_{squad}_squad.html'
-        return render_template(page)
+        return render_template('squad_wallet.html',
+                               squad=squad,
+                               logo=config_read()['squads'][f'squad_{squad}']['logo'],
+                               slogan=config_read()['squads'][f'squad_{squad}']['slogan'],
+                               registration_date=config_read()['squads'][f'squad_{squad}']['registration-date'],
+                               squad_size=config_read()['squads'][f'squad_{squad}']['squad-size'],
+                               balance=config_read()['squads'][f'squad_{squad}']['balance'])
     else:
         return render_template('404.html'), 404
 
@@ -222,20 +233,20 @@ def song_rating():
     return render_template('song_rating.html', chart=chart)
 
 
-@app.route('/files')
-def files():
+@app.route('/download-photo')
+def download_photo():
     path = config_read()['archives-path']
-    return render_template('files.html',
+    return render_template('download_photo.html',
                            folders=[f for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))],
                            files=[f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))],
                            dir='', )
 
 
-@app.route('/files/<path:path>')
-def sub_files(path):
+@app.route('/download-photo/<path:path>')
+def sub_download_photo(path):
     new_path = config_read()['archives-path'] + path
     if os.path.isdir(new_path):
-        return render_template('files.html',
+        return render_template('download_photo.html',
                                folders=[f for f in os.listdir(new_path) if os.path.isdir(os.path.join(new_path, f))],
                                files=[f for f in os.listdir(new_path) if os.path.isfile(os.path.join(new_path, f))],
                                dir=path)
