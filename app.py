@@ -61,16 +61,34 @@ def index():
 
             # считываем сообщение
             if len(request.args) != 0:
-                for text in dict(request.args).values():
-                    db.add_message(text, datetime.now(tz=timezone(timedelta(hours=3), name='МСК')))
-                    logger.info(f'[{ip}] отправил сообщение {text}')
+                name = dict(request.args)['name']
+                message = dict(request.args)['message']
+
+                if len(name) != 0:
+                    db.add_message(f'{name}: {message}', datetime.now(tz=timezone(timedelta(hours=3), name='МСК')))
+                    logger.info(f'[{ip} ({name})] отправил сообщение {message}')
 
                     # проверяем подключение к интернету и отправляет оповещение в тг
                     if is_connected():
                         keyboard = [[InlineKeyboardButton("транслировать", callback_data='transmit_massage')]]
                         reply_markup = InlineKeyboardMarkup(keyboard)
                         for telegram_id in config_read()['admin-telegram-id']:
-                            bot.send_message(telegram_id, f'Сообщение:\n{text}', reply_markup=reply_markup)
+                            bot.send_message(telegram_id, f'Сообщение от {name}:\n{message}', reply_markup=reply_markup)
+                        logger.info(f'[{ip} ({name})] сообщение в тг отправлено ')
+                    else:
+                        logger.info(f'[{ip} ({name})] сообщение в тг не отправлено, отсутствует подключение к интернету')
+                else:
+                    db.add_message(message, datetime.now(tz=timezone(timedelta(hours=3),
+                                                                     name='МСК')))
+                    if 'message' in dict(request.args):
+                        logger.info(f'[{ip}] отправил сообщение {message}')
+
+                    # проверяем подключение к интернету и отправляет оповещение в тг
+                    if is_connected():
+                        keyboard = [[InlineKeyboardButton("транслировать", callback_data='transmit_massage')]]
+                        reply_markup = InlineKeyboardMarkup(keyboard)
+                        for telegram_id in config_read()['admin-telegram-id']:
+                            bot.send_message(telegram_id, f'Сообщение:\n{message}', reply_markup=reply_markup)
                         logger.info(f'[{ip}] сообщение в тг отправлено ')
                     else:
                         logger.info(f'[{ip}] сообщение в тг не отправлено, отсутствует подключение к интернету')

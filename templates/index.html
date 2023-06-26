@@ -9,9 +9,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/starter.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <style>
-        .vympel {
-            margin-top: -30px;
-        }
     </style>
 </head>
 <body>
@@ -23,7 +20,7 @@
             </a>
         </h1>
     </header>
-    <h5>ближайшая дискотека: {{ disco_date}}</h5>
+    <h5>ближайшая дискотека: {{ disco_date }}</h5>
     <hr>
     {# <p>просьба не топтать пол под хардбас</p>#}
     {#
@@ -72,20 +69,20 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="songChoiceLabel1">сообщение</h5>
+                    <h5 class="modal-title" id="songChoiceLabel1">написать сообщение</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form>
                     <div class="modal-body">
-                        <!--                        <div class="form-group">-->
-                        <!--                            <label for="recipient-name" class="col-form-label">отряд:</label>-->
-                        <!--                            <input type="text" class="form-control" id="recipient-name">-->
-                        <!--                        </div>-->
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">от кого (по желанию):</label>
+                            <input type="text" name="name" class="form-control" id="recipient-name">
+                        </div>
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">сообщение:</label>
-                            <textarea name="message" class="form-control" id="message-text"></textarea>
+                            <textarea name="message" class="form-control" required id="message-text"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -108,10 +105,13 @@
                 <li><a href="{{ url_for('send_files') }}">обмен файлами</a></li>
                 <li><a href="{{ url_for('wallet') }}">баланс отрядов</a></li>
                 <li><a data-toggle="modal" data-target="#anonMessage"
-                       href="https://getbootstrap.com/docs/4.6/getting-started/build-tools">анонимное сообщение</a></li>
-                <li><a href="{{ url_for('files') }}">скачать фотографии</a></li>
+                       href="https://getbootstrap.com/docs/4.6/getting-started/build-tools">сообщение в рубку</a></li>
+                <li><a href="{{ url_for('files') }}">загрузка фотографий</a></li>
                 {% if is_ph or is_admin %}
-                    <hr>
+                    </ul>
+                    </div>
+                    <div class="col-md-6">
+                    <ul class="icon-list">
                     <li><a href="{{ url_for('upload_photo') }}">загрузить фото</a></li>
                 {% endif %}
                 {% if is_admin %}
@@ -119,8 +119,8 @@
                     <li><a href="{{ url_for('internet') }}">интернет</a></li>
                     <li><a href="{{ url_for('balance_editor') }}">управление балансом</a></li>
                 {% endif %}
-            </ul>
-        </div>
+                </ul>
+                </div>
     </div>
     <p class="text-muted">если нашли ошибку в работе сайта, просьба обращаться в рубку.</p>
 </div>
