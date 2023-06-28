@@ -4,13 +4,12 @@ from datetime import *
 from threading import Thread, Event
 import requests
 import telegram
-from flask import Flask, render_template, send_file, request, redirect
+from flask import render_template, send_file
 from flask_socketio import SocketIO
 from data_processing import *
 import locale
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-
-# Обработчик команды /start
+from flask import Flask, request, redirect
 
 
 locale.setlocale(locale.LC_TIME, 'ru')
@@ -155,7 +154,7 @@ def balance_editor():
 
         print(squads, amount)
         db.update_balances(squads, amount)
-        return redirect('/')
+        return render_template('balance_editor.html')
     if ip in config_read()['admin-ip']:
         return render_template('balance_editor.html')
     return redirect('http://' + config_read()['host'])
@@ -189,6 +188,16 @@ def send_files():
 @app.route('/wallet')
 def wallet():
     return render_template('wallet.html')
+
+
+@app.route('/player')
+def player():
+    chart = []
+    for i in db.get_songs():
+        print(i[0])
+        chart.append(i[0])
+    print(chart)
+    return render_template('player.html', chart=chart)
 
 
 @app.route('/wallet/5-old')
