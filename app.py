@@ -201,7 +201,7 @@ def player():
 
 @app.route('/music/<path:filename>')
 def get_music(filename):
-    return send_from_directory('z:/музыка/дискотека', filename)
+    return send_from_directory(config_read()['music-path'], filename)
 
 
 @app.route('/wallet/5-old')
