@@ -126,7 +126,7 @@
                 currentButton.classList.add("play-icon");
                 currentButton.parentNode.classList.remove("playing"); // Удалить класс "playing" у предыдущей песни
             }
-            audio = new Audio("{{ url_for('static', filename='music') }}/" + songName);
+            audio = new Audio("/music/" + songName);
             currentSong = songName;
             currentButton = button;
             audio.onended = function () {

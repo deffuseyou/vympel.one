@@ -9,8 +9,7 @@ from flask_socketio import SocketIO
 from data_processing import *
 import locale
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-from flask import Flask, request, redirect
-
+from flask import Flask, request, redirect, send_from_directory
 
 locale.setlocale(locale.LC_TIME, 'ru')
 
@@ -198,6 +197,11 @@ def player():
         chart.append(i[0])
     print(chart)
     return render_template('player.html', chart=chart)
+
+
+@app.route('/music/<path:filename>')
+def get_music(filename):
+    return send_from_directory('z:/музыка/дискотека', filename)
 
 
 @app.route('/wallet/5-old')
