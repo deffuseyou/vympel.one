@@ -40,6 +40,16 @@
     </style>
 </head>
 <body>
-<div id="squad_5" class="vympel">все деньги у рубки))</div>
+<div id="squad_5" class="vympel"></div>
+<script type="text/javascript">
+    // Подключение к серверу Flask через WebSocket
+    var socket = io.connect('http://' + document.domain + ':' + location.port + '/quiz');
+
+    // Обработка полученных данных с MQTT топика
+    socket.on('mqtt_message', function (data) {
+        var divElement = document.getElementById('squad_5');
+        divElement.innerText = data.data;
+    });
+</script>
 </body>
 </html>

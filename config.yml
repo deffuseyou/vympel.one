@@ -8,6 +8,12 @@ db:
   database: 'vympel.one'
   user: 'postgres'
 
+mqtt:
+  host: '192.1680.0.100'
+  port: 1883
+  buttons-topic: ''
+  laser-topic: ''
+
 host: '192.170.0.181'
 snapdrop-host: '192.168.0.100'
 
@@ -25,10 +31,12 @@ ph-ip:
   - '192.168.0.100'
 
 music-path: 'z:/музыка/дискотека'
-archives-path: 'z:/фото/архивы/2023/1 поток'
-whitelist-path: '/etc/qwert.txt'
 photo-path: 'z:/фото'
 now-photo-path: 'z:/фото/2023/1 поток'
+archives-path: 'z:/фото/архивы/2023/1 поток'
+
+whitelist-path: '/etc/qwert.txt'
+
 monitor-path: 'z:/вд/2023/1 поток'
 
 disco-dates:

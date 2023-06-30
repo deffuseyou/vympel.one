@@ -34,15 +34,6 @@ def is_connected():
         pass
     return False
 
-def send_message_to_telegram(name, message):
-    if is_connected():
-        keyboard = [[InlineKeyboardButton("транслировать", callback_data='transmit_massage')]]
-        reply_markup = InlineKeyboardMarkup(keyboard)
-        for telegram_id in config_read()['admin-telegram-id']:
-            bot.send_message(telegram_id, f'Сообщение от {name}:\n{message}', reply_markup=reply_markup)
-        logger.info(f'[{ip} ({name})] сообщение в тг отправлено ')
-    else:
-        logger.info(f'[{ip} ({name})] сообщение в тг не отправлено, отсутствует подключение к интернету')
 
 def transform_tuple(tuple_input):
     count_dict = {}
@@ -168,7 +159,8 @@ def photo_uploader():
                    password=os.environ['ADMIN_PASSWORD'],
                    host='192.168.0.100',
                    port=5432)
-    uploaded_photo = list(zip(*db.get_uploaded_photo()))[0]
+
+    uploaded_photo = [photo for photo, _ in db.get_uploaded_photo()]
 
     config = config_read()
     # путь к папке с фотографиями
@@ -178,19 +170,16 @@ def photo_uploader():
         album_ids = config_read()['album_ids']
         files = sorted(os.listdir(folder_path), key=lambda x: os.path.getmtime(os.path.join(folder_path, x)))
         for file in files:
-            if f"{folder_path + '/' + file}".replace(config['photo-path'], '') not in uploaded_photo:
-                if os.path.isdir(folder_path + '/' + file) \
-                        and file != 'педсостав' \
-                        and file != 'скрины' \
-                        and file != 'фотографирование':
-                    into_folder(folder_path + '/' + file)
+            file_path = os.path.join(folder_path, file)
+            if file_path.replace(config['photo-path'], '') not in uploaded_photo:
+                if os.path.isdir(file_path) and file not in ['педсостав', 'скрины', 'фотографирование']:
+                    into_folder(file_path)
                 else:
-                    if file.lower().endswith('.jpg') or file.lower().endswith('.jpeg'):
+                    if file.lower().endswith(('.jpg', '.jpeg')):
                         for album_id in album_ids:
-                            key = list(album_id.keys())[0]
-                            value = album_id[key]
-                            if key in folder_path + '/' + file:
-                                upload_to_album(*value, folder_path + '/' + file, db)
+                            for key, value in album_id.items():
+                                if key in file_path:
+                                    upload_to_album(*value, file_path, db)
 
     into_folder(folder_path)
 

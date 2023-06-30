@@ -6,6 +6,7 @@ import requests
 import telegram
 from flask import render_template, send_file
 from flask_socketio import SocketIO
+import paho.mqtt.client as mqtt
 from data_processing import *
 import locale
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
@@ -40,6 +41,26 @@ bot = telegram.Bot(token=token)
 socketio = SocketIO(app, async_mode=None)
 thread = Thread()
 thread_stop_event = Event()
+
+mqtt_topic = config_read()['mqtt']['topic']
+mqtt_broker = config_read()['mqtt']['host']
+mqtt_port = config_read()['mqtt']['port']
+
+
+# Обработчик сообщений MQTT
+def on_message(client, userdata, message):
+    payload = message.payload.decode()
+    # Отправляем данные по WebSocket в браузер
+    socketio.emit('mqtt_message', {'data': payload})
+
+
+# Подключение к MQTT брокеру при запуске приложения
+def connect_to_mqtt():
+    client = mqtt.Client()
+    client.on_message = on_message
+    client.connect(mqtt_broker, mqtt_port)
+    client.subscribe(mqtt_topic)
+    client.loop_start()
 
 
 @app.context_processor
@@ -287,10 +308,24 @@ def test_disconnect():
     pass
 
 
+@socketio.on('connect', namespace='/buttons')
+def test_connect_1():
+    print('WebSocket connected')
+
+
+@socketio.on('disconnect', namespace='/buttons')
+def test_disconnect_2():
+    pass
+
+
 @app.errorhandler(404)
 def not_found_error(e):
     return render_template('404.html'), 404
 
 
 if __name__ == "__main__":
+    # Подключаемся к MQTT брокеру в отдельном потоке
+    mqtt_thread = threading.Thread(target=connect_to_mqtt)
+    mqtt_thread.start()
+
     socketio.run(app, host='0.0.0.0', port=80)
