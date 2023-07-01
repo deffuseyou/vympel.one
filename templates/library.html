@@ -86,8 +86,7 @@
         {% if chart|length != 0 %}
             {% for song in chart %}
                 <li class="list-group-item">
-
-                        <span class="play-icon" onclick="togglePlayback(this, '{{ song }}.mp3')"></span>
+                    <span class="play-icon" onclick="togglePlayback(this, '{{ song }}.mp3')"></span>
                     <div class="song-info">
                         <span class="song-title">{{ song.split(' - ')[1] }}</span>
                         <span class="song-artist">{{ song.split(' - ')[0] }}</span>
@@ -118,6 +117,17 @@
     var progressBar = document.getElementById('progress-bar');
     var progressContainer = document.querySelector('.progress-container');
 
+    function updateMediaMetadata(songTitle, songArtist) {
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: songTitle,
+                artist: songArtist,
+                album: '',
+                artwork: []
+            });
+        }
+    }
+
     function togglePlayback(button, songName) {
         if (currentSong !== songName) {
             if (audio) {
@@ -139,6 +149,14 @@
                 var progress = (audio.currentTime / audio.duration) * 100;
                 progressBar.style.width = progress + '%';
             };
+            audio.onpause = function () {
+                button.classList.remove("pause-icon");
+                button.classList.add("play-icon");
+            };
+            audio.onplay = function () {
+                button.classList.remove("play-icon");
+                button.classList.add("pause-icon");
+            };
         }
 
         if (audio.paused) {
@@ -147,6 +165,7 @@
             button.classList.add("pause-icon");
             progressContainer.style.display = 'block'; // Показать прогрессбар при воспроизведении песни
             button.parentNode.classList.add("playing"); // Добавить класс "playing" к текущей песне
+            updateMediaMetadata(songName.split(' - ')[1].replace('.mp3', ''), songName.split(' - ')[0]);
         } else {
             audio.pause();
             button.classList.remove("pause-icon");
@@ -154,7 +173,6 @@
             // Не удалять класс "playing" у текущей песни при паузе
         }
     }
-
 
     function seek(event) {
         var progressBarWidth = progressContainer.clientWidth;
