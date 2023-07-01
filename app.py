@@ -1,16 +1,18 @@
+import locale
 import logging
 import threading
 from datetime import *
 from threading import Thread, Event
+
+import paho.mqtt.client as mqtt
 import requests
 import telegram
+from flask import Flask, request, redirect, send_from_directory
 from flask import render_template, send_file
 from flask_socketio import SocketIO
-import paho.mqtt.client as mqtt
-from data_processing import *
-import locale
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-from flask import Flask, request, redirect, send_from_directory
+
+from data_processing import *
 
 locale.setlocale(locale.LC_TIME, 'ru')
 
@@ -183,8 +185,7 @@ def balance_editor():
 @app.route('/karaoke', methods=['GET', 'POST'])
 def karaoke():
     if request.method == 'POST':
-        search_query = request.form['password']
-        download_and_play_karaoke(search_query, request.remote_addr)
+        download_and_play_karaoke(request.form['query'])
     return render_template('karaoke.html')
 
 
@@ -210,14 +211,14 @@ def wallet():
     return render_template('wallet.html')
 
 
-@app.route('/player')
-def player():
+@app.route('/library')
+def library():
     chart = []
     for i in db.get_songs():
         print(i[0])
         chart.append(i[0])
     print(chart)
-    return render_template('player.html', chart=chart)
+    return render_template('library.html', chart=chart)
 
 
 @app.route('/music/<path:filename>')
@@ -251,25 +252,28 @@ def personal_wallet(squad):
 
 @app.route('/squad-rating', methods=['GET'])
 def squad_rating():
-    squads_rating = db.get_squad_rating()
+    squad_dict = {1: [], 2: [], 3: [], 4: []}
+
+    for squad in db.get_squad_rating():
+        squad_dict[squad[1]].append([squad[2], squad[0]])
+
     return render_template('squad_rating.html',
-                           sq1=[[i[2], i[0]] for i in squads_rating if i[1] == 1],
-                           sq2=[[i[2], i[0]] for i in squads_rating if i[1] == 2],
-                           sq3=[[i[2], i[0]] for i in squads_rating if i[1] == 3],
-                           sq4=[[i[2], i[0]] for i in squads_rating if i[1] == 4])
+                           sq1=squad_dict[1],
+                           sq2=squad_dict[2],
+                           sq3=squad_dict[3],
+                           sq4=squad_dict[4])
 
 
 @app.route('/song-rating', methods=['GET'])
 def song_rating():
-    chart = []
-    for i in db.get_songs_top()[::-1]:
-        chart.append([i[1], i[0]])
-    return render_template('song_rating.html', chart=chart)
+    return render_template('song_rating.html', chart=[[song, rating] for rating, song in reversed(db.get_songs_top())])
 
 
 @app.route('/download-photo')
 def download_photo():
     path = config_read()['archives-path']
+    if not os.path.exists(path):
+        os.makedirs(path)
     return render_template('download_photo.html',
                            folders=[f for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))],
                            files=[f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))],
@@ -325,7 +329,7 @@ def not_found_error(e):
 
 if __name__ == "__main__":
     # Подключаемся к MQTT брокеру в отдельном потоке
-    mqtt_thread = threading.Thread(target=connect_to_mqtt)
-    mqtt_thread.start()
+    # mqtt_thread = threading.Thread(target=connect_to_mqtt)
+    # mqtt_thread.start()
 
     socketio.run(app, host='0.0.0.0', port=80)

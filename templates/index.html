@@ -113,6 +113,7 @@
     <div class="row">
         <div class="col-md-6">
             <ul class="icon-list">
+                <li><a href="{{ url_for('library') }}">доступные песни</a></li>
                 {% if is_voteable %}
                     <li><a data-toggle="modal" data-target="#songChoice"
                            href="https://getbootstrap.com/docs/4.6/getting-started/introduction">выбор песен</a></li>

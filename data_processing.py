@@ -1,15 +1,15 @@
 import os
 import shutil
-import zipfile
 import socket
 import sqlite3
+import zipfile
+from datetime import datetime
 import paramiko
+import pyttsx3
 import vk_api
 import yaml
 import yt_dlp
-import pyttsx3
 from sqlighter import SQLighter
-from datetime import datetime
 
 
 def closest_disco_date(dates):
@@ -79,7 +79,7 @@ def parse_music_folder():
             pass
 
 
-def download_and_play_karaoke(search_query, ip):
+def download_and_play_karaoke(search_query):
     ydl = yt_dlp.YoutubeDL({'format': "bv*+ba/b",
                             'outtmpl': 'z:\\караоке\\%(title)s.%(ext)s'})
 
@@ -92,11 +92,6 @@ def download_and_play_karaoke(search_query, ip):
             video_title = first_video['title']
             video_link = first_video['id']
             title = f'{video_title}.webm'
-
-    ssh = paramiko.SSHClient()
-    ssh.connect(ip, username='admin', password=os.environ['ADMIN_PASSWORD'])
-    ssh.exec_command(fr'c:\Program Files\MPC-HC\mpc-hc64.exe "z:\лагерь\караоке\{title}"')
-    ssh.close()
 
 
 def zip_photo():
@@ -159,8 +154,7 @@ def photo_uploader():
                    password=os.environ['ADMIN_PASSWORD'],
                    host='192.168.0.100',
                    port=5432)
-
-    uploaded_photo = [photo for photo, _ in db.get_uploaded_photo()]
+    uploaded_photo = list(zip(*db.get_uploaded_photo()))[0]
 
     config = config_read()
     # путь к папке с фотографиями
@@ -170,19 +164,21 @@ def photo_uploader():
         album_ids = config_read()['album_ids']
         files = sorted(os.listdir(folder_path), key=lambda x: os.path.getmtime(os.path.join(folder_path, x)))
         for file in files:
-            file_path = os.path.join(folder_path, file)
-            if file_path.replace(config['photo-path'], '') not in uploaded_photo:
-                if os.path.isdir(file_path) and file not in ['педсостав', 'скрины', 'фотографирование']:
-                    into_folder(file_path)
+            if f"{folder_path + '/' + file}".replace(config['photo-path'], '') not in uploaded_photo:
+                if os.path.isdir(folder_path + '/' + file) \
+                        and file != 'педсостав' \
+                        and file != 'скрины' \
+                        and file != 'фотографирование':
+                    into_folder(folder_path + '/' + file)
                 else:
-                    if file.lower().endswith(('.jpg', '.jpeg')):
+                    if file.lower().endswith('.jpg') or file.lower().endswith('.jpeg'):
                         for album_id in album_ids:
-                            for key, value in album_id.items():
-                                if key in file_path:
-                                    upload_to_album(*value, file_path, db)
+                            key = list(album_id.keys())[0]
+                            value = album_id[key]
+                            if key in folder_path + '/' + file:
+                                upload_to_album(*value, folder_path + '/' + file, db)
 
     into_folder(folder_path)
-
 
 def give_internet_access(ip_address):
     config = config_read()
@@ -201,10 +197,13 @@ def give_internet_access(ip_address):
 
         command = f"cat /proc/net/arp | grep '{ip_address}' | " + "awk '{print $4}'"
         stdin, stdout, stderr = ssh_client.exec_command(command)
-        mac_address = stdout.read().decode('utf-8').upper()
+        mac_address = stdout.read().decode('utf-8').upper().replace('\n', '')
 
-        ssh_client.exec_command(f"uci set dhcp.@host[-1].ip = f'{ip_address}'")
-        ssh_client.exec_command(f"uci set dhcp.@host[-1].mac = f'{mac_address}'")
+        print([mac_address, ip_address])
+
+        ssh_client.exec_command(f"uci add dhcp host # =cfg09fe63")
+        ssh_client.exec_command(f"uci set dhcp.@host[-1].ip='{ip_address}'")
+        ssh_client.exec_command(f"uci set dhcp.@host[-1].mac='{mac_address}'")
         ssh_client.exec_command("uci commit dhcp")
         ssh_client.exec_command("/etc/init.d/dnsmasq restart")
 

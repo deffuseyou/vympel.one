@@ -3,19 +3,19 @@ router:
   user: 'root'
 
 db:
-  host: '192.168.0.100'
+  host: 'vympel.one'
   port: 5432
   database: 'vympel.one'
   user: 'postgres'
 
 mqtt:
-  host: '192.1680.0.100'
+  host: 'vympel.one'
   port: 1883
-  buttons-topic: ''
+  topic: ''
   laser-topic: ''
 
-host: '192.170.0.181'
-snapdrop-host: '192.168.0.100'
+host: 'vympel.one'
+snapdrop-host: 'vympel.one'
 
 admin-telegram-id:
   - 518325236
@@ -23,65 +23,62 @@ admin-telegram-id:
   - 839840272
   - 1061060541
 admin-ip:
-  - '192.170.0.181'
-  - '192.170.0.117'
   - '192.168.0.100'
 ph-ip:
-  - '192.170.0.181'
   - '192.168.0.100'
 
-music-path: 'z:/РјСѓР·С‹РєР°/РґРёСЃРєРѕС‚РµРєР°'
-photo-path: 'z:/С„РѕС‚Рѕ'
-now-photo-path: 'z:/С„РѕС‚Рѕ/2023/1 РїРѕС‚РѕРє'
-archives-path: 'z:/С„РѕС‚Рѕ/Р°СЂС…РёРІС‹/2023/1 РїРѕС‚РѕРє'
+music-path: 'z:/музыка/дискотека'
+photo-path: 'z:/фото'
+now-photo-path: 'z:/фото/2023/2 поток'
+archives-path: 'z:/фото/архивы/2023/2 поток'
 
 whitelist-path: '/etc/qwert.txt'
 
-monitor-path: 'z:/РІРґ/2023/1 РїРѕС‚РѕРє'
+monitor-path: 'z:/вд/2023/2 поток'
 
 disco-dates:
-  - 01.06.2023
+  - 03.07.2023
 
 squads:
   squad_1:
-    slogan: РњС‹ СЂРѕР¶РґРµРЅС‹, С‡С‚РѕР± СЃРєР°Р·РєСѓ СЃРґРµР»Р°С‚СЊ Р±С‹Р»СЊСЋ
+    slogan: Мы рождены, чтоб сказку сделать былью
     registration-date: 01.06.1960
     squad-size: 25
-    balance: Р·Р°РіСЂСѓР·РєР°...
+    balance: загрузка...
     logo: no_image.png
   squad_2:
-    slogan: РњС‹ СЂРѕР¶РґРµРЅС‹, С‡С‚РѕР± СЃРєР°Р·РєСѓ СЃРґРµР»Р°С‚СЊ Р±С‹Р»СЊСЋ
+    slogan: Мы рождены, чтоб сказку сделать былью
     registration-date: 01.06.1961
     squad-size: 25
-    balance: Р·Р°РіСЂСѓР·РєР°...
+    balance: загрузка...
     logo: no_image.png
   squad_3:
-    slogan: РњС‹ СЂРѕР¶РґРµРЅС‹, С‡С‚РѕР± СЃРєР°Р·РєСѓ СЃРґРµР»Р°С‚СЊ Р±С‹Р»СЊСЋ
+    slogan: Мы рождены, чтоб сказку сделать былью
     registration-date: 01.06.1962
     squad-size: 25
-    balance: Р·Р°РіСЂСѓР·РєР°...
+    balance: загрузка...
     logo: no_image.png
   squad_4:
-    slogan: РњС‹ СЂРѕР¶РґРµРЅС‹, С‡С‚РѕР± СЃРєР°Р·РєСѓ СЃРґРµР»Р°С‚СЊ Р±С‹Р»СЊСЋ
+    slogan: Мы рождены, чтоб сказку сделать былью
     registration-date: 01.06.1963
     squad-size: 25
-    balance: Р·Р°РіСЂСѓР·РєР°...
+    balance: загрузка...
     logo: no_image.png
   squad_5:
-    slogan: РњС‹ СЂРѕР¶РґРµРЅС‹, С‡С‚РѕР± СЃРєР°Р·РєСѓ СЃРґРµР»Р°С‚СЊ Р±С‹Р»СЊСЋ
+    slogan: Мы рождены, чтоб сказку сделать былью
     registration-date: 01.06.1964
     squad-size: 25
-    balance: Р±СЋРґР¶РµС‚ СЃРѕР·РІРµР·РґРёСЏ
+    balance: бюджет созвездия
     logo: 5_squad.png
 
 album_ids:
-  - "РјР°СЃР»РµРЅРёС†Р°":
+  - "масленица":
       - 293714146
-  - "1 РїРѕС‚РѕРє":
+  - "1 поток":
       - 293714166
-  - "2 РїРѕС‚РѕРє":
+  - "2 поток":
       - 293714172
-  - "3 РїРѕС‚РѕРє":
+  - "3 поток":
       - 293714178
-  - "4 РїРѕС‚РѕРє":
+  - "4 поток":
       - 293714184
