@@ -199,11 +199,11 @@ def give_internet_access(ip_address):
         stdin, stdout, stderr = ssh_client.exec_command(command)
         mac_address = stdout.read().decode('utf-8').upper().replace('\n', '')
 
-        print([mac_address, ip_address])
+        print([mac_address[:17], ip_address])
 
-        ssh_client.exec_command(f"uci add dhcp host # =cfg09fe63")
-        ssh_client.exec_command(f"uci set dhcp.@host[-1].ip='{ip_address}'")
-        ssh_client.exec_command(f"uci set dhcp.@host[-1].mac='{mac_address}'")
+        ssh_client.exec_command(f"uci add dhcp host # =cfg13fe63")
+        ssh_client.exec_command(f"uci set dhcp.@host[-1].ip='{str(ip_address)}'")
+        ssh_client.exec_command(f"uci set dhcp.@host[-1].mac='{mac_address[:17]}'")
         ssh_client.exec_command("uci commit dhcp")
         ssh_client.exec_command("/etc/init.d/dnsmasq restart")
 

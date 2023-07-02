@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>скачать фото</title>
+    <title>загрузка фото</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <style>
         /* стили для мобильных устройств */
         body {
@@ -65,7 +66,7 @@
 </head>
 <body>
 <div class="container">
-    <h3 class="mb-3 align-center">файлы</h3>
+    <h3 class="mb-3 align-center">загрузка фото</h3>
 
     <ul>
         {% if folders|length == 0 and files|length == 0     %}

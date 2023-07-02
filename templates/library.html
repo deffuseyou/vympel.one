@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <style>
         .container {
             margin-top: 15px;
@@ -28,36 +29,28 @@
             font-weight: normal;
         }
 
-        .list-group-item.playing .song-title {
-            font-weight: bold;
-        }
-
+        .list-group-item.playing .song-title,
         .list-group-item.playing .song-artist {
             font-weight: bold;
         }
 
-        .play-icon {
+        .icon {
             display: inline-block;
             vertical-align: middle;
             width: 20px;
             height: 20px;
             margin-left: -2px;
             margin-right: 10px;
-            background-image: url("{{ url_for('static', filename='images/play.png') }}");
             background-size: cover;
             cursor: pointer;
         }
 
+        .play-icon {
+            background-image: url("{{ url_for('static', filename='images/play.png') }}");
+        }
+
         .pause-icon {
-            display: inline-block;
-            vertical-align: middle;
-            width: 20px;
-            height: 20px;
-            margin-left: -5px;
-            margin-right: 10px;
             background-image: url("{{ url_for('static', filename='images/pause.png') }}");
-            background-size: cover;
-            cursor: pointer;
         }
 
         .progress-container {
@@ -68,8 +61,8 @@
             height: 15px;
             background-color: #f5f5f5;
             z-index: 9999;
-            display: none; /* Скрыть прогрессбар по умолчанию */
-            cursor: pointer; /* Изменение курсора при наведении на прогрессбар */
+            display: none;
+            cursor: pointer;
         }
 
         .progress-bar {
@@ -86,7 +79,7 @@
         {% if chart|length != 0 %}
             {% for song in chart %}
                 <li class="list-group-item">
-                    <span class="play-icon" onclick="togglePlayback(this, '{{ song }}.mp3')"></span>
+                    <span class="icon play-icon" onclick="togglePlayback(this, '{{ song }}.mp3')"></span>
                     <div class="song-info">
                         <span class="song-title">{{ song.split(' - ')[1] }}</span>
                         <span class="song-artist">{{ song.split(' - ')[0] }}</span>
@@ -97,8 +90,7 @@
             <ul class="list-group">
                 <li class="list-group-item">
                     <div class="song-info">
-                        <span class="badge badge-dark badge-pill rating-badge">0</span>
-                        <span class="song-artist">пока что нет голосов...</span>
+                        <span class="song-artist">пока что нет песен...</span>
                     </div>
                 </li>
             </ul>
@@ -134,7 +126,7 @@
                 audio.pause();
                 currentButton.classList.remove("pause-icon");
                 currentButton.classList.add("play-icon");
-                currentButton.parentNode.classList.remove("playing"); // Удалить класс "playing" у предыдущей песни
+                currentButton.parentNode.classList.remove("playing");
             }
             audio = new Audio("/music/" + songName);
             currentSong = songName;
@@ -142,8 +134,8 @@
             audio.onended = function () {
                 button.classList.remove("pause-icon");
                 button.classList.add("play-icon");
-                progressContainer.style.display = 'none'; // Скрыть прогрессбар после окончания песни
-                button.parentNode.classList.remove("playing"); // Удалить класс "playing" у текущей песни
+                progressContainer.style.display = 'none';
+                button.parentNode.classList.remove("playing");
             };
             audio.ontimeupdate = function () {
                 var progress = (audio.currentTime / audio.duration) * 100;
@@ -163,14 +155,13 @@
             audio.play();
             button.classList.remove("play-icon");
             button.classList.add("pause-icon");
-            progressContainer.style.display = 'block'; // Показать прогрессбар при воспроизведении песни
-            button.parentNode.classList.add("playing"); // Добавить класс "playing" к текущей песне
+            progressContainer.style.display = 'block';
+            button.parentNode.classList.add("playing");
             updateMediaMetadata(songName.split(' - ')[1].replace('.mp3', ''), songName.split(' - ')[0]);
         } else {
             audio.pause();
             button.classList.remove("pause-icon");
             button.classList.add("play-icon");
-            // Не удалять класс "playing" у текущей песни при паузе
         }
     }
 
@@ -183,7 +174,7 @@
         progressBar.style.width = percentage + '%';
     }
 
-    var isSeeking = false; // Флаг для определения режима перемотки
+    var isSeeking = false;
 
     progressContainer.addEventListener('touchstart', startSeek);
     progressContainer.addEventListener('touchmove', moveSeek);
