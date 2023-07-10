@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thumbnails Page</title>
+</head>
+<body>
+    <h1>Thumbnails Page</h1>
+
+    {% for thumbnail in thumbnails %}
+        <img src="{{ thumbnail }}" alt="Thumbnail">
+    {% endfor %}
+</body>
+</html>

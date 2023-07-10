@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="../static/js/jquery.min.js"></script>
-    <script type="text/javascript" src="../static/js/socket.io.min.js"></script>
-    <script src="../static/js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/4.2.7/mqtt.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}"/>
     <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <style>
@@ -39,18 +39,21 @@
             color: #000000;
         }
     </style>
+    <script>
+        $(document).ready(function () {
+            var socket = io.connect('http://' + document.domain + ':' + location.port + '/updater');
+            socket.on('update', function (data) {
+                // Update balance here if needed
+            });
+
+            socket.on('mqtt_message', function (data) {
+                var message = data.message;
+                $('#squad_5').text(message);
+            });
+        });
+    </script>
 </head>
 <body>
-<div id="squad_5" class="vympel"></div>
-<script type="text/javascript">
-    // Подключение к серверу Flask через WebSocket
-    var socket = io.connect('http://' + document.domain + ':' + location.port + '/quiz');
-
-    // Обработка полученных данных с MQTT топика
-    socket.on('mqtt_message', function (data) {
-        var divElement = document.getElementById('squad_5');
-        divElement.innerText = data.data;
-    });
-</script>
+<div id="squad_5" class="vympel">ожидание...</div>
 </body>
 </html>

@@ -3,17 +3,19 @@ import logging
 import threading
 from datetime import *
 from threading import Thread, Event
-
+import time
 import paho.mqtt.client as mqtt
 import requests
 import telegram
+from PIL import Image
 from flask import Flask, request, redirect, send_from_directory
 from flask import render_template, send_file
+from flask_images import Images
 from flask_socketio import SocketIO
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
 from data_processing import *
-
+last_message_time = 0
 locale.setlocale(locale.LC_TIME, 'ru')
 
 __author__ = 'deffuseyou'
@@ -37,32 +39,35 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 app.config['DEBUG'] = True
 
+images = Images(app)
+
 token = os.environ['TG_BOT_TOKEN']
 bot = telegram.Bot(token=token)
 
 socketio = SocketIO(app, async_mode=None)
 thread = Thread()
 thread_stop_event = Event()
-
-mqtt_topic = config_read()['mqtt']['topic']
-mqtt_broker = config_read()['mqtt']['host']
-mqtt_port = config_read()['mqtt']['port']
+mqtt_broker = "vympel.one"
+mqtt_topic = "buttons"
 
 
-# Обработчик сообщений MQTT
-def on_message(client, userdata, message):
-    payload = message.payload.decode()
-    # Отправляем данные по WebSocket в браузер
-    socketio.emit('mqtt_message', {'data': payload})
-
-
-# Подключение к MQTT брокеру при запуске приложения
-def connect_to_mqtt():
-    client = mqtt.Client()
-    client.on_message = on_message
-    client.connect(mqtt_broker, mqtt_port)
+def on_connect(client, userdata, flags, rc):
     client.subscribe(mqtt_topic)
-    client.loop_start()
+
+
+def on_message(client, userdata, msg):
+    global last_message_time
+    current_time = time.time()  # Получаем текущее время в секундах
+    message = msg.payload.decode("utf-8")
+    # Проверяем разницу между текущим временем и временем последнего сообщения
+    if current_time - last_message_time >= 1:
+        socketio.emit('mqtt_message', {'message': message}, namespace='/updater')
+        last_message_time = current_time
+
+mqtt_client = mqtt.Client()
+mqtt_client.on_connect = on_connect
+mqtt_client.on_message = on_message
+mqtt_client.connect(mqtt_broker, 1883, 60)
 
 
 @app.context_processor
@@ -155,10 +160,47 @@ def index():
     return redirect('http://' + config_read()['host'])
 
 
+@app.route('/aa')
+def aa():
+    # Путь к папке с фотографиями
+    photo_path = r'z:\фото\2022\2 поток\день 03 (тропа доверия)'
+
+    # Список файлов в папке
+    files = os.listdir(photo_path)
+
+    # Фильтрация только файлов изображений (можете добавить другие расширения файлов по вашему выбору)
+    image_files = [file for file in files if file.lower().endswith(('.jpg', '.jpeg', '.png'))]
+
+    # Создание списка эскизов
+    thumbnails = []
+    for file in image_files:
+        image_path = os.path.join(photo_path, file)
+        with Image.open(image_path) as image:
+            image.thumbnail((200, 200))
+
+            # Создание папки 'thumbnails', если она не существует
+            thumbnail_dir = os.path.join('thumbnails')
+            if not os.path.exists(thumbnail_dir):
+                os.makedirs(thumbnail_dir)
+
+            thumbnail_path = os.path.join(thumbnail_dir, file)
+            image.save(thumbnail_path)
+            thumbnails.append(thumbnail_path)
+
+    return render_template('aa.html', thumbnails=thumbnails)
+
+
 @app.route('/upload-photo', methods=['POST'])
 def upload_photo():
     threading.Thread(target=photo_uploader).start()
     threading.Thread(target=zip_photo).start()
+    return 'success'
+
+
+@app.route('/reset-buttons', methods=['POST'])
+def reset_buttons():
+    mqtt_client.publish('buttons/wait', '0')
+    mqtt_client.publish('buttons', 'ожидание...')
     return 'success'
 
 
@@ -311,25 +353,11 @@ def test_connect():
 def test_disconnect():
     pass
 
-
-@socketio.on('connect', namespace='/buttons')
-def test_connect_1():
-    print('WebSocket connected')
-
-
-@socketio.on('disconnect', namespace='/buttons')
-def test_disconnect_2():
-    pass
-
-
 @app.errorhandler(404)
 def not_found_error(e):
     return render_template('404.html'), 404
 
 
 if __name__ == "__main__":
-    # Подключаемся к MQTT брокеру в отдельном потоке
-    # mqtt_thread = threading.Thread(target=connect_to_mqtt)
-    # mqtt_thread.start()
-
+    mqtt_client.loop_start()
     socketio.run(app, host='0.0.0.0', port=80)

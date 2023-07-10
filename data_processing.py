@@ -200,12 +200,11 @@ def give_internet_access(ip_address):
         mac_address = stdout.read().decode('utf-8').upper().replace('\n', '')
 
         print([mac_address[:17], ip_address])
-
-        ssh_client.exec_command(f"uci add dhcp host # =cfg13fe63")
-        ssh_client.exec_command(f"uci set dhcp.@host[-1].ip='{str(ip_address)}'")
-        ssh_client.exec_command(f"uci set dhcp.@host[-1].mac='{mac_address[:17]}'")
-        ssh_client.exec_command("uci commit dhcp")
-        ssh_client.exec_command("/etc/init.d/dnsmasq restart")
+        # ssh_client.exec_command(f"uci add dhcp host # =cfg13fe63")
+        # ssh_client.exec_command(f"uci set dhcp.@host[-1].ip='{str(ip_address)}'")
+        # ssh_client.exec_command(f"uci set dhcp.@host[-1].mac='{mac_address[:17]}'")
+        # ssh_client.exec_command("uci commit dhcp")
+        # ssh_client.exec_command("/etc/init.d/dnsmasq restart")
 
         # Выполнение команды перезагрузки фаервола
         ssh_client.exec_command('/etc/init.d/firewall restart')
