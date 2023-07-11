@@ -50,6 +50,8 @@ thread_stop_event = Event()
 mqtt_broker = "vympel.one"
 mqtt_topic = "buttons"
 
+import pyautogui
+import time
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe(mqtt_topic)
@@ -59,6 +61,32 @@ def on_message(client, userdata, msg):
     global last_message_time
     current_time = time.time()  # Получаем текущее время в секундах
     message = msg.payload.decode("utf-8")
+    mqtt_client.publish("buttons/wait", "0")
+    if message == '1':
+        # Координаты щелчка
+        x = 900
+        y = 300
+
+        # Перемещаем курсор по указанным координатам и кликаем левой кнопкой мыши
+        pyautogui.moveTo(x, y)
+        pyautogui.click()
+
+        # Нажимаем правый Ctrl
+        pyautogui.keyDown('right')
+        pyautogui.keyUp('right')
+    if message == '2':
+        # Координаты щелчка
+        x = 30
+        y = 300
+
+        # Перемещаем курсор по указанным координатам и кликаем левой кнопкой мыши
+        pyautogui.moveTo(x, y)
+        pyautogui.click()
+
+        # Нажимаем правый Ctrl
+        pyautogui.keyDown('left')
+        pyautogui.keyUp('left')
+
     # Проверяем разницу между текущим временем и временем последнего сообщения
     if current_time - last_message_time >= 1:
         socketio.emit('mqtt_message', {'message': message}, namespace='/updater')

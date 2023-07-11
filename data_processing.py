@@ -10,6 +10,7 @@ import vk_api
 import yaml
 import yt_dlp
 from sqlighter import SQLighter
+import subprocess
 
 
 def closest_disco_date(dates):
@@ -81,7 +82,7 @@ def parse_music_folder():
 
 def download_and_play_karaoke(search_query):
     ydl = yt_dlp.YoutubeDL({'format': "bv*+ba/b",
-                            'outtmpl': 'z:\\караоке\\%(title)s.%(ext)s'})
+                            'outtmpl': 'z:\\лагерь\\караоке\\%(title)s.%(ext)s'})
 
     ydl.download(f"ytsearch:{search_query}")
 
@@ -92,6 +93,22 @@ def download_and_play_karaoke(search_query):
             video_title = first_video['title']
             video_link = first_video['id']
             title = f'{video_title}.webm'
+    subprocess.call(['C:\Program Files\MPC-HC\mpc-hc64.exe', f'z:/караоке/{title}'])
+
+import pyautogui
+import time
+def ctrl_click():
+    # Координаты щелчка
+    x = 100
+    y = 100
+
+    # Перемещаем курсор по указанным координатам и кликаем левой кнопкой мыши
+    pyautogui.moveTo(x, y)
+    pyautogui.click()
+
+    # Нажимаем правый Ctrl
+    pyautogui.keyDown('ctrlright')
+    pyautogui.keyUp('ctrlright')
 
 
 def zip_photo():
