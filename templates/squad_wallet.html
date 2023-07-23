@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Профиль 1 отряда</title>
+    <title>профиль {{ squad }} отряда</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../static/js/jquery.min.js"></script>
@@ -69,7 +69,7 @@
 <body>
 <div class="profile">
     <div class="symbol"></div>
-    <h1>{{ squad }} отряд</h1>
+    <h1>{{ name }}</h1>
     <p class="slogan">{{ slogan }}</p>
 
     <div class="info">
@@ -78,8 +78,8 @@
             <span>{{ registration_date }} г.</span>
         </div>
         <div class="members">
-            <span>Состав:</span>
-            <span>{{ squad_size }} человек</span>
+            <span>Численность человек:</span>
+            <span>{{ squad_size }}</span>
         </div>
         <div class="balance">
             <span>Баланс:</span>

@@ -131,9 +131,11 @@
                     <div class="col-md-6">
                     <ul class="icon-list">
                     <li><a href="/" onclick="handleLinkClick(event)">выгрузить фото</a></li>
-                    <li><a href="/" onclick="resetButtons(event)">сбросить кнопки</a></li>
                 {% endif %}
                 {% if is_admin %}
+                    <li><a href="/" onclick="resetButtons(event)">сбросить кнопки</a></li>
+                    <li><a href="/" onclick="mlButtons(event)">младшие</a></li>
+                    <li><a href="/" onclick="stButtons(event)">старшие</a></li>
                     <li><a href="{{ url_for('karaoke') }}">караоке</a></li>
                     <li><a href="{{ url_for('internet') }}">интернет</a></li>
                     <li><a href="{{ url_for('balance_editor') }}">управление балансом</a></li>
@@ -169,6 +171,24 @@
             // отправляем на бэкэнд
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/reset-buttons", true);
+            xhr.send();
+        }
+        function mlButtons(event) {
+            // предотвращаем переход по ссылке по умолчанию
+            event.preventDefault();
+
+            // отправляем на бэкэнд
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/ml", true);
+            xhr.send();
+        }
+        function stButtons(event) {
+            // предотвращаем переход по ссылке по умолчанию
+            event.preventDefault();
+
+            // отправляем на бэкэнд
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/st", true);
             xhr.send();
         }
 

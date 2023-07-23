@@ -2,15 +2,17 @@ import os
 import shutil
 import socket
 import sqlite3
+import subprocess
 import zipfile
 from datetime import datetime
+
 import paramiko
 import pyttsx3
 import vk_api
 import yaml
 import yt_dlp
+
 from sqlighter import SQLighter
-import subprocess
 
 
 def closest_disco_date(dates):
@@ -96,7 +98,8 @@ def download_and_play_karaoke(search_query):
     subprocess.call(['C:\Program Files\MPC-HC\mpc-hc64.exe', f'z:/караоке/{title}'])
 
 import pyautogui
-import time
+
+
 def ctrl_click():
     # Координаты щелчка
     x = 100
@@ -238,5 +241,16 @@ def give_internet_access(ip_address):
 
 if __name__ == '__main__':
     while True:
-        photo_uploader()
+        text = """Хм, ты кое-кого забыла…
+Сегодня отмечается «День ковбоя», «День прокурора» и «День толстяка и толстушки», концерт наверняка посвящён одному из этих праздников.
+Настя, а можешь мне что-то рассказать про четвертую лигу? 
+Четвёртый по силе дивизион профессионального российского футбола, существовавший в 1994—1997 годах. 
+Настя, а почему я ничего не могу найти про ваши лиги в интернете?
+Я хочу сама расспросить следующую лигу!
+Первая лига спародируйте своего инструктора.
+Конечно, что бы выбрали проспать зарядку, душ каждый день или горячие бутерброды с колбасой?
+Пятая лига, это самые младшие?
+Очень, можно мне остаться с вами и еще лучше узнать ваши лиги?
+Включаю лагерный миниклуб """
+        transmit_message(text)
         break

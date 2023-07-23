@@ -50,6 +50,7 @@ thread_stop_event = Event()
 mqtt_broker = "vympel.one"
 mqtt_topic = "buttons"
 
+
 import pyautogui
 import time
 
@@ -61,20 +62,7 @@ def on_message(client, userdata, msg):
     global last_message_time
     current_time = time.time()  # Получаем текущее время в секундах
     message = msg.payload.decode("utf-8")
-    mqtt_client.publish("buttons/wait", "0")
     if message == '1':
-        # Координаты щелчка
-        x = 900
-        y = 300
-
-        # Перемещаем курсор по указанным координатам и кликаем левой кнопкой мыши
-        pyautogui.moveTo(x, y)
-        pyautogui.click()
-
-        # Нажимаем правый Ctrl
-        pyautogui.keyDown('right')
-        pyautogui.keyUp('right')
-    if message == '2':
         # Координаты щелчка
         x = 30
         y = 300
@@ -84,9 +72,47 @@ def on_message(client, userdata, msg):
         pyautogui.click()
 
         # Нажимаем правый Ctrl
+        pyautogui.keyDown('up')
+        pyautogui.keyUp('up')
+
+    if message == '2':
+        # Координаты щелчка
+        x = 900
+        y = 300
+
+        # Перемещаем курсор по указанным координатам и кликаем левой кнопкой мыши
+        pyautogui.moveTo(x, y)
+        pyautogui.click()
+
+        # Нажимаем правый Ctrl
+        pyautogui.keyDown('down')
+        pyautogui.keyUp('down')
+
+    if message == '3':
+        # Координаты щелчка
+        x = 300
+        y = 750
+
+        # Перемещаем курсор по указанным координатам и кликаем левой кнопкой мыши
+        pyautogui.moveTo(x, y)
+        pyautogui.click()
+
+        # Нажимаем правый Ctrl
         pyautogui.keyDown('left')
         pyautogui.keyUp('left')
 
+    if message == '4':
+        # Координаты щелчка
+        x = 900
+        y = 750
+
+        # Перемещаем курсор по указанным координатам и кликаем левой кнопкой мыши
+        pyautogui.moveTo(x, y)
+        pyautogui.click()
+
+        # Нажимаем правый Ctrl
+        pyautogui.keyDown('right')
+        pyautogui.keyUp('right')
     # Проверяем разницу между текущим временем и временем последнего сообщения
     if current_time - last_message_time >= 1:
         socketio.emit('mqtt_message', {'message': message}, namespace='/updater')
@@ -231,6 +257,16 @@ def reset_buttons():
     mqtt_client.publish('buttons', 'ожидание...')
     return 'success'
 
+@app.route('/ml', methods=['POST'])
+def ml():
+    mqtt_client.publish("buttons/wait", "b")
+    return 'success'
+
+@app.route('/st', methods=['POST'])
+def st():
+    mqtt_client.publish("buttons/wait", "a")
+    return 'success'
+
 
 @app.route('/balance-editor', methods=['GET', 'POST'])
 def balance_editor():
@@ -281,6 +317,11 @@ def wallet():
     return render_template('wallet.html')
 
 
+@app.route('/speech')
+def speech():
+    return render_template('speech.html')
+
+
 @app.route('/library')
 def library():
     chart = []
@@ -311,6 +352,7 @@ def personal_wallet(squad):
     if squad in '12345':
         return render_template('squad_wallet.html',
                                squad=squad,
+                               name=config_read()['squads'][f'squad_{squad}']['name'],
                                logo=config_read()['squads'][f'squad_{squad}']['logo'],
                                slogan=config_read()['squads'][f'squad_{squad}']['slogan'],
                                registration_date=config_read()['squads'][f'squad_{squad}']['registration-date'],
@@ -378,7 +420,7 @@ def test_connect():
 
 
 @socketio.on('disconnect', namespace='/updater')
-def test_disconnect():
+def disconnect():
     pass
 
 @app.errorhandler(404)

@@ -81,7 +81,9 @@
                 <li class="list-group-item">
                     <span class="icon play-icon" onclick="togglePlayback(this, '{{ song }}.mp3')"></span>
                     <div class="song-info">
-                        <span class="song-title">{{ song.split(' - ')[1] }}</span>
+                        <a href="{{ url_for('get_music', filename=song + '.mp3') }}" download="{{ song }}">
+                            <span class="song-title">{{ song.split(' - ')[1] }}</span>
+                        </a>
                         <span class="song-artist">{{ song.split(' - ')[0] }}</span>
                     </div>
                 </li>
