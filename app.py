@@ -13,7 +13,7 @@ from flask import render_template, send_file
 from flask_images import Images
 from flask_socketio import SocketIO
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-
+import psycopg2
 from data_processing import *
 last_message_time = 0
 locale.setlocale(locale.LC_TIME, 'ru')
@@ -37,7 +37,7 @@ db = SQLighter(database=config_read()['db']['database'],
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-app.config['DEBUG'] = True
+app.config['DEBUG'] = False
 
 images = Images(app)
 
@@ -119,6 +119,9 @@ def on_message(client, userdata, msg):
         last_message_time = current_time
 
 mqtt_client = mqtt.Client()
+username = "server"
+password = "pusdes69"
+mqtt_client.username_pw_set(username, password)
 mqtt_client.on_connect = on_connect
 mqtt_client.on_message = on_message
 mqtt_client.connect(mqtt_broker, 1883, 60)
@@ -246,26 +249,64 @@ def aa():
 
 @app.route('/upload-photo', methods=['POST'])
 def upload_photo():
-    threading.Thread(target=photo_uploader).start()
-    threading.Thread(target=zip_photo).start()
-    return 'success'
+    if request.remote_addr in config_read()['admin-ip'] or request.remote_addr in config_read()['ph-ip']:
+        threading.Thread(target=photo_uploader).start()
+        threading.Thread(target=zip_photo).start()
+        return 'success'
+    return 'error'
 
 
 @app.route('/reset-buttons', methods=['POST'])
 def reset_buttons():
-    mqtt_client.publish('buttons/wait', '0')
-    mqtt_client.publish('buttons', 'ожидание...')
-    return 'success'
+    if request.remote_addr in config_read()['admin-ip']:
+        mqtt_client.publish('buttons/wait', '0')
+        mqtt_client.publish('buttons', 'ожидание...')
+        return 'success'
+    return 'error'
+
+@app.route('/chime', methods=['POST'])
+def chime():
+    if request.remote_addr in config_read()['admin-ip']:
+        mqtt_client.publish('chime', '1')
+        return 'success'
+    return 'error'
 
 @app.route('/ml', methods=['POST'])
 def ml():
-    mqtt_client.publish("buttons/wait", "b")
-    return 'success'
+    if request.remote_addr in config_read()['admin-ip']:
+        mqtt_client.publish("buttons/wait", "b")
+        return 'success'
+    return 'error'
 
 @app.route('/st', methods=['POST'])
 def st():
-    mqtt_client.publish("buttons/wait", "a")
-    return 'success'
+    if request.remote_addr in config_read()['admin-ip']:
+        mqtt_client.publish("buttons/wait", "a")
+        return 'success'
+    return 'error'
+
+@app.route('/reset-vote', methods=['POST'])
+def reset_vote():
+    if request.remote_addr in config_read()['admin-ip']:
+        db.reset()
+        return 'success'
+    return 'error'
+
+@app.route('/add-songs', methods=['POST'])
+def add_songs():
+    if request.remote_addr in config_read()['admin-ip']:
+        path = fr'{config_read()["music-path"]}'
+        songs = next(os.walk(path), (None, None, []))[2]
+
+        for song in songs:
+            try:
+                db.add_song(song.replace('.mp3', ''))
+                print(f'Песня "{song.replace(".mp3", "")}" добавлена')
+            except psycopg2.errors.UniqueViolation:
+                print(f'Песня "{song.replace(".mp3", "")}" уже добавлена')
+
+        return 'success'
+    return 'error'
 
 
 @app.route('/balance-editor', methods=['GET', 'POST'])
@@ -326,9 +367,7 @@ def speech():
 def library():
     chart = []
     for i in db.get_songs():
-        print(i[0])
         chart.append(i[0])
-    print(chart)
     return render_template('library.html', chart=chart)
 
 

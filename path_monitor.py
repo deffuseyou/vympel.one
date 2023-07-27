@@ -22,17 +22,17 @@ class PathHandler(FileSystemEventHandler):
     #             bot.send_message(telegram_id, f'изменено:\n<b>{path}\n</b>', parse_mode='html')
 
 
-if __name__ == "__main__":
-    path = config_read()["monitor-path"]
-    path_handler = PathHandler()
-    observer = Observer()
-    observer.schedule(path_handler, path, recursive=True)
-    observer.start()
 
-    try:
-        while True:
-            time.sleep(60)
+path = config_read()["monitor-path"]
+path_handler = PathHandler()
+observer = Observer()
+observer.schedule(path_handler, path, recursive=True)
+observer.start()
 
-    except KeyboardInterrupt:
-        observer.stop()
-    observer.join()
+try:
+    while True:
+        time.sleep(60)
+
+except KeyboardInterrupt:
+    observer.stop()
+observer.join()

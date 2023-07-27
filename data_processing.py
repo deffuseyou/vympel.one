@@ -68,7 +68,7 @@ def parse_music_folder():
     db = SQLighter(database='vympel.one',
                    user='postgres',
                    password=os.environ['ADMIN_PASSWORD'],
-                   host='192.168.0.100',
+                   host='vympel.one',
                    port=5432)
 
     path = fr'{config_read()["music-path"]}'

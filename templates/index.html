@@ -130,17 +130,20 @@
                     </div>
                     <div class="col-md-6">
                     <ul class="icon-list">
-                    <li><a href="/" onclick="handleLinkClick(event)">выгрузить фото</a></li>
-                {% endif %}
-                {% if is_admin %}
-                    <li><a href="/" onclick="resetButtons(event)">сбросить кнопки</a></li>
-                    <li><a href="/" onclick="mlButtons(event)">младшие</a></li>
-                    <li><a href="/" onclick="stButtons(event)">старшие</a></li>
-                    <li><a href="{{ url_for('karaoke') }}">караоке</a></li>
-                    <li><a href="{{ url_for('internet') }}">интернет</a></li>
-                    <li><a href="{{ url_for('balance_editor') }}">управление балансом</a></li>
-                {% endif %}
-                </ul>
+                        <li><a href="/" onclick="handleLinkClick(event)">выгрузить фото</a></li>
+                        {% endif %}
+                        {% if is_admin %}
+                        <li><a href="/" onclick="resetVote(event)">сброс голосования</a></li>
+                        <li><a href="/" onclick="addSongs(event)">добавить песни</a></li>
+                        <li><a href="/" onclick="resetButtons(event)">сбросить кнопки</a></li>
+                        <li><a href="/" onclick="mlButtons(event)">младшие</a></li>
+                        <li><a href="/" onclick="stButtons(event)">старшие</a></li>
+                        <li><a href="{{ url_for('karaoke') }}">караоке</a></li>
+                        <li><a href="{{ url_for('internet') }}">интернет</a></li>
+                        <li><a href="{{ url_for('balance_editor') }}">управление балансом</a></li>
+                        <li><a href="/" onclick="chime(event)">chime</a></li>
+                        {% endif %}
+                    </ul>
                 </div>
     </div>
     <p class="text-muted">если нашли ошибку в работе сайта, просьба обращаться в рубку.</p>
@@ -154,15 +157,23 @@
 {% if is_ph or is_admin %}
     <script>
         function handleLinkClick(event) {
-            // предотвращаем переход по ссылке по умолчанию
             event.preventDefault();
 
-            // отправляем на бэкэнд
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/upload-photo", true);
-            xhr.send();
 
-            alert("фото начали выгружаться!");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var response = xhr.responseText;
+                        alert(response)
+                    } else {
+                        console.error("Ошибка запроса: " + xhr.status);
+                    }
+                }
+            };
+
+            xhr.send();
         }
         function resetButtons(event) {
             // предотвращаем переход по ссылке по умолчанию
@@ -171,8 +182,39 @@
             // отправляем на бэкэнд
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/reset-buttons", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var response = xhr.responseText;
+                        alert(response)
+                    } else {
+                        console.error("Ошибка запроса: " + xhr.status);
+                    }
+                }
+            };
             xhr.send();
         }
+
+        function chime(event) {
+            // предотвращаем переход по ссылке по умолчанию
+            event.preventDefault();
+
+            // отправляем на бэкэнд
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/chime", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var response = xhr.responseText;
+                        alert(response)
+                    } else {
+                        console.error("Ошибка запроса: " + xhr.status);
+                    }
+                }
+            };
+            xhr.send();
+        }
+
         function mlButtons(event) {
             // предотвращаем переход по ссылке по умолчанию
             event.preventDefault();
@@ -180,8 +222,59 @@
             // отправляем на бэкэнд
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/ml", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var response = xhr.responseText;
+                        console.log(response)
+                    } else {
+                        console.error("Ошибка запроса: " + xhr.status);
+                    }
+                }
+            };
             xhr.send();
         }
+
+        function addSongs(event) {
+            // предотвращаем переход по ссылке по умолчанию
+            event.preventDefault();
+
+            // отправляем на бэкэнд
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/add-songs", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var response = xhr.responseText;
+                        alert(response)
+                    } else {
+                        console.error("Ошибка запроса: " + xhr.status);
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        function resetVote(event) {
+            // предотвращаем переход по ссылке по умолчанию
+            event.preventDefault();
+
+            // отправляем на бэкэнд
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/reset-vote", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var response = xhr.responseText;
+                        alert(response)
+                    } else {
+                        console.error("Ошибка запроса: " + xhr.status);
+                    }
+                }
+            };
+            xhr.send();
+        }
+
         function stButtons(event) {
             // предотвращаем переход по ссылке по умолчанию
             event.preventDefault();
@@ -189,6 +282,16 @@
             // отправляем на бэкэнд
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/st", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var response = xhr.responseText;
+                        console.log(response)
+                    } else {
+                        console.error("Ошибка запроса: " + xhr.status);
+                    }
+                }
+            };
             xhr.send();
         }
 
