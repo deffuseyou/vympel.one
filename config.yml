@@ -31,15 +31,21 @@ ph-ip:
   - '192.168.0.47'
   - '192.168.0.48'
 
+photo-use-year: true
+year: 2024
+shift: 1
 music-path: 'z:/музыка/дискотека 2.0'
 photo-path: 'z:/фото'
-now-photo-path: 'z:/фото/2024/1 поток'
-archives-path: 'z:/фото/архивы/2024/1 поток'
-presentation-path: 'z:/вд/2023/4 поток'
-
+now-photo-path: 'z:/фото/{year}/{shift} поток'
+archives-path: 'z:/фото/архивы/{year}/{shift} поток'
+presentation-path: 'z:/вд/{year}/{shift} поток'
+exclude-photo-path:
+  - педсостав
+  - скрины
+  - фотографирование
 whitelist-path: '/etc/qwert.txt'
 
-monitor-path: 'z:/вд/2024/1 поток'
+monitor-path: 'z:/вд/{year}/1 поток'
 
 disco-dates:
   - 03.07.2023
@@ -66,18 +72,19 @@ disco-dates:
   - 22.08.2023
 
 album_ids:
+  - "вымпелevent":
+      - 301288665
   - "масленица":
-      - 293714146
+      - 301347176
   - "1 поток":
-      - 293714166
+      - 301347177
   - "2 поток":
-      - 293714172
+      - 301347180
   - "3 поток":
-      - 293714178
+      - 301347182
   - "4 поток":
-      - 293714184
-  - "5 день города":
-      - 301288248
+      - 301347183
+
 
 
 squads:

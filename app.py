@@ -4,7 +4,7 @@ import logging
 import threading
 from datetime import *
 from threading import Thread, Event
-
+from sqlighter import SQLighter
 import paho.mqtt.client as mqtt
 import psycopg2
 import requests
@@ -15,7 +15,6 @@ from flask_images import Images
 from flask_socketio import SocketIO
 from rsc_py import RSCPy
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-
 from data_processing import *
 
 last_message_time = 0
@@ -179,7 +178,7 @@ def perform_action(action, path=None):
 
     if action == "run-presentation":
         if path:
-            path = config_read()['presentation-path'] + '/' + path
+            path = config_read()[f'presentation-path'] + '/' + path
             path = path.replace('/', '\\')
             controller.run_presentation(path)
 
@@ -191,7 +190,7 @@ def perform_action(action, path=None):
 
     elif action == "stop-presentation":
         if path:
-            path = config_read()['presentation-path'] + '/' + path
+            path = config_read()[f'presentation-path'] + '/' + path
             path = path.replace('/', '\\')
             controller.stop_presentation(path)
 
@@ -452,6 +451,10 @@ def send_files():
 def wallet():
     return render_template('wallet.html')
 
+@app.route('/qw')
+def ddddd():
+    return render_template('fds.html')
+
 
 @app.route('/speech')
 def speech():
@@ -473,7 +476,7 @@ def get_music(filename):
 
 @app.route('/wallet/5-old')
 def wallet_5_old():
-    return render_template('wallet_5_old.html')
+    return render_template('buttons.html')
 
 
 @app.route('/wallet/')
@@ -567,7 +570,7 @@ def song_rating():
 
 @app.route('/download-photo')
 def download_photo():
-    path = config_read()['archives-path']
+    path = config_read()[f'archives-path']
     if not os.path.exists(path):
         os.makedirs(path)
     return render_template('download_photo.html',
@@ -578,7 +581,7 @@ def download_photo():
 
 @app.route('/download-photo/<path:path>')
 def sub_download_photo(path):
-    new_path = config_read()['archives-path'] + '/' + path
+    new_path = config_read()[f'archives-path'] + '/' + path
     if os.path.isdir(new_path):
         return render_template('download_photo.html',
                                folders=[f for f in os.listdir(new_path) if os.path.isdir(os.path.join(new_path, f))],
@@ -590,22 +593,24 @@ def sub_download_photo(path):
         return render_template('404.html'), 404
 
 
-@app.route('/presentation')
-def presentation():
-    path = config_read()['presentation-path']
+@app.route('/clicker')
+def clicker():
+    path = config_read()[f'presentation-path']
     if not os.path.exists(path):
         os.makedirs(path)
-    return render_template('presentation.html',
+    return render_template('clicker.html',
                            folders=[f for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))],
-                           files=[f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))],
+                           files=[f for f in os.listdir(path) if
+                                  os.path.isfile(os.path.join(path, f)) and f.endswith('ppt') or f.endswith(
+                                      'pptx')],
                            dir='', )
 
 
-@app.route('/presentation/<path:path>')
-def sub_presentation(path):
-    new_path = config_read()['presentation-path'] + '/' + path
+@app.route('/clicker/<path:path>')
+def sub_clicker(path):
+    new_path = config_read()[f'presentation-path'] + '/' + path
     if os.path.isdir(new_path):
-        return render_template('presentation.html',
+        return render_template('clicker.html',
                                folders=[f for f in os.listdir(new_path) if os.path.isdir(os.path.join(new_path, f))],
                                files=[f for f in os.listdir(new_path) if
                                       os.path.isfile(os.path.join(new_path, f)) and f.endswith('ppt') or f.endswith(

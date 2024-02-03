@@ -1,42 +1,18 @@
-import os
+import shutil
 import shutil
 import socket
 import sqlite3
 import subprocess
 import zipfile
-from datetime import datetime
-
 import paramiko
 import pyttsx3
 import vk_api
 import yaml
 import yt_dlp
-from sqlighter import SQLighter
-from datetime import datetime, timedelta
-from PIL.ExifTags import TAGS, GPSTAGS
+from PIL.ExifTags import TAGS
+from pillow_heif import register_heif_opener
 import os
-from PIL import Image
-
-
-def convert_heic_to_jpeg(heic_file_path, jpeg_file_path):
-    # Используйте heif-convert для конвертации HEIC в JPEG
-    print(heic_file_path, jpeg_file_path)
-    os.system(f'heif-convert "{heic_file_path}" "{jpeg_file_path}" -q 100')
-
-
-def get_date_taken(path):
-    try:
-        image = Image.open(path)
-        exif_data = image._getexif()
-
-        for tag, value in exif_data.items():
-            tag_name = TAGS.get(tag, tag)
-            if tag_name == 'DateTimeOriginal':
-                return value
-    except (AttributeError, KeyError, IndexError):
-        pass
-
-    return None
+from sqlighter import SQLighter
 
 
 def closest_disco_date(dates):
@@ -61,6 +37,13 @@ def config_read():
     config = yaml.load(open('config.yml'), Loader=yaml.SafeLoader)
     return config
 
+year = config_read()['year']
+shift = config_read()['shift']
+db = SQLighter(database=config_read()['db']['database'],
+               user=config_read()['db']['user'],
+               password=os.environ['ADMIN_PASSWORD'],
+               host=config_read()['db']['host'],
+               port=config_read()['db']['port'])
 
 def is_connected():
     try:
@@ -98,12 +81,6 @@ def transmit_message(text):
 
 
 def parse_music_folder():
-    db = SQLighter(database='vympel.one',
-                   user='postgres',
-                   password=os.environ['ADMIN_PASSWORD'],
-                   host='vympel.one',
-                   port=5432)
-
     path = fr'{config_read()["music-path"]}'
     songs = next(os.walk(path), (None, None, []))[2]
 
@@ -148,11 +125,11 @@ def ctrl_click():
 
 
 def zip_photo():
-    subfolders = [f.path for f in os.scandir(config_read()['now-photo-path']) if f.is_dir()]
+    subfolders = [f.path for f in os.scandir(config_read()[f'now-photo-path']) if f.is_dir()]
 
     for subfolder in subfolders:
         if any(os.scandir(subfolder)):
-            archive_name = os.path.join(config_read()['archives-path'], os.path.basename(subfolder))
+            archive_name = os.path.join(config_read()[f'archives-path'], os.path.basename(subfolder))
             archive_path = archive_name + '.zip'
             print(archive_path)
             if os.path.exists(archive_path):
@@ -171,7 +148,7 @@ def zip_photo():
                 print(f'Создан архив {archive_name}')
 
 
-def upload_to_album(album_id, file, db):
+def upload_to_album(album_id, file):
     vk_session = vk_api.VkApi(token=os.environ['VK_TOKEN'])
     vk = vk_session.get_api()
 
@@ -198,39 +175,63 @@ def upload_to_album(album_id, file, db):
                                                                      photo_data['id']))
         except Exception as e:
             print(e)
-            upload_to_album(album_id, file, db)
+            upload_to_album(album_id, file)
+
+
+from PIL import Image
+import os
+from datetime import datetime, timezone
+
+
+def get_image_creation_date(image_path):
+    if image_path.lower().endswith('.heic'):
+        register_heif_opener()
+        img = Image.open(image_path)
+        exif_data = img.getexif()
+
+        if exif_data is not None:  # Add this check
+            for tag, value in exif_data.items():
+                tag_name = TAGS.get(tag, tag)
+                if tag_name == "DateTime":
+                    return datetime.strptime(value, "%Y:%m:%d %H:%M:%S").replace(tzinfo=timezone.utc)
+    if image_path.lower().endswith('.jpeg') or image_path.lower().endswith('.jpg'):
+        img = Image.open(image_path)
+        exif_data = img._getexif()
+
+        if exif_data is not None:  # Add this check
+            for tag, value in exif_data.items():
+                tag_name = TAGS.get(tag, tag)
+                if tag_name == "DateTimeOriginal":
+                    return datetime.strptime(value, "%Y:%m:%d %H:%M:%S").replace(tzinfo=timezone.utc)
+    return datetime.fromtimestamp(os.path.getmtime(image_path)).replace(tzinfo=timezone.utc)
 
 
 def photo_uploader():
-    db = SQLighter(database='vympel.one',
-                   user='postgres',
-                   password=os.environ['ADMIN_PASSWORD'],
-                   host='localhost',
-                   port=5432)
     uploaded_photo = list(zip(*db.get_uploaded_photo()))[0]
 
-    config = config_read()
     # путь к папке с фотографиями
-    folder_path = config['photo-path']
+    if config_read()['photo-use-year']:
+        folder_path = f"{config_read()['photo-path']}/{config_read()['year']}"
+    else:
+        folder_path = config_read()['photo-path']
+
 
     def into_folder(folder_path):
         album_ids = config_read()['album_ids']
-        files = sorted(os.listdir(folder_path), key=lambda x: get_photo_shooting_date(os.path.join(folder_path, x)))
+        files = sorted(os.listdir(folder_path), key=lambda x: get_image_creation_date(os.path.join(folder_path, x)))
         for file in files:
-            if f"{folder_path + '/' + file}".replace(config['photo-path'], '') not in uploaded_photo:
-                if os.path.isdir(folder_path + '/' + file) \
-                        and file != 'педсостав' \
-                        and file != 'скрины' \
-                        and file != 'фотографирование':
-                    into_folder(folder_path + '/' + file)
+            full_path = folder_path + '/' + file
+            if f"{full_path}".replace(config_read()['photo-path'], '') not in uploaded_photo:
+                if os.path.isdir(full_path) and file not in config_read()['exclude-photo-path']:
+                    into_folder(full_path)
                 else:
                     if file.lower().endswith('.jpg') or file.lower().endswith('.jpeg') or \
                             file.lower().endswith('.heic'):
                         for album_id in album_ids:
                             key = list(album_id.keys())[0]
                             value = album_id[key]
-                            if key in folder_path + '/' + file:
-                                upload_to_album(*value, folder_path + '/' + file, db)
+                            if key in full_path:
+                                upload_to_album(*value, full_path)
 
     into_folder(folder_path)
 

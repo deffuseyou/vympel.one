@@ -100,7 +100,7 @@ def convert_heic_to_jpg(heic_file, jpg_output):
         heic_file = heic_file.encode('cp1251').decode('cp1251')
         jpg_output = jpg_output.encode('cp1251').decode('cp1251')
 
-        subprocess.run(['heif-convert', heic_file, jpg_output])
+        subprocess.run(['heif-convert', heic_file, '-q', '100', '-f', 'jpg'])
         return jpg_output
     except Exception as e:
         print(f"Ошибка при конвертации {heic_file} в .jpg: {e}")
@@ -148,7 +148,7 @@ def sort_files_by_photo_date(folder_path):
 
 
 # Пример использования:
-folder_path = r'z:\фото\2023\7 вымпелevent'  # Укажите путь к вашей папке с фотографиями
+folder_path = r'z:\фото\2024\-1 вымпелevent'  # Укажите путь к вашей папке с фотографиями
 sorted_files = sort_files_by_photo_date(folder_path)
 for file in sorted_files:
     print(file)

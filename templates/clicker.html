@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>загрузка фото</title>
+    <title>кликер</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
@@ -79,7 +79,7 @@
 </head>
 <body>
 <div class="container">
-    <h3 class="mb-3 align-center">загрузка фото и видео</h3>
+    <h3 class="mb-3 align-center">кликер</h3>
 
     <ul>
         {% if folders|length == 0 and files|length == 0 %}
@@ -91,13 +91,13 @@
         {% for folder in folders %}
         <li>
             <span class="icon">&#x1F4C1;</span>
-            <a href="{{ url_for('sub_presentation', path = dir + "/" + folder) }}">{{ folder }}</a>
+            <a href="{{ url_for('sub_clicker', path = dir + "/" + folder) }}">{{ folder }}</a>
         </li>
         {% endfor %}
 
         {% for file in files %}
         <li>
-            <a href="{{ url_for('sub_presentation', path = dir + '/' + file) }}">{{ file|replace('.pptx',
+            <a href="{{ url_for('sub_clicker', path = dir + '/' + file) }}">{{ file|replace('.pptx',
                 '')|replace('.ppt', '') }}</a>
             <div class="icon-container">
                 <i class="fas fa-backward" data-path="{{ dir + '/' + file }}"></i>
