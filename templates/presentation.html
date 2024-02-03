@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>загрузка фото</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <style>
+        /* стили для мобильных устройств */
+        body {
+            font-size: 16px;
+        }
+
+        p {
+            margin-top: -10px;
+        }
+
+        .container {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .icon-container {
+            float: right;
+            margin-right: 6px; /* Настройте отступ сверху по вашему усмотрению */
+        }
+
+        /* Если нужно сделать иконки меньше */
+        .icon-container i {
+            font-size: 18px; /* Настройте размер иконок по вашему усмотрению */
+        }
+
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: -10px;
+        }
+
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        a {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        /* стили для десктопных устройств */
+        @media (min-width: 768px) {
+            body {
+                font-size: 20px;
+            }
+
+            ul {
+                margin-top: 0;
+            }
+
+            li {
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                margin: 10px;
+            }
+
+            li:last-child {
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3 class="mb-3 align-center">загрузка фото и видео</h3>
+
+    <ul>
+        {% if folders|length == 0 and files|length == 0 %}
+        <p class="text-muted">пока что тут пусто...</p>
+        {% else %}
+        <p class="text-muted">нажми, чтобы управлять</p>
+        {% endif %}
+
+        {% for folder in folders %}
+        <li>
+            <span class="icon">&#x1F4C1;</span>
+            <a href="{{ url_for('sub_presentation', path = dir + "/" + folder) }}">{{ folder }}</a>
+        </li>
+        {% endfor %}
+
+        {% for file in files %}
+        <li>
+            <a href="{{ url_for('sub_presentation', path = dir + '/' + file) }}">{{ file|replace('.pptx',
+                '')|replace('.ppt', '') }}</a>
+            <div class="icon-container">
+                <i class="fas fa-backward" data-path="{{ dir + '/' + file }}"></i>
+                <i class="fas fa-play play-button" data-path="{{ dir + '/' + file }}"></i>
+                <i class="fas fa-stop" data-path="{{ dir + '/' + file }}"></i>
+                <i class="fas fa-forward" data-path="{{ dir + '/' + file }}"></i>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const iconContainer = document.querySelector(".icon-container");
+
+        iconContainer.addEventListener("click", function (event) {
+            const target = event.target;
+            if (target.tagName === "I") {
+                const path = target.getAttribute("data-path");
+                let endpoint;
+
+                if (target.classList.contains("fa-play")) {
+                    endpoint = "/run-presentation";
+                } else if (target.classList.contains("fa-stop")) {
+                    endpoint = "/stop-presentation";
+                } else if (target.classList.contains("fa-forward")) {
+                    endpoint = "/next-slide";
+                } else if (target.classList.contains("fa-backward")) {
+                    endpoint = "/prev-slide";
+                }
+
+                if (endpoint) {
+                    sendAjaxRequest(endpoint, {path: path});
+                }
+            }
+        });
+
+        function sendAjaxRequest(endpoint, data) {
+            fetch(endpoint, {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    });
+</script>
+</html>

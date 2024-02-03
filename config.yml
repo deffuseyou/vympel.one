@@ -1,20 +1,22 @@
+summer-mode: false
+
 router:
   ip: '192.168.1.1'
   user: 'root'
 
 db:
-  host: 'vympel.one'
+  host: 'localhost'
   port: 5432
   database: 'vympel.one'
   user: 'postgres'
 
 mqtt:
-  host: 'vympel.one'
+  host: 'localhost'
   port: 1883
   buttons-topic: 'buttons'
   laser-topic: ''
 
-host: 'vympel.one'
+host: 'localhost'
 snapdrop-host: 'vympel.one'
 
 admin-telegram-id:
@@ -24,22 +26,20 @@ admin-telegram-id:
   - 1061060541
 admin-ip:
   - '192.168.0.100'
-  - '192.168.0.15'
-  - '192.168.0.16'
-  - '192.168.0.223'
-  - '192.168.0.60'
+  - '192.180.0.18'
 ph-ip:
   - '192.168.0.47'
   - '192.168.0.48'
 
-music-path: 'z:/музыка/дискотека'
+music-path: 'z:/музыка/дискотека 2.0'
 photo-path: 'z:/фото'
-now-photo-path: 'z:/фото/2023/3 поток'
-archives-path: 'z:/фото/архивы/2023/3 поток/'
+now-photo-path: 'z:/фото/2024/1 поток'
+archives-path: 'z:/фото/архивы/2024/1 поток'
+presentation-path: 'z:/вд/2023/4 поток'
 
 whitelist-path: '/etc/qwert.txt'
 
-monitor-path: 'z:/вд/2023/3 поток'
+monitor-path: 'z:/вд/2024/1 поток'
 
 disco-dates:
   - 03.07.2023
@@ -52,10 +52,33 @@ disco-dates:
   - 22.07.2023
   - 24.07.2023
   - 26.07.2023
-  - 27.08.2023
+  - 27.07.2023
   - 01.08.2023
   - 03.08.2023
   - 04.08.2023
+  - 10.08.2023
+  - 12.08.2023
+  - 13.08.2023
+  - 14.08.2023
+  - 16.08.2023
+  - 18.08.2023
+  - 21.08.2023
+  - 22.08.2023
+
+album_ids:
+  - "масленица":
+      - 293714146
+  - "1 поток":
+      - 293714166
+  - "2 поток":
+      - 293714172
+  - "3 поток":
+      - 293714178
+  - "4 поток":
+      - 293714184
+  - "5 день города":
+      - 301288248
+
 
 squads:
   squad_1:
@@ -93,15 +116,3 @@ squads:
     squad-size: 25
     balance: бюджет созвездия
     logo: 5_squad.png
-
-album_ids:
-  - "масленица":
-      - 293714146
-  - "1 поток":
-      - 293714166
-  - "2 поток":
-      - 293714172
-  - "3 поток":
-      - 293714178
-  - "4 поток":
-      - 293714184

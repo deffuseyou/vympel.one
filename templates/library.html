@@ -70,6 +70,57 @@
             background-color: #000000;
             transition: width 0.1s ease-in-out;
         }
+
+        .send-button {
+            display: none; /* Скрыть кнопку по умолчанию */
+            position: fixed;
+            bottom: 20px; /* Отступ снизу */
+            left: 50%; /* Центрирование по горизонтали */
+            transform: translateX(-50%); /* Сдвигаем кнопку на половину её ширины назад, чтобы центрировать точно */
+            z-index: 1000; /* Убедитесь, что кнопка находится поверх других элементов */
+            padding: 10px 20px; /* Паддинг для кнопки */
+            background-color: #007bff; /* Цвет фона кнопки */
+            color: white; /* Цвет текста кнопки */
+            border: none; /* Убираем границу */
+            border-radius: 5px; /* Скругляем углы */
+            cursor: pointer; /* Изменяем курсор при наведении на кнопку */
+        }
+
+
+        .song-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .list-group-item {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+        .form-check-input {
+            position: absolute;
+            right: 0;
+            margin-right: 5%;
+            width: 50px; /* Устанавливаем ширину 70px */
+            height: 50px; /* Устанавливаем высоту 70px */
+            cursor: pointer; /* Опционально, делает курсор руки, когда пользователь наводит на чекбокс */
+            top: 50%;
+            transform: translateY(-59%); /* Смещаем элемент на 50% его высоты вверх */;
+            /*           -webkit-appearance: none; !* Убирает стандартный стиль для Webkit-браузеров *!*/
+            /*appearance: none; !* Убирает стандартный стиль для всех браузеров *!*/
+            /*background-color: #f0f0f0; !* Фоновый цвет чекбокса, можно изменить на нужный *!*/
+            /*border: 1px solid #dcdcdc; !* Граница чекбокса, можно изменить на нужный стиль *!*/
+            /*border-radius: 5px; !* Скругление углов, можно изменить в соответствии с дизайном *!*/
+        }
+
+        /* Стили для состояния "checked" */
+        /*.form-check-input:checked {*/
+        /*    background-color: #007bff; !* Цвет фона при выборе *!*/
+        /*    border-color: #007bff; !* Цвет границы при выборе *!*/
+        /*}*/
     </style>
 </head>
 <body>
@@ -77,34 +128,138 @@
     <h3 class="mb-3 text-center">библиотека песен</h3>
     <ul class="list-group">
         {% if chart|length != 0 %}
-            {% for song in chart %}
-                <li class="list-group-item">
-                    <span class="icon play-icon" onclick="togglePlayback(this, '{{ song }}.mp3')"></span>
-                    <div class="song-info">
-                        <a href="{{ url_for('get_music', filename=song + '.mp3') }}" download="{{ song }}">
-                            <span class="song-title">{{ song.split(' - ')[1] }}</span>
-                        </a>
-                        <span class="song-artist">{{ song.split(' - ')[0] }}</span>
-                    </div>
-                </li>
-            {% endfor %}
+        {% for song in chart %}
+        <li class="list-group-item">
+            <div class="song-container">
+                <span class="icon play-icon" onclick="togglePlayback(this, '{{ song }}.mp3')"></span>
+                <div class="song-info">
+                    <a href="{{ url_for('get_music', filename=song + '.mp3') }}" download="{{ song }}">
+                        <span class="song-title">{{ song.split(' - ')[1] }}</span>
+                    </a>
+                    <span class="song-artist">{{ song.split(' - ')[0] }}</span>
+                </div>
+            </div>
+            <input type="checkbox" class="form-check-input" onchange="checkSelection()">
+        </li>
+        {% endfor %}
         {% else %}
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <div class="song-info">
-                        <span class="song-artist">пока что нет песен...</span>
-                    </div>
-                </li>
-            </ul>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="song-info">
+                    <span class="song-artist">пока что нет песен...</span>
+                </div>
+            </li>
+        </ul>
         {% endif %}
     </ul>
+    <button class="btn btn-primary send-button" id="send-selected">отправить</button>
 </div>
 
 <div class="progress-container" onclick="seek(event)">
     <div class="progress-bar" id="progress-bar"></div>
 </div>
+<!-- Модальное окно для выбора номера отряда -->
+<!-- Модальное окно для выбора номера отряда -->
+<div id="squadModal"
+     style="display:none; position:fixed; z-index:1001; left:0; top:0; width:100%; height:100%; overflow:auto; background-color: rgba(0,0,0,0.4);">
+    <div style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 300px;">
+        <h2>Выбор отряда</h2>
+        <!-- Радиокнопки для выбора отряда -->
+        <div>
+            <input type="radio" id="squad1" name="squad" value="1">
+            <label for="squad1">Отряд 1</label>
+        </div>
+        <div>
+            <input type="radio" id="squad2" name="squad" value="2">
+            <label for="squad2">Отряд 2</label>
+        </div>
+        <div>
+            <input type="radio" id="squad3" name="squad" value="3">
+            <label for="squad3">Отряд 3</label>
+        </div>
+        <div>
+            <input type="radio" id="squad4" name="squad" value="4">
+            <label for="squad4">Отряд 4</label>
+        </div>
+        <!-- Добавьте больше радиокнопок для отрядов при необходимости -->
+        <button onclick="sendSongsWithSquad()">Отправить</button>
+        <button onclick="closeModal()">Отмена</button>
+    </div>
+</div>
+
 
 <script>
+    function sendSelectedSongs() {
+        // Показываем модальное окно для выбора отряда
+        document.getElementById('squadModal').style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById('squadModal').style.display = "none";
+    }
+
+    function checkSelection() {
+        const checkboxes = document.querySelectorAll('.form-check-input');
+        const sendButton = document.getElementById('send-selected');
+        const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+        sendButton.style.display = anyChecked ? 'block' : 'none';
+    }
+
+    function sendSongsWithSquad() {
+        const selectedSquadRadio = document.querySelector('input[name="squad"]:checked');
+        if (!selectedSquadRadio) {
+            alert('Пожалуйста, выберите отряд перед отправкой.');
+            return;
+        }
+        const selectedSquad = selectedSquadRadio.value;
+
+        const selectedSongs = [];
+        const checkboxes = document.querySelectorAll('.form-check-input');
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                const songInfo = checkbox.closest('.list-group-item').querySelector('.song-info');
+                const songTitle = songInfo.querySelector('.song-title').textContent.trim();
+                const songArtist = songInfo.querySelector('.song-artist').textContent.trim();
+                selectedSongs.push({title: songTitle, artist: songArtist});
+            }
+        });
+
+        fetch('/send_songs', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({songs: selectedSongs, squad: selectedSquad}),
+        })
+            .then(response => response.json()) // Предполагаем, что ответ всегда в формате JSON
+            .then(data => {
+                console.log(data.status)
+                if (data.status) {
+                    // Показываем сообщение об ошибке, если сервер вернул false
+                    alert(data.message || 'success');
+                    // Затем перенаправляем на главную страницу
+                    setTimeout(() => {
+                        window.location.href = '/'; // Укажите здесь корректный URL главной страницы
+                    }, 5000); // Задержка перед редиректом, чтобы пользователь мог прочитать сообщение
+                } else {
+                    // Показываем сообщение об ошибке, если сервер вернул false
+                    alert('error');
+                    // Затем перенаправляем на главную страницу
+                    setTimeout(() => {
+                        window.location.href = '/'; // Укажите здесь корректный URL главной страницы
+                    }, 5000); // Задержка перед редиректом, чтобы пользователь мог прочитать сообщение
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Произошла ошибка при отправке песен');
+                // Можно также добавить редирект на главную страницу здесь, если нужно
+            });
+    }
+
+
+    document.getElementById('send-selected').addEventListener('click', sendSelectedSongs);
+
     var audio = null;
     var currentSong = null;
     var currentButton = null;

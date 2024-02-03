@@ -121,7 +121,7 @@
                 <li><a href="{{ url_for('song_rating') }}">топ песен</a></li>
                 <li><a href="{{ url_for('squad_rating') }}">топ по отрядам</a></li>
                 <li><a href="{{ url_for('send_files') }}">обмен файлами</a></li>
-                <li><a href="{{ url_for('wallet') }}">баланс отрядов</a></li>
+<!--                <li><a href="{{ url_for('wallet') }}">баланс отрядов</a></li>-->
                 <li><a data-toggle="modal" data-target="#anonMessage"
                        href="https://getbootstrap.com/docs/4.6/getting-started/build-tools">сообщение в рубку</a></li>
                 <li><a href="{{ url_for('download_photo') }}">загрузка фото и видео</a></li>
@@ -186,7 +186,7 @@
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
                         var response = xhr.responseText;
-                        alert(response)
+                        // alert(response)
                     } else {
                         console.error("Ошибка запроса: " + xhr.status);
                     }

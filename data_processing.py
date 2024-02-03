@@ -11,17 +11,50 @@ import pyttsx3
 import vk_api
 import yaml
 import yt_dlp
-
 from sqlighter import SQLighter
+from datetime import datetime, timedelta
+from PIL.ExifTags import TAGS, GPSTAGS
+import os
+from PIL import Image
+
+
+def convert_heic_to_jpeg(heic_file_path, jpeg_file_path):
+    # Используйте heif-convert для конвертации HEIC в JPEG
+    print(heic_file_path, jpeg_file_path)
+    os.system(f'heif-convert "{heic_file_path}" "{jpeg_file_path}" -q 100')
+
+
+def get_date_taken(path):
+    try:
+        image = Image.open(path)
+        exif_data = image._getexif()
+
+        for tag, value in exif_data.items():
+            tag_name = TAGS.get(tag, tag)
+            if tag_name == 'DateTimeOriginal':
+                return value
+    except (AttributeError, KeyError, IndexError):
+        pass
+
+    return None
 
 
 def closest_disco_date(dates):
+    current_datetime = datetime.now()
     converted_dates = [datetime.strptime(date, "%d.%m.%Y") for date in dates]
-    closest_date = min(converted_dates, key=lambda x: abs(x - datetime.now()))
+
+    # Удалите даты, которые предшествуют текущей дате
+    converted_dates = [date for date in converted_dates if date >= current_datetime]
+
+    if not converted_dates:
+        return "пока неизвестно"
+
+    closest_date = min(converted_dates, key=lambda x: abs(x - current_datetime))
     months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
               'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
 
     return closest_date.strftime("%d {month}").format(month=months[closest_date.month - 1]).lstrip('0')
+
 
 
 def config_read():
@@ -172,7 +205,7 @@ def photo_uploader():
     db = SQLighter(database='vympel.one',
                    user='postgres',
                    password=os.environ['ADMIN_PASSWORD'],
-                   host='192.168.0.100',
+                   host='localhost',
                    port=5432)
     uploaded_photo = list(zip(*db.get_uploaded_photo()))[0]
 
@@ -182,7 +215,7 @@ def photo_uploader():
 
     def into_folder(folder_path):
         album_ids = config_read()['album_ids']
-        files = sorted(os.listdir(folder_path), key=lambda x: os.path.getmtime(os.path.join(folder_path, x)))
+        files = sorted(os.listdir(folder_path), key=lambda x: get_photo_shooting_date(os.path.join(folder_path, x)))
         for file in files:
             if f"{folder_path + '/' + file}".replace(config['photo-path'], '') not in uploaded_photo:
                 if os.path.isdir(folder_path + '/' + file) \
@@ -191,7 +224,8 @@ def photo_uploader():
                         and file != 'фотографирование':
                     into_folder(folder_path + '/' + file)
                 else:
-                    if file.lower().endswith('.jpg') or file.lower().endswith('.jpeg'):
+                    if file.lower().endswith('.jpg') or file.lower().endswith('.jpeg') or \
+                            file.lower().endswith('.heic'):
                         for album_id in album_ids:
                             key = list(album_id.keys())[0]
                             value = album_id[key]
