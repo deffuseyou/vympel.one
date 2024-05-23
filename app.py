@@ -1,24 +1,26 @@
 import datetime
+import io
 import locale
 import logging
 import threading
 from datetime import *
 from threading import Thread, Event
-from sqlighter import SQLighter
+
 import paho.mqtt.client as mqtt
 import psycopg2
 import requests
 import telegram
-from flask import Flask, request, redirect, send_from_directory, jsonify
+from flask import Flask, request, redirect, send_from_directory, jsonify, make_response
 from flask import render_template, send_file
-from flask_images import Images
 from flask_socketio import SocketIO
 from rsc_py import RSCPy
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+
 from data_processing import *
 
 last_message_time = 0
-locale.setlocale(locale.LC_TIME, 'ru')
+locale.setlocale(locale.LC_TIME, 'ru_RU.UTF-8')
+
 
 __author__ = 'deffuseyou'
 
@@ -37,20 +39,22 @@ db = SQLighter(database=config_read()['db']['database'],
                host=config_read()['db']['host'],
                port=config_read()['db']['port'])
 
-import pygame
-
-# Инициализация pygame
-pygame.init()
-
-# Загрузка звукового файла
-sound_file = "bip.mp3"
-pygame.mixer.music.load(sound_file)
+# import pygame
+# # Инициализация всех модулей Pygame
+# pygame.init()
+#
+# # Инициализация модуля mixer
+# pygame.mixer.init()
+#
+# # Теперь можно загружать и воспроизводить звуки
+# sound_file = "bip.mp3"
+# pygame.mixer.music.load(sound_file)
+#
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 app.config['DEBUG'] = False
 
-images = Images(app)
 
 token = os.environ['TG_BOT_TOKEN']
 bot = telegram.Bot(token=token)
@@ -58,7 +62,7 @@ bot = telegram.Bot(token=token)
 socketio = SocketIO(app, async_mode=None)
 thread = Thread()
 thread_stop_event = Event()
-mqtt_broker = "localhost"
+mqtt_broker = config_read()['mqtt']['host']
 mqtt_topic = "buttons"
 
 import time
@@ -93,12 +97,12 @@ def on_message(client, userdata, msg):
         y = 300
 
         # Перемещаем курсор по указанным координатам и кликаем левой кнопкой мыши
-        pyautogui.moveTo(x, y)
-        pyautogui.click()
-
-        # Нажимаем правый Ctrl
-        pyautogui.keyDown('up')
-        pyautogui.keyUp('up')
+        # pyautogui.moveTo(x, y)
+        # pyautogui.click()
+        #
+        # # Нажимаем правый Ctrl
+        # pyautogui.keyDown('up')
+        # pyautogui.keyUp('up')
 
     if message == '2':
         # Координаты щелчка
@@ -106,12 +110,12 @@ def on_message(client, userdata, msg):
         y = 300
 
         # Перемещаем курсор по указанным координатам и кликаем левой кнопкой мыши
-        pyautogui.moveTo(x, y)
-        pyautogui.click()
-
-        # Нажимаем правый Ctrl
-        pyautogui.keyDown('down')
-        pyautogui.keyUp('down')
+        # pyautogui.moveTo(x, y)
+        # pyautogui.click()
+        #
+        # # Нажимаем правый Ctrl
+        # pyautogui.keyDown('down')
+        # pyautogui.keyUp('down')
 
     if message == '3':
         # Координаты щелчка
@@ -119,12 +123,12 @@ def on_message(client, userdata, msg):
         y = 750
 
         # Перемещаем курсор по указанным координатам и кликаем левой кнопкой мыши
-        pyautogui.moveTo(x, y)
-        pyautogui.click()
-
-        # Нажимаем правый Ctrl
-        pyautogui.keyDown('left')
-        pyautogui.keyUp('left')
+        # pyautogui.moveTo(x, y)
+        # pyautogui.click()
+        #
+        # # Нажимаем правый Ctrl
+        # pyautogui.keyDown('left')
+        # pyautogui.keyUp('left')
 
     if message == '4':
         # Координаты щелчка
@@ -132,12 +136,12 @@ def on_message(client, userdata, msg):
         y = 750
 
         # Перемещаем курсор по указанным координатам и кликаем левой кнопкой мыши
-        pyautogui.moveTo(x, y)
-        pyautogui.click()
-
-        # Нажимаем правый Ctrl
-        pyautogui.keyDown('right')
-        pyautogui.keyUp('right')
+        # pyautogui.moveTo(x, y)
+        # pyautogui.click()
+        #
+        # # Нажимаем правый Ctrl
+        # pyautogui.keyDown('right')
+        # pyautogui.keyUp('right')
     # Проверяем разницу между текущим временем и временем последнего сообщения
 
     if current_time - last_message_time >= 5:
@@ -159,7 +163,9 @@ password = "pusdes69"
 mqtt_client.username_pw_set(username, password)
 mqtt_client.on_connect = on_connect
 mqtt_client.on_message = on_message
-mqtt_client.connect(mqtt_broker, 1883, 60)
+
+
+# mqtt_client.connect(mqtt_broker, 1883, 60)
 @app.route('/send_songs', methods=['POST'])
 def send_songs():
     data = request.json
@@ -174,11 +180,11 @@ def inject_os():
 
 
 def perform_action(action, path=None):
-    controller = RSCPy('192.180.0.18', protocol='TCP')
+    controller = RSCPy(get_local_ip(), protocol='TCP')
 
     if action == "run-presentation":
         if path:
-            path = config_read()[f'presentation-path'] + '/' + path
+            path = config_read()[f'presentation-path'].format(year=year, shift=shift) + '/' + path
             path = path.replace('/', '\\')
             controller.run_presentation(path)
 
@@ -190,7 +196,7 @@ def perform_action(action, path=None):
 
     elif action == "stop-presentation":
         if path:
-            path = config_read()[f'presentation-path'] + '/' + path
+            path = config_read()[f'presentation-path'].format(year=year, shift=shift) + '/' + path
             path = path.replace('/', '\\')
             controller.stop_presentation(path)
 
@@ -570,7 +576,10 @@ def song_rating():
 
 @app.route('/download-photo')
 def download_photo():
-    path = config_read()[f'archives-path']
+    path = config_read()[f'archives-path'].format(year=year, shift=shift)
+    logger.info(path)
+    logger.info(os.path.exists(path))
+
     if not os.path.exists(path):
         os.makedirs(path)
     return render_template('download_photo.html',
@@ -595,26 +604,26 @@ def sub_download_photo(path):
 
 @app.route('/clicker')
 def clicker():
-    path = config_read()[f'presentation-path']
+    path = config_read()[f'presentation-path'].format(year=year, shift=shift)
+    print(path)
     if not os.path.exists(path):
         os.makedirs(path)
     return render_template('clicker.html',
                            folders=[f for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))],
-                           files=[f for f in os.listdir(path) if
-                                  os.path.isfile(os.path.join(path, f)) and f.endswith('ppt') or f.endswith(
-                                      'pptx')],
-                           dir='', )
+                           files=[f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))
+                                  and not f.startswith('~$') and (f.endswith('ppt') or f.endswith('pptx'))],
+                           dir='')
 
 
 @app.route('/clicker/<path:path>')
 def sub_clicker(path):
-    new_path = config_read()[f'presentation-path'] + '/' + path
+    new_path = config_read()[f'presentation-path'].format(year=year, shift=shift) + '/' + path
+    print(new_path)
     if os.path.isdir(new_path):
         return render_template('clicker.html',
                                folders=[f for f in os.listdir(new_path) if os.path.isdir(os.path.join(new_path, f))],
-                               files=[f for f in os.listdir(new_path) if
-                                      os.path.isfile(os.path.join(new_path, f)) and f.endswith('ppt') or f.endswith(
-                                          'pptx')],
+                               files=[f for f in os.listdir(new_path) if os.path.isfile(os.path.join(new_path, f))
+                                      and not f.startswith('~$') and (f.endswith('ppt') or f.endswith('pptx'))],
                                dir=path)
     elif os.path.isfile(new_path):
         return send_file(os.path.join(new_path), as_attachment=True, download_name='')
@@ -630,7 +639,19 @@ def content_update():
 
 
 
+@app.route('/heic-datetime', methods=['POST'])
+def heic_datetime():
+    print(request.files)
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file part'}), 400
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
 
+    if file and file.filename.lower().endswith('.heic'):
+        return make_response(str(get_heic_datetime(io.BytesIO(file.read()))), 200)
+    else:
+        return jsonify({'error': 'Invalid file format'}), 400
 @socketio.on('connect', namespace='/updater')
 def test_connect():
     global thread
@@ -649,5 +670,5 @@ def not_found_error(e):
 
 
 if __name__ == "__main__":
-    mqtt_client.loop_start()
-    socketio.run(app, host='0.0.0.0', port=80)
+    #mqtt_client.loop_start()
+    socketio.run(app, host='0.0.0.0', port=80, allow_unsafe_werkzeug=True)

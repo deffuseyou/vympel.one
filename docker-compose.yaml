@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    networks:
+      - vympel_network
+    ports:
+      - "5431:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - /dump.sql:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_DB: vympel.one
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${ADMIN_PASSWORD}
+
+  web:
+    build: .
+    networks:
+      - vympel_network
+    ports:
+      - "80:80"
+    volumes:
+      - .:/app
+      - z:/музыка/дискотека 2.0:/app/music
+      - z:/фото:/app/photo
+      - z:/фото/2024/1 поток:/app/now-photo
+      - z:/фото/архивы/2024/1 поток:/app/archives
+      - z:/вд/2024/1 поток:/app/presentation
+      - z:/вд/2024/1 поток:/app/monitor
+    depends_on:
+      - db
+    environment:
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - VK_TOKEN=${VK_TOKEN}
+      - TG_BOT_TOKEN=${TG_BOT_TOKEN}
+      - DATABASE_URL=postgresql://postgres:${ADMIN_PASSWORD}@db:5432/vympel.one
+
+volumes:
+  db_data:
+
+networks:
+  vympel_network:
+    external: true

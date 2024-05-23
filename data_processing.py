@@ -1,18 +1,28 @@
-import shutil
+import os
 import shutil
 import socket
 import sqlite3
-import subprocess
 import zipfile
+
+import netifaces
 import paramiko
-import pyttsx3
 import vk_api
 import yaml
-import yt_dlp
 from PIL.ExifTags import TAGS
 from pillow_heif import register_heif_opener
-import os
+
 from sqlighter import SQLighter
+
+
+def get_local_ip():
+    interfaces = netifaces.interfaces()
+    for iface in interfaces:
+        addresses = netifaces.ifaddresses(iface)
+        if netifaces.AF_INET in addresses:
+            for link in addresses[netifaces.AF_INET]:
+                return link['addr']
+
+    return None
 
 
 def closest_disco_date(dates):
@@ -32,18 +42,20 @@ def closest_disco_date(dates):
     return closest_date.strftime("%d {month}").format(month=months[closest_date.month - 1]).lstrip('0')
 
 
-
 def config_read():
-    config = yaml.load(open('config.yml'), Loader=yaml.SafeLoader)
+    config = yaml.load(open('config.yml', encoding='utf-8'), Loader=yaml.SafeLoader)
     return config
+
 
 year = config_read()['year']
 shift = config_read()['shift']
+
 db = SQLighter(database=config_read()['db']['database'],
                user=config_read()['db']['user'],
                password=os.environ['ADMIN_PASSWORD'],
                host=config_read()['db']['host'],
                port=config_read()['db']['port'])
+
 
 def is_connected():
     try:
@@ -73,13 +85,6 @@ def transform_tuple(tuple_input):
     return transformed_tuple
 
 
-def transmit_message(text):
-    engine = pyttsx3.init()
-    engine.setProperty('voice', engine.getProperty('voices')[0].id)
-    engine.say(text)
-    engine.runAndWait()
-
-
 def parse_music_folder():
     path = fr'{config_read()["music-path"]}'
     songs = next(os.walk(path), (None, None, []))[2]
@@ -92,36 +97,36 @@ def parse_music_folder():
             pass
 
 
-def download_and_play_karaoke(search_query):
-    ydl = yt_dlp.YoutubeDL({'format': "bv*+ba/b",
-                            'outtmpl': 'z:\\лагерь\\караоке\\%(title)s.%(ext)s'})
+# def download_and_play_karaoke(search_query):
+#     ydl = yt_dlp.YoutubeDL({'format': "bv*+ba/b",
+#                             'outtmpl': 'z:\\лагерь\\караоке\\%(title)s.%(ext)s'})
+#
+#     ydl.download(f"ytsearch:{search_query}")
+#
+#     with yt_dlp.YoutubeDL() as ydl:
+#         search_results = ydl.extract_info(f"ytsearch:{search_query}", download=False)
+#         if 'entries' in search_results:
+#             first_video = search_results['entries'][0]
+#             video_title = first_video['title']
+#             video_link = first_video['id']
+#             title = f'{video_title}.webm'
+#     subprocess.call(['C:\Program Files\MPC-HC\mpc-hc64.exe', f'z:/караоке/{title}'])
 
-    ydl.download(f"ytsearch:{search_query}")
-
-    with yt_dlp.YoutubeDL() as ydl:
-        search_results = ydl.extract_info(f"ytsearch:{search_query}", download=False)
-        if 'entries' in search_results:
-            first_video = search_results['entries'][0]
-            video_title = first_video['title']
-            video_link = first_video['id']
-            title = f'{video_title}.webm'
-    subprocess.call(['C:\Program Files\MPC-HC\mpc-hc64.exe', f'z:/караоке/{title}'])
-
-import pyautogui
-
-
-def ctrl_click():
-    # Координаты щелчка
-    x = 100
-    y = 100
-
-    # Перемещаем курсор по указанным координатам и кликаем левой кнопкой мыши
-    pyautogui.moveTo(x, y)
-    pyautogui.click()
-
-    # Нажимаем правый Ctrl
-    pyautogui.keyDown('ctrlright')
-    pyautogui.keyUp('ctrlright')
+# import pyautogui
+#
+#
+# def ctrl_click():
+#     # Координаты щелчка
+#     x = 100
+#     y = 100
+#
+#     # Перемещаем курсор по указанным координатам и кликаем левой кнопкой мыши
+#     pyautogui.moveTo(x, y)
+#     pyautogui.click()
+#
+#     # Нажимаем правый Ctrl
+#     pyautogui.keyDown('ctrlright')
+#     pyautogui.keyUp('ctrlright')
 
 
 def zip_photo():
@@ -180,7 +185,19 @@ def upload_to_album(album_id, file):
 
 from PIL import Image
 import os
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
+
+
+def get_heic_datetime(file):
+    register_heif_opener()
+    img = Image.open(file)
+    exif_data = img.getexif()
+
+    if exif_data is not None:  # Add this check
+        for tag, value in exif_data.items():
+            tag_name = TAGS.get(tag, tag)
+            if tag_name == "DateTime":
+                return int(datetime.strptime(value, "%Y:%m:%d %H:%M:%S").replace(tzinfo=timezone(timedelta(hours=3))).timestamp())
 
 
 def get_image_creation_date(image_path):
@@ -215,6 +232,7 @@ def photo_uploader():
     else:
         folder_path = config_read()['photo-path']
 
+    print(folder_path)
 
     def into_folder(folder_path):
         album_ids = config_read()['album_ids']
@@ -234,6 +252,7 @@ def photo_uploader():
                                 upload_to_album(*value, full_path)
 
     into_folder(folder_path)
+
 
 def give_internet_access(ip_address):
     config = config_read()

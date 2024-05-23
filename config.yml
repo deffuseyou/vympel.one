@@ -1,7 +1,7 @@
 summer-mode: false
 
 router:
-  ip: '192.168.1.1'
+  ip: '192.168.20.1'
   user: 'root'
 
 db:
@@ -11,13 +11,13 @@ db:
   user: 'postgres'
 
 mqtt:
-  host: 'localhost'
+  host: 'mqtt.vympel.one'
   port: 1883
   buttons-topic: 'buttons'
   laser-topic: ''
 
-host: 'localhost'
-snapdrop-host: 'vympel.one'
+host: ' '
+snapdrop-host: 'snapdrop.vympel.one'
 
 admin-telegram-id:
   - 518325236
@@ -25,27 +25,26 @@ admin-telegram-id:
   - 839840272
   - 1061060541
 admin-ip:
-  - '192.168.0.100'
-  - '192.180.0.18'
+  - '192.168.21.2'
+  - '192.168.100.181'
 ph-ip:
-  - '192.168.0.47'
-  - '192.168.0.48'
+  - '192.168.21.6'
 
 photo-use-year: true
 year: 2024
 shift: 1
-music-path: 'z:/музыка/дискотека 2.0'
-photo-path: 'z:/фото'
-now-photo-path: 'z:/фото/{year}/{shift} поток'
-archives-path: 'z:/фото/архивы/{year}/{shift} поток'
-presentation-path: 'z:/вд/{year}/{shift} поток'
+music-path: 'z:/РјСѓР·С‹РєР°/РґРёСЃРєРѕС‚РµРєР° 2.0'
+photo-path: 'z:/С„РѕС‚Рѕ'
+now-photo-path: 'z:/С„РѕС‚Рѕ/{year}/{shift} РїРѕС‚РѕРє'
+archives-path: 'z:/'
+presentation-path: 'z:/РІРґ/{year}/{shift} РїРѕС‚РѕРє'
 exclude-photo-path:
-  - педсостав
-  - скрины
-  - фотографирование
+  - РїРµРґСЃРѕСЃС‚Р°РІ
+  - СЃРєСЂРёРЅС‹
+  - С„РѕС‚РѕРіСЂР°С„РёСЂРѕРІР°РЅРёРµ
 whitelist-path: '/etc/qwert.txt'
 
-monitor-path: 'z:/вд/{year}/1 поток'
+monitor-path: 'z:/РІРґ/{year}/1 РїРѕС‚РѕРє'
 
 disco-dates:
   - 03.07.2023
@@ -72,54 +71,54 @@ disco-dates:
   - 22.08.2023
 
 album_ids:
-  - "вымпелevent":
+  - "РІС‹РјРїРµР»event":
       - 301288665
-  - "масленица":
+  - "РјР°СЃР»РµРЅРёС†Р°":
       - 301347176
-  - "1 поток":
+  - "1 РїРѕС‚РѕРє":
       - 301347177
-  - "2 поток":
+  - "2 РїРѕС‚РѕРє":
       - 301347180
-  - "3 поток":
+  - "3 РїРѕС‚РѕРє":
       - 301347182
-  - "4 поток":
+  - "4 РїРѕС‚РѕРє":
       - 301347183
 
 
 
 squads:
   squad_1:
-    name: Киберпингви
-    slogan: Киберпингви я люблю!
+    name: В РёР±РµСЂРїРёРЅРіРІРё
+    slogan: В РёР±РµСЂРїРёРЅРіРІРё В¤ Р»СЋР±Р»СЋ!
     registration-date: 21.07.2023
     squad-size: 32
-    balance: загрузка...
+    balance: Р·Р°РіСЂСѓР·РєР°...
     logo: 1_squad.png
   squad_2:
-    name: Земля будущего
-    slogan: Мы направляем свет, где нас нет, чтобы наступил рассвет!
+    name: В«РµРјР»В¤ Р±СѓРґСѓС‰РµРіРѕ
+    slogan: С›С‹ РЅР°РїСЂР°РІР»В¤РµРј СЃРІРµС‚, РіРґРµ РЅР°СЃ РЅРµС‚, С‡С‚РѕР±С‹ РЅР°СЃС‚СѓРїРёР» СЂР°СЃСЃРІРµС‚!
     registration-date: 21.07.2023
     squad-size: 34
-    balance: загрузка...
+    balance: Р·Р°РіСЂСѓР·РєР°...
     logo: 2_squad.png
   squad_3:
-    name: Флешики
-    slogan: Флешиков девиз наш мил – пришел, увидел, победил!
+    name: вЂР»РµС€РёРєРё
+    slogan: вЂР»РµС€РёРєРѕРІ РґРµРІРёР· РЅР°С€ РјРёР» Р¦ РїСЂРёС€РµР», СѓРІРёРґРµР», РїРѕР±РµРґРёР»!
     registration-date: 21.07.2023
     squad-size: 43
-    balance: загрузка...
+    balance: Р·Р°РіСЂСѓР·РєР°...
     logo: 3_squad.png
   squad_4:
-    name: Пиксели
-    slogan: Пиксели – маленькие, мы – велики, знаем, дойдем до конца игры!
+    name: С•РёРєСЃРµР»Рё
+    slogan: С•РёРєСЃРµР»Рё Р¦ РјР°Р»РµРЅСЊРєРёРµ, РјС‹ Р¦ РІРµР»РёРєРё, Р·РЅР°РµРј, РґРѕР№РґРµРј РґРѕ РєРѕРЅС†Р° РёРіСЂС‹!
     registration-date: 21.07.2023
     squad-size: 38
-    balance: загрузка...
+    balance: Р·Р°РіСЂСѓР·РєР°...
     logo: 4_squad.png
   squad_5:
-    name: Педсостав
-    slogan: Мы рождены, чтоб сказку сделать былью
+    name: С•РµРґСЃРѕСЃС‚Р°РІ
+    slogan: С›С‹ СЂРѕР¶РґРµРЅС‹, С‡С‚РѕР± СЃРєР°Р·РєСѓ СЃРґРµР»Р°С‚СЊ Р±С‹Р»СЊСЋ
     registration-date: 01.06.1964
     squad-size: 25
-    balance: бюджет созвездия
+    balance: Р±СЋРґР¶РµС‚ СЃРѕР·РІРµР·РґРёВ¤
     logo: 5_squad.png

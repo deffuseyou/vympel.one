@@ -159,11 +159,10 @@
     <div class="progress-bar" id="progress-bar"></div>
 </div>
 <!-- Модальное окно для выбора номера отряда -->
-<!-- Модальное окно для выбора номера отряда -->
 <div id="squadModal"
      style="display:none; position:fixed; z-index:1001; left:0; top:0; width:100%; height:100%; overflow:auto; background-color: rgba(0,0,0,0.4);">
     <div style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 300px;">
-        <h2>Выбор отряда</h2>
+        <h4 class="mb-4 text-center">выбор отряда</h4>
         <!-- Радиокнопки для выбора отряда -->
         <div>
             <input type="radio" id="squad1" name="squad" value="1">
@@ -181,9 +180,13 @@
             <input type="radio" id="squad4" name="squad" value="4">
             <label for="squad4">Отряд 4</label>
         </div>
+        <div>
+            <input type="radio" id="squad5" name="squad" value="5">
+            <label for="squad4">Отряд 5</label>
+        </div>
         <!-- Добавьте больше радиокнопок для отрядов при необходимости -->
-        <button onclick="sendSongsWithSquad()">Отправить</button>
-        <button onclick="closeModal()">Отмена</button>
+        <button class="btn btn-primary" onclick="sendSongsWithSquad()">отправить</button>
+        <button class="btn btn-secondary" onclick="closeModal()">Отмена</button>
     </div>
 </div>
 
