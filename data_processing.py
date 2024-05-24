@@ -11,6 +11,10 @@ import yaml
 from PIL.ExifTags import TAGS
 from pillow_heif import register_heif_opener
 
+from PIL import Image
+import os
+from datetime import datetime, timezone, timedelta
+
 from sqlighter import SQLighter
 
 
@@ -183,11 +187,6 @@ def upload_to_album(album_id, file):
             upload_to_album(album_id, file)
 
 
-from PIL import Image
-import os
-from datetime import datetime, timezone, timedelta
-
-
 def get_heic_datetime(file):
     register_heif_opener()
     img = Image.open(file)
@@ -197,7 +196,8 @@ def get_heic_datetime(file):
         for tag, value in exif_data.items():
             tag_name = TAGS.get(tag, tag)
             if tag_name == "DateTime":
-                return int(datetime.strptime(value, "%Y:%m:%d %H:%M:%S").replace(tzinfo=timezone(timedelta(hours=3))).timestamp())
+                return int(datetime.strptime(value, "%Y:%m:%d %H:%M:%S").replace(
+                    tzinfo=timezone(timedelta(hours=3))).timestamp())
 
 
 def get_image_creation_date(image_path):
@@ -269,19 +269,20 @@ def give_internet_access(ip_address):
         # Запись данных в файл
         file.write(f'{ip_address}\n')
 
-        command = f"cat /proc/net/arp | grep '{ip_address}' | " + "awk '{print $4}'"
-        stdin, stdout, stderr = ssh_client.exec_command(command)
-        mac_address = stdout.read().decode('utf-8').upper().replace('\n', '')
+    # Выполнение команды перезагрузки фаервола
+    ssh_client.exec_command('/etc/init.d/firewall restart')
 
-        print([mac_address[:17], ip_address])
-        # ssh_client.exec_command(f"uci add dhcp host # =cfg13fe63")
-        # ssh_client.exec_command(f"uci set dhcp.@host[-1].ip='{str(ip_address)}'")
-        # ssh_client.exec_command(f"uci set dhcp.@host[-1].mac='{mac_address[:17]}'")
-        # ssh_client.exec_command("uci commit dhcp")
-        # ssh_client.exec_command("/etc/init.d/dnsmasq restart")
+    stdin, stdout, stderr = ssh_client.exec_command(f"ip neigh show {ip_address} | awk '{{print $5}}'")
+    mac_address = stdout.read().decode().strip()
 
-        # Выполнение команды перезагрузки фаервола
-        ssh_client.exec_command('/etc/init.d/firewall restart')
+    print([mac_address, ip_address])
+
+    ssh_client.exec_command("uci add dhcp host")
+    ssh_client.exec_command(f"uci set dhcp.@host[-1].ip='{ip_address}'")
+    ssh_client.exec_command(f"uci set dhcp.@host[-1].mac='{mac_address}'")
+    ssh_client.exec_command("uci set dhcp.@host[-1].leasetime='infinite'")
+    ssh_client.exec_command("uci commit dhcp")
+    ssh_client.exec_command("/etc/init.d/dnsmasq restart")
 
     # Копирование содержимого в локальный файл
     with sftp_client.open(config['whitelist-path'], 'r') as file:
@@ -291,20 +292,3 @@ def give_internet_access(ip_address):
     # Отключение от сервера
     sftp_client.close()
     ssh_client.close()
-
-
-if __name__ == '__main__':
-    while True:
-        text = """Хм, ты кое-кого забыла…
-Сегодня отмечается «День ковбоя», «День прокурора» и «День толстяка и толстушки», концерт наверняка посвящён одному из этих праздников.
-Настя, а можешь мне что-то рассказать про четвертую лигу? 
-Четвёртый по силе дивизион профессионального российского футбола, существовавший в 1994—1997 годах. 
-Настя, а почему я ничего не могу найти про ваши лиги в интернете?
-Я хочу сама расспросить следующую лигу!
-Первая лига спародируйте своего инструктора.
-Конечно, что бы выбрали проспать зарядку, душ каждый день или горячие бутерброды с колбасой?
-Пятая лига, это самые младшие?
-Очень, можно мне остаться с вами и еще лучше узнать ваши лиги?
-Включаю лагерный миниклуб """
-        transmit_message(text)
-        break

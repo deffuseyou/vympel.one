@@ -12,6 +12,27 @@
             margin-bottom: 15px;
         }
 
+        .custom-radio-label {
+            border: 1px solid black;
+            padding: 15px;
+            display: block;
+            text-align: center;
+            font-weight: 500;
+            background-color: #ffffff;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .custom-radio-label.active {
+            background-color: #000000;
+            color: white;
+        }
+
+        .custom-radio {
+            display: none;
+        }
+
         .song-info {
             display: inline-block;
             vertical-align: middle;
@@ -152,48 +173,61 @@
         </ul>
         {% endif %}
     </ul>
-    <button class="btn btn-primary send-button" id="send-selected">отправить</button>
+    <button class="btn btn-primary send-button" id="send-selected">далее</button>
 </div>
 
 <div class="progress-container" onclick="seek(event)">
     <div class="progress-bar" id="progress-bar"></div>
 </div>
-<!-- Модальное окно для выбора номера отряда -->
 <div id="squadModal"
      style="display:none; position:fixed; z-index:1001; left:0; top:0; width:100%; height:100%; overflow:auto; background-color: rgba(0,0,0,0.4);">
-    <div style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 300px;">
+    <div style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 500px;">
         <h4 class="mb-4 text-center">выбор отряда</h4>
-        <!-- Радиокнопки для выбора отряда -->
         <div>
-            <input type="radio" id="squad1" name="squad" value="1">
-            <label for="squad1">Отряд 1</label>
+            <input type="radio" id="squad1" name="squad" value="1" class="custom-radio">
+            <label for="squad1" class="custom-radio-label">первый отряд</label>
         </div>
         <div>
-            <input type="radio" id="squad2" name="squad" value="2">
-            <label for="squad2">Отряд 2</label>
+            <input type="radio" id="squad2" name="squad" value="2" class="custom-radio">
+            <label for="squad2" class="custom-radio-label">второй отряд</label>
         </div>
         <div>
-            <input type="radio" id="squad3" name="squad" value="3">
-            <label for="squad3">Отряд 3</label>
+            <input type="radio" id="squad3" name="squad" value="3" class="custom-radio">
+            <label for="squad3" class="custom-radio-label">третий отряд</label>
         </div>
         <div>
-            <input type="radio" id="squad4" name="squad" value="4">
-            <label for="squad4">Отряд 4</label>
+            <input type="radio" id="squad4" name="squad" value="4" class="custom-radio">
+            <label for="squad4" class="custom-radio-label">четвертый отряд</label>
         </div>
         <div>
-            <input type="radio" id="squad5" name="squad" value="5">
-            <label for="squad4">Отряд 5</label>
+            <input type="radio" id="squad5" name="squad" value="5" class="custom-radio">
+            <label for="squad5" class="custom-radio-label">педсостав</label>
         </div>
         <!-- Добавьте больше радиокнопок для отрядов при необходимости -->
         <button class="btn btn-primary" onclick="sendSongsWithSquad()">отправить</button>
-        <button class="btn btn-secondary" onclick="closeModal()">Отмена</button>
+        <button class="btn btn-secondary" onclick="closeModal()">отмена</button>
     </div>
 </div>
 
 
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var radios = document.querySelectorAll(".custom-radio");
+        var labels = document.querySelectorAll(".custom-radio-label");
+
+        radios.forEach(function (radio) {
+            radio.addEventListener("change", function () {
+                labels.forEach(function (label) {
+                    label.classList.remove("active");
+                });
+
+                var selectedLabel = document.querySelector("label[for=" + radio.id + "]");
+                selectedLabel.classList.add("active");
+            });
+        });
+    });
+
     function sendSelectedSongs() {
-        // Показываем модальное окно для выбора отряда
         document.getElementById('squadModal').style.display = "block";
     }
 
@@ -211,7 +245,7 @@
     function sendSongsWithSquad() {
         const selectedSquadRadio = document.querySelector('input[name="squad"]:checked');
         if (!selectedSquadRadio) {
-            alert('Пожалуйста, выберите отряд перед отправкой.');
+            alert('выбери отряд, чтобы продолжить');
             return;
         }
         const selectedSquad = selectedSquadRadio.value;
@@ -234,29 +268,21 @@
             },
             body: JSON.stringify({songs: selectedSongs, squad: selectedSquad}),
         })
-            .then(response => response.json()) // Предполагаем, что ответ всегда в формате JSON
+            .then(response => response.json())
             .then(data => {
                 console.log(data.status)
                 if (data.status) {
-                    // Показываем сообщение об ошибке, если сервер вернул false
                     alert(data.message || 'success');
-                    // Затем перенаправляем на главную страницу
-                    setTimeout(() => {
-                        window.location.href = '/'; // Укажите здесь корректный URL главной страницы
-                    }, 5000); // Задержка перед редиректом, чтобы пользователь мог прочитать сообщение
+                    window.location.href = '/';
                 } else {
-                    // Показываем сообщение об ошибке, если сервер вернул false
-                    alert('error');
-                    // Затем перенаправляем на главную страницу
-                    setTimeout(() => {
-                        window.location.href = '/'; // Укажите здесь корректный URL главной страницы
-                    }, 5000); // Задержка перед редиректом, чтобы пользователь мог прочитать сообщение
+                    alert(data.message || 'error');
+                    window.location.href = '/';
                 }
             })
             .catch((error) => {
                 console.error('Error:', error);
-                alert('Произошла ошибка при отправке песен');
-                // Можно также добавить редирект на главную страницу здесь, если нужно
+                alert('произошла ошибка при отправке песен');
+                window.location.href = '/';
             });
     }
 

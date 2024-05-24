@@ -5,7 +5,14 @@ import logging
 import threading
 from datetime import *
 from threading import Thread, Event
+from flask import Flask, render_template, request, redirect, url_for
+from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
 
+import schedule
+import time
+import os
+import threading
 import paho.mqtt.client as mqtt
 import psycopg2
 import requests
@@ -20,7 +27,6 @@ from data_processing import *
 
 last_message_time = 0
 locale.setlocale(locale.LC_TIME, 'ru_RU.UTF-8')
-
 
 __author__ = 'deffuseyou'
 
@@ -53,34 +59,18 @@ db = SQLighter(database=config_read()['db']['database'],
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-app.config['DEBUG'] = False
-
+app.config['DEBUG'] = True
 
 token = os.environ['TG_BOT_TOKEN']
 bot = telegram.Bot(token=token)
 
-socketio = SocketIO(app, async_mode=None)
+socketio = SocketIO(app)
 thread = Thread()
 thread_stop_event = Event()
 mqtt_broker = config_read()['mqtt']['host']
 mqtt_topic = "buttons"
 
 import time
-
-
-# Создаем middleware для установки request.remote_addr на основе X-Real-IP
-class XRealIPMiddleware:
-    def __init__(self, app):
-        self.app = app
-
-    def __call__(self, environ, start_response):
-        real_ip = environ.get('HTTP_X_REAL_IP')
-        if real_ip:
-            environ['REMOTE_ADDR'] = real_ip
-        return self.app(environ, start_response)
-
-
-app.wsgi_app = XRealIPMiddleware(app.wsgi_app)
 
 
 def on_connect(client, userdata, flags, rc):
@@ -168,11 +158,28 @@ mqtt_client.on_message = on_message
 # mqtt_client.connect(mqtt_broker, 1883, 60)
 @app.route('/send_songs', methods=['POST'])
 def send_songs():
-    data = request.json
-    songs = data['songs']
-    # Обработайте данные о песнях здесь. Например, сохраните их в базу данных.
-    print(request.json)  # Пример вывода в консоль для проверки
-    return jsonify({'status': True, 'message': 'Песни успешно получены'})
+    ip = request.remote_addr
+    if db.is_votable(ip):
+        data = request.json
+        squad = data['squad']
+        songs = data['songs']
+
+        if 'songs' in data:
+            if ip not in config_read()['admin-ip']:
+                db.set_vote_status(ip, False)
+
+            if squad in '12345':
+                for song in songs:
+                    full_song_name = f"{song['artist']} - {song['title']}"
+                    if db.squad_song_exist(full_song_name, squad):
+                        db.increase_squad_song_wight(full_song_name, squad)
+                    else:
+                        db.add_song_to_squad(full_song_name, squad)
+                    db.increase_song_wight(full_song_name)
+                logger.info(f'[{ip}] проголосовал')
+        return jsonify({'status': True, 'message': 'твой голос учтен ✅'})
+    return jsonify({'status': False, 'message': 'ты уже голосовал 😞\nтеперь ты сможешь после дискотеки'})
+
 
 @app.context_processor
 def inject_os():
@@ -273,35 +280,6 @@ def index():
                         logger.info(f'[{ip}] сообщение в тг не отправлено, отсутствует подключение к интернету')
 
                 return redirect(request.path, code=302)
-
-            # обрабатываем отправленные песни
-            if request.method == 'POST' and db.is_votable(ip):
-                form = dict(request.form.lists())
-                if 'song' in form:
-                    songs = form['song']
-                    if 'squad' in form:
-                        squad = form['squad'][0]
-                    else:
-                        squad = '5'
-
-                    if ip not in config_read()['admin-ip']:
-                        db.set_vote_status(ip, False)
-
-                    if squad in '1234':
-                        for song in songs:
-                            print(song, squad)
-                            if db.squad_song_exist(song, squad):
-                                db.increase_squad_song_wight(song, squad)
-                            else:
-                                db.add_song_to_squad(song, squad)
-                            db.increase_song_wight(song)
-                        logger.info(f'[{ip}] проголосовал как отрядник')
-                    else:
-                        for song in songs:
-                            db.increase_song_wight(song)
-                        logger.info(f'[{ip}] проголосовал как работник')
-
-                    return redirect(request.path, code=302)
             return render_template('index.html', data=db.get_songs(), is_voteable=db.is_votable(ip),
                                    is_ph=ip in config_read()['ph-ip'],
                                    is_admin=ip in config_read()['admin-ip'],
@@ -312,41 +290,10 @@ def index():
     return redirect('http://' + config_read()['host'])
 
 
-@app.route('/aa')
-def aa():
-    # Путь к папке с фотографиями
-    photo_path = r'z:\фото\2022\2 поток\день 03 (тропа доверия)'
-
-    # Список файлов в папке
-    files = os.listdir(photo_path)
-
-    # Фильтрация только файлов изображений (можете добавить другие расширения файлов по вашему выбору)
-    image_files = [file for file in files if file.lower().endswith(('.jpg', '.jpeg', '.png'))]
-
-    # Создание списка эскизов
-    thumbnails = []
-    for file in image_files:
-        image_path = os.path.join(photo_path, file)
-        with Image.open(image_path) as image:
-            image.thumbnail((200, 200))
-
-            # Создание папки 'thumbnails', если она не существует
-            thumbnail_dir = os.path.join('thumbnails')
-            if not os.path.exists(thumbnail_dir):
-                os.makedirs(thumbnail_dir)
-
-            thumbnail_path = os.path.join(thumbnail_dir, file)
-            image.save(thumbnail_path)
-            thumbnails.append(thumbnail_path)
-
-    return render_template('aa.html', thumbnails=thumbnails)
-
-
 @app.route('/upload-photo', methods=['POST'])
 def upload_photo():
     if request.remote_addr in config_read()['admin-ip'] or request.remote_addr in config_read()['ph-ip']:
         threading.Thread(target=photo_uploader).start()
-        # threading.Thread(target=zip_photo).start()
         return 'success'
     return 'error'
 
@@ -364,8 +311,8 @@ def reset_buttons():
 def chime():
     if request.remote_addr in config_read()['admin-ip']:
         mqtt_client.publish('chime', '1')
-        return 'success'
-    return 'error'
+        return jsonify(status=True, message='запрос на chime отправлен')
+    return jsonify(status=False, message='доступ запрещен')
 
 
 @app.route('/ml', methods=['POST'])
@@ -429,13 +376,6 @@ def balance_editor():
     return redirect('http://' + config_read()['host'])
 
 
-@app.route('/karaoke', methods=['GET', 'POST'])
-def karaoke():
-    if request.method == 'POST':
-        download_and_play_karaoke(request.form['query'])
-    return render_template('karaoke.html')
-
-
 @app.route('/internet', methods=['GET', 'POST'])
 def internet():
     if request.method == 'POST':
@@ -456,6 +396,7 @@ def send_files():
 @app.route('/wallet')
 def wallet():
     return render_template('wallet.html')
+
 
 @app.route('/qw')
 def ddddd():
@@ -507,16 +448,17 @@ def personal_wallet(squad):
 
 @app.route('/squad-rating', methods=['GET'])
 def squad_rating():
-    squad_dict = {1: [], 2: [], 3: [], 4: []}
+    squad_dict = {1: [], 2: [], 3: [], 4: [], 5: []}
 
-    for squad in db.get_squad_rating():
-        squad_dict[squad[1]].append([squad[2], squad[0]])
+    for squad_rating_info in db.get_squad_rating():
+        squad_dict[squad_rating_info[1]].append([squad_rating_info[2], squad_rating_info[0]])
 
     return render_template('squad_rating.html',
                            sq1=squad_dict[1],
                            sq2=squad_dict[2],
                            sq3=squad_dict[3],
-                           sq4=squad_dict[4])
+                           sq4=squad_dict[4],
+                           sq5=squad_dict[5])
 
 
 import json
@@ -637,8 +579,6 @@ def content_update():
         socketio.sleep(1)
 
 
-
-
 @app.route('/heic-datetime', methods=['POST'])
 def heic_datetime():
     print(request.files)
@@ -652,6 +592,8 @@ def heic_datetime():
         return make_response(str(get_heic_datetime(io.BytesIO(file.read()))), 200)
     else:
         return jsonify({'error': 'Invalid file format'}), 400
+
+
 @socketio.on('connect', namespace='/updater')
 def test_connect():
     global thread
@@ -670,5 +612,6 @@ def not_found_error(e):
 
 
 if __name__ == "__main__":
-    #mqtt_client.loop_start()
+    # mqtt_client.loop_start()
+
     socketio.run(app, host='0.0.0.0', port=80, allow_unsafe_werkzeug=True)

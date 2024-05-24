@@ -42,7 +42,7 @@ exclude-photo-path:
   - педсостав
   - скрины
   - фотографирование
-whitelist-path: '/etc/qwert.txt'
+whitelist-path: '/whitelist.txt'
 
 monitor-path: 'z:/вд/{year}/1 поток'
 
@@ -69,6 +69,7 @@ disco-dates:
   - 18.08.2023
   - 21.08.2023
   - 22.08.2023
+  - 11.06.2024
 
 album_ids:
   - "вымпелevent":
@@ -88,37 +89,37 @@ album_ids:
 
 squads:
   squad_1:
-    name:  иберпингви
-    slogan:  иберпингви ¤ люблю!
-    registration-date: 21.07.2023
-    squad-size: 32
+    name: 1 отряд
+    slogan: Девиз
+    registration-date: 01.01.2024
+    squad-size: 0
     balance: загрузка...
-    logo: 1_squad.png
+    logo: no_image.png
   squad_2:
-    name: «емл¤ будущего
-    slogan: ћы направл¤ем свет, где нас нет, чтобы наступил рассвет!
-    registration-date: 21.07.2023
-    squad-size: 34
+    name: 2 отряд
+    slogan: Девиз
+    registration-date: 01.01.2024
+    squad-size: 0
     balance: загрузка...
-    logo: 2_squad.png
+    logo: no_image.png
   squad_3:
-    name: ‘лешики
-    slogan: ‘лешиков девиз наш мил Ц пришел, увидел, победил!
-    registration-date: 21.07.2023
-    squad-size: 43
+    name: 3 отряд
+    slogan: Девиз
+    registration-date: 01.01.2024
+    squad-size: 0
     balance: загрузка...
-    logo: 3_squad.png
+    logo: no_image.png
   squad_4:
-    name: ѕиксели
-    slogan: ѕиксели Ц маленькие, мы Ц велики, знаем, дойдем до конца игры!
-    registration-date: 21.07.2023
-    squad-size: 38
+    name: 4 отряд
+    slogan: Девиз
+    registration-date: 01.01.2024
+    squad-size: 0
     balance: загрузка...
-    logo: 4_squad.png
+    logo: no_image.png
   squad_5:
-    name: ѕедсостав
-    slogan: ћы рождены, чтоб сказку сделать былью
+    name: педсостав
+    slogan: мы рождены, чтоб сказку сделать былью
     registration-date: 01.06.1964
     squad-size: 25
-    balance: бюджет созвезди¤
+    balance: бюджет созвездия
     logo: 5_squad.png

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Music Scheduler</title>
+  </head>
+  <body>
+    <h1>Music Scheduler</h1>
+    <table>
+      <tr>
+        <th>Time</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      {% for time, status in play_music.items() %}
+      <tr>
+        <td>{{ time }}</td>
+        <td>{{ 'On' if status else 'Off' }}</td>
+        <td>
+          <form action="{{ url_for('toggle_play', time_str=time) }}" method="post">
+            <button type="submit">{{ 'Turn Off' if status else 'Turn On' }}</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

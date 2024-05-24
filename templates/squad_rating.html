@@ -128,15 +128,19 @@
                 </li>
             {% endfor %}
         </ul>
-    {% else %}
-        <h5>4 отряд</h5>
+    {% endif %}
+    {% if sq5|length != 0 %}
+    <h5>5 отряд</h5>
         <ul class="list-group">
+            {% for song in sq5 %}
             <li class="list-group-item">
-                <span class="badge badge-dark badge-pill rating-badge">0</span>
+                <span class="badge badge-dark badge-pill rating-badge">{{ song[0] }}</span>
                 <div class="song-info">
-                    <span class="song-artist">Пока нет голосов...</span>
+                    <span class="song-title">{{ song[1].split(' - ')[1] }}</span>
+                    <span class="song-artist">{{ song[1].split(' - ')[0] }}</span>
                 </div>
             </li>
+            {% endfor %}
         </ul>
     {% endif %}
 </div>

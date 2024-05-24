@@ -57,19 +57,20 @@
                     </div>
                     <div class="modal-body">
                         <label for="message-text" class="col-form-label">нажми для выбора ⬇️</label>
-                        <select name="song" class="form-select w-100" multiple required aria-label="multiple select example">
+                        <select name="song" class="form-select w-100" multiple required
+                                aria-label="multiple select example">
                             {% for song in data %}
-                                <option>{{ song[0] }}</option>
+                            <option>{{ song[0] }}</option>
                             {% endfor %}
                         </select>
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">отряд:</label>
                             {% for squad in range(1, 4 + 1) %}
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="squad" id="squad_{{ squad }}"
-                                           value="{{ squad }}">
-                                    <label class="form-check-label" for="squad_{{ squad }}">{{ squad }}</label>
-                                </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="squad" id="squad_{{ squad }}"
+                                       value="{{ squad }}">
+                                <label class="form-check-label" for="squad_{{ squad }}">{{ squad }}</label>
+                            </div>
                             {% endfor %}
                         </div>
                     </div>
@@ -113,38 +114,37 @@
     <div class="row">
         <div class="col-md-6">
             <ul class="icon-list">
-                <li><a href="{{ url_for('library') }}">доступные песни</a></li>
-                {% if is_voteable %}
-                    <li><a data-toggle="modal" data-target="#songChoice"
-                           href="https://getbootstrap.com/docs/4.6/getting-started/introduction">выбор песен</a></li>
-                {% endif %}
-                <li><a href="{{ url_for('song_rating') }}">топ песен</a></li>
+                <li><a href="{{ url_for('library') }}">библиотека песен</a></li>
+                <!--                {% if is_voteable %}-->
+                <!--                    <li><a data-toggle="modal" data-target="#songChoice"-->
+                <!--                           href="https://getbootstrap.com/docs/4.6/getting-started/introduction">выбор песен</a></li>-->
+                <!--                {% endif %}-->
+                <li><a href="{{ url_for('song_rating') }}">топ голосования</a></li>
                 <li><a href="{{ url_for('squad_rating') }}">топ по отрядам</a></li>
                 <li><a href="{{ url_for('send_files') }}">обмен файлами</a></li>
-<!--                <li><a href="{{ url_for('wallet') }}">баланс отрядов</a></li>-->
+                <!--                <li><a href="{{ url_for('wallet') }}">баланс отрядов</a></li>-->
                 <li><a data-toggle="modal" data-target="#anonMessage"
                        href="https://getbootstrap.com/docs/4.6/getting-started/build-tools">сообщение в рубку</a></li>
                 <li><a href="{{ url_for('download_photo') }}">загрузка фото и видео</a></li>
                 {% if is_ph or is_admin %}
-                    </ul>
-                    </div>
-                    <div class="col-md-6">
-                    <ul class="icon-list">
-                        <li><a href="/" onclick="handleLinkClick(event)">выгрузить фото</a></li>
-                        {% endif %}
-                        {% if is_admin %}
-                        <li><a href="/" onclick="resetVote(event)">сброс голосования</a></li>
-                        <li><a href="/" onclick="addSongs(event)">добавить песни</a></li>
-                        <li><a href="/" onclick="resetButtons(event)">сбросить кнопки</a></li>
-                        <li><a href="/" onclick="mlButtons(event)">младшие</a></li>
-                        <li><a href="/" onclick="stButtons(event)">старшие</a></li>
-                        <li><a href="{{ url_for('karaoke') }}">караоке</a></li>
-                        <li><a href="{{ url_for('internet') }}">интернет</a></li>
-                        <li><a href="{{ url_for('balance_editor') }}">управление балансом</a></li>
-                        <li><a href="/" onclick="chime(event)">chime</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <ul class="icon-list">
+                <li><a href="/" onclick="handleLinkClick(event)">выгрузить фото</a></li>
+                {% endif %}
+                {% if is_admin %}
+                <li><a href="/" onclick="resetVote(event)">сброс голосования</a></li>
+                <li><a href="/" onclick="addSongs(event)">добавить песни</a></li>
+                <li><a href="/" onclick="resetButtons(event)">сбросить кнопки</a></li>
+                <li><a href="/" onclick="mlButtons(event)">младшие</a></li>
+                <li><a href="/" onclick="stButtons(event)">старшие</a></li>
+                <li><a href="{{ url_for('internet') }}">интернет</a></li>
+                <li><a href="{{ url_for('balance_editor') }}">управление балансом</a></li>
+                <li><a href="/" onclick="chime(event)">chime</a></li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
     <p class="text-muted">если нашли ошибку в работе сайта, просьба обращаться в рубку.</p>
 </div>
@@ -155,147 +155,147 @@
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
 {% if is_ph or is_admin %}
-    <script>
-        function handleLinkClick(event) {
-            event.preventDefault();
+<script>
+    function handleLinkClick(event) {
+        event.preventDefault();
 
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/upload-photo", true);
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/upload-photo", true);
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        var response = xhr.responseText;
-                        alert(response)
-                    } else {
-                        console.error("Ошибка запроса: " + xhr.status);
-                    }
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var response = xhr.responseText;
+                    alert(response)
+                } else {
+                    console.error("Ошибка запроса: " + xhr.status);
                 }
-            };
+            }
+        };
 
-            xhr.send();
-        }
-        function resetButtons(event) {
-            // предотвращаем переход по ссылке по умолчанию
-            event.preventDefault();
+        xhr.send();
+    }
 
-            // отправляем на бэкэнд
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/reset-buttons", true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        var response = xhr.responseText;
-                        // alert(response)
-                    } else {
-                        console.error("Ошибка запроса: " + xhr.status);
-                    }
+    function resetButtons(event) {
+        // предотвращаем переход по ссылке по умолчанию
+        event.preventDefault();
+
+        // отправляем на бэкэнд
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/reset-buttons", true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var response = xhr.responseText;
+                    // alert(response)
+                } else {
+                    console.error("Ошибка запроса: " + xhr.status);
                 }
-            };
-            xhr.send();
-        }
+            }
+        };
+        xhr.send();
+    }
 
-        function chime(event) {
-            // предотвращаем переход по ссылке по умолчанию
-            event.preventDefault();
+    function chime(event) {
+        event.preventDefault();
 
-            // отправляем на бэкэнд
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/chime", true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        var response = xhr.responseText;
-                        alert(response)
-                    } else {
-                        console.error("Ошибка запроса: " + xhr.status);
-                    }
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/chime", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    alert(response.message);
+                } else {
+                    console.error("ошибка запроса: " + xhr.status);
                 }
-            };
-            xhr.send();
-        }
+            }
+        };
+        xhr.send();
+    }
 
-        function mlButtons(event) {
-            // предотвращаем переход по ссылке по умолчанию
-            event.preventDefault();
+    function mlButtons(event) {
+        // предотвращаем переход по ссылке по умолчанию
+        event.preventDefault();
 
-            // отправляем на бэкэнд
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/ml", true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        var response = xhr.responseText;
-                        console.log(response)
-                    } else {
-                        console.error("Ошибка запроса: " + xhr.status);
-                    }
+        // отправляем на бэкэнд
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/ml", true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var response = xhr.responseText;
+                    console.log(response)
+                } else {
+                    console.error("Ошибка запроса: " + xhr.status);
                 }
-            };
-            xhr.send();
-        }
+            }
+        };
+        xhr.send();
+    }
 
-        function addSongs(event) {
-            // предотвращаем переход по ссылке по умолчанию
-            event.preventDefault();
+    function addSongs(event) {
+        // предотвращаем переход по ссылке по умолчанию
+        event.preventDefault();
 
-            // отправляем на бэкэнд
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/add-songs", true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        var response = xhr.responseText;
-                        alert(response)
-                    } else {
-                        console.error("Ошибка запроса: " + xhr.status);
-                    }
+        // отправляем на бэкэнд
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/add-songs", true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var response = xhr.responseText;
+                    alert(response)
+                } else {
+                    console.error("Ошибка запроса: " + xhr.status);
                 }
-            };
-            xhr.send();
-        }
+            }
+        };
+        xhr.send();
+    }
 
-        function resetVote(event) {
-            // предотвращаем переход по ссылке по умолчанию
-            event.preventDefault();
+    function resetVote(event) {
+        // предотвращаем переход по ссылке по умолчанию
+        event.preventDefault();
 
-            // отправляем на бэкэнд
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/reset-vote", true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        var response = xhr.responseText;
-                        alert(response)
-                    } else {
-                        console.error("Ошибка запроса: " + xhr.status);
-                    }
+        // отправляем на бэкэнд
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/reset-vote", true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var response = xhr.responseText;
+                    alert(response)
+                } else {
+                    console.error("Ошибка запроса: " + xhr.status);
                 }
-            };
-            xhr.send();
-        }
+            }
+        };
+        xhr.send();
+    }
 
-        function stButtons(event) {
-            // предотвращаем переход по ссылке по умолчанию
-            event.preventDefault();
+    function stButtons(event) {
+        // предотвращаем переход по ссылке по умолчанию
+        event.preventDefault();
 
-            // отправляем на бэкэнд
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/st", true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        var response = xhr.responseText;
-                        console.log(response)
-                    } else {
-                        console.error("Ошибка запроса: " + xhr.status);
-                    }
+        // отправляем на бэкэнд
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/st", true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var response = xhr.responseText;
+                    console.log(response)
+                } else {
+                    console.error("Ошибка запроса: " + xhr.status);
                 }
-            };
-            xhr.send();
-        }
+            }
+        };
+        xhr.send();
+    }
 
-    </script>
+</script>
 {% endif %}
 
 </body>
