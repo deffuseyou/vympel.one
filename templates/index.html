@@ -4,8 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>vympel</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
-          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/starter.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <style>
@@ -125,7 +124,8 @@
                 <!--                <li><a href="{{ url_for('wallet') }}">баланс отрядов</a></li>-->
                 <li><a data-toggle="modal" data-target="#anonMessage"
                        href="https://getbootstrap.com/docs/4.6/getting-started/build-tools">сообщение в рубку</a></li>
-                <li><a href="{{ url_for('download_photo') }}">загрузка фото и видео</a></li>
+                <li><a>загрузка фото и видео</a></li>
+                <li><a href="{{ url_for('clicker') }}">кликер презентаций</a></li>
                 {% if is_ph or is_admin %}
             </ul>
         </div>
@@ -136,10 +136,11 @@
                 {% if is_admin %}
                 <li><a href="/" onclick="resetVote(event)">сброс голосования</a></li>
                 <li><a href="/" onclick="addSongs(event)">добавить песни</a></li>
-                <li><a href="/" onclick="resetButtons(event)">сбросить кнопки</a></li>
-                <li><a href="/" onclick="mlButtons(event)">младшие</a></li>
-                <li><a href="/" onclick="stButtons(event)">старшие</a></li>
-                <li><a href="{{ url_for('internet') }}">интернет</a></li>
+                <li><a href="{{ url_for('wallet') }}">кошелек</a></li>
+<!--                <li><a href="/" onclick="resetButtons(event)">сбросить кнопки</a></li>-->
+<!--                <li><a href="/" onclick="mlButtons(event)">младшие</a></li>-->
+<!--                <li><a href="/" onclick="stButtons(event)">старшие</a></li>-->
+<!--                <li><a href="{{ url_for('internet') }}">интернет</a></li>-->
                 <li><a href="{{ url_for('balance_editor') }}">управление балансом</a></li>
                 <li><a href="/" onclick="chime(event)">chime</a></li>
                 {% endif %}

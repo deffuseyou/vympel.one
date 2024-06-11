@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/4.2.7/mqtt.min.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }} "></script>
+    <script src="{{ url_for('static', filename='js/socket.io.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/mqtt.min.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}"/>
     <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <style>
@@ -25,7 +25,7 @@
             height: 100%
         }
 
-        #squad_5 {
+        #button {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -42,18 +42,15 @@
     <script>
         $(document).ready(function () {
             var socket = io.connect('http://' + document.domain + ':' + location.port + '/updater');
-            socket.on('update', function (data) {
-                // Update balance here if needed
-            });
 
             socket.on('mqtt_message', function (data) {
                 var message = data.message;
-                $('#squad_5').text(message);
+                $('#button').text(message);
             });
         });
     </script>
 </head>
 <body>
-<div id="squad_5" class="vympel">ожидание...</div>
+<div id="button" class="vympel">ожидание...</div>
 </body>
 </html>

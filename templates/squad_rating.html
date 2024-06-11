@@ -3,8 +3,7 @@
 <head>
     <title>Топ песен</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
-          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <style>
         h5 {
@@ -128,6 +127,16 @@
                 </li>
             {% endfor %}
         </ul>
+    {% else %}
+        <h5>4 отряд</h5>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="badge badge-dark badge-pill rating-badge">0</span>
+                <div class="song-info">
+                    <span class="song-artist">пока что нет голосов...</span>
+                </div>
+            </li>
+        </ul>
     {% endif %}
     {% if sq5|length != 0 %}
     <h5>5 отряд</h5>
@@ -141,6 +150,16 @@
                 </div>
             </li>
             {% endfor %}
+        </ul>
+    {% else %}
+        <h5>5 отряд</h5>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="badge badge-dark badge-pill rating-badge">0</span>
+                <div class="song-info">
+                    <span class="song-artist">пока что нет голосов...</span>
+                </div>
+            </li>
         </ul>
     {% endif %}
 </div>

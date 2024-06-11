@@ -3,6 +3,7 @@ import shutil
 import socket
 import sqlite3
 import zipfile
+from time import sleep
 
 import netifaces
 import paramiko
@@ -30,7 +31,7 @@ def get_local_ip():
 
 
 def closest_disco_date(dates):
-    current_datetime = datetime.now()
+    current_datetime = datetime.today()
     converted_dates = [datetime.strptime(date, "%d.%m.%Y") for date in dates]
 
     # Удалите даты, которые предшествуют текущей дате
@@ -99,62 +100,6 @@ def parse_music_folder():
             print(f'Песня "{song.replace(".mp3", "")}" добавлена')
         except sqlite3.IntegrityError:
             pass
-
-
-# def download_and_play_karaoke(search_query):
-#     ydl = yt_dlp.YoutubeDL({'format': "bv*+ba/b",
-#                             'outtmpl': 'z:\\лагерь\\караоке\\%(title)s.%(ext)s'})
-#
-#     ydl.download(f"ytsearch:{search_query}")
-#
-#     with yt_dlp.YoutubeDL() as ydl:
-#         search_results = ydl.extract_info(f"ytsearch:{search_query}", download=False)
-#         if 'entries' in search_results:
-#             first_video = search_results['entries'][0]
-#             video_title = first_video['title']
-#             video_link = first_video['id']
-#             title = f'{video_title}.webm'
-#     subprocess.call(['C:\Program Files\MPC-HC\mpc-hc64.exe', f'z:/караоке/{title}'])
-
-# import pyautogui
-#
-#
-# def ctrl_click():
-#     # Координаты щелчка
-#     x = 100
-#     y = 100
-#
-#     # Перемещаем курсор по указанным координатам и кликаем левой кнопкой мыши
-#     pyautogui.moveTo(x, y)
-#     pyautogui.click()
-#
-#     # Нажимаем правый Ctrl
-#     pyautogui.keyDown('ctrlright')
-#     pyautogui.keyUp('ctrlright')
-
-
-def zip_photo():
-    subfolders = [f.path for f in os.scandir(config_read()[f'now-photo-path']) if f.is_dir()]
-
-    for subfolder in subfolders:
-        if any(os.scandir(subfolder)):
-            archive_name = os.path.join(config_read()[f'archives-path'], os.path.basename(subfolder))
-            archive_path = archive_name + '.zip'
-            print(archive_path)
-            if os.path.exists(archive_path):
-                try:
-                    with zipfile.ZipFile(archive_path, 'r') as archive:
-                        print(len(os.listdir(subfolder)), len(archive.namelist()))
-                        if abs(len(os.listdir(subfolder)) - len(archive.namelist())) > 1:
-                            shutil.make_archive(archive_name, 'zip', subfolder)
-                            print(f'Дополнен архив {archive_name}')
-                except zipfile.BadZipFile:
-                    os.remove(archive_path)
-                    zip_photo()
-            else:
-                print('нет файла')
-                shutil.make_archive(archive_name, 'zip', subfolder)
-                print(f'Создан архив {archive_name}')
 
 
 def upload_to_album(album_id, file):
@@ -254,7 +199,7 @@ def photo_uploader():
     into_folder(folder_path)
 
 
-def give_internet_access(ip_address):
+def give_internet_access(login, ip_address):
     config = config_read()
     # Подключение к удаленному серверу
     ssh_client = paramiko.SSHClient()
@@ -265,30 +210,37 @@ def give_internet_access(ip_address):
 
     # Открытие файла для дозаписи
     sftp_client = ssh_client.open_sftp()
-    with sftp_client.open(config['whitelist-path'], 'a+') as file:
-        # Запись данных в файл
-        file.write(f'{ip_address}\n')
 
-    # Выполнение команды перезагрузки фаервола
-    ssh_client.exec_command('/etc/init.d/firewall restart')
-
-    stdin, stdout, stderr = ssh_client.exec_command(f"ip neigh show {ip_address} | awk '{{print $5}}'")
-    mac_address = stdout.read().decode().strip()
-
-    print([mac_address, ip_address])
-
-    ssh_client.exec_command("uci add dhcp host")
-    ssh_client.exec_command(f"uci set dhcp.@host[-1].ip='{ip_address}'")
-    ssh_client.exec_command(f"uci set dhcp.@host[-1].mac='{mac_address}'")
-    ssh_client.exec_command("uci set dhcp.@host[-1].leasetime='infinite'")
-    ssh_client.exec_command("uci commit dhcp")
-    ssh_client.exec_command("/etc/init.d/dnsmasq restart")
-
-    # Копирование содержимого в локальный файл
     with sftp_client.open(config['whitelist-path'], 'r') as file:
         content = file.read().decode('utf-8').split('\n')
-        print(content)
+    if ip_address not in content:
+        with sftp_client.open(config['whitelist-path'], 'a+') as file:
+            file.write(f'# {login}\n{ip_address}\n\n')
 
-    # Отключение от сервера
+        stdin, stdout, stderr = ssh_client.exec_command(f"ip neigh show {ip_address} | awk '{{print $5}}'")
+        mac_address = stdout.read().decode().strip()
+
+        sleep(0.1)
+        ssh_client.exec_command("uci add dhcp host")
+        sleep(0.1)
+        ssh_client.exec_command(f"uci set dhcp.@host[-1].name='{login.replace(' ', '-')}'")
+        sleep(0.1)
+        ssh_client.exec_command(f"uci set dhcp.@host[-1].ip='{ip_address}'")
+        sleep(0.1)
+        ssh_client.exec_command(f"uci set dhcp.@host[-1].mac='{mac_address}'")
+        sleep(0.1)
+        ssh_client.exec_command("uci set dhcp.@host[-1].leasetime='infinite'")
+        sleep(0.1)
+        ssh_client.exec_command("uci commit dhcp")
+        sleep(0.1)
+        ssh_client.exec_command("/etc/init.d/dnsmasq restart")
+        sleep(0.1)
+        ssh_client.exec_command('/etc/init.d/firewall restart')
+
+        sftp_client.close()
+        ssh_client.close()
+        return True
+
     sftp_client.close()
     ssh_client.close()
+    return False

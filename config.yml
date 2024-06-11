@@ -13,10 +13,9 @@ db:
 mqtt:
   host: 'mqtt.vympel.one'
   port: 1883
-  buttons-topic: 'buttons'
+  buttons-topic: 'user/#'
   laser-topic: ''
 
-host: ' '
 snapdrop-host: 'snapdrop.vympel.one'
 
 admin-telegram-id:
@@ -24,8 +23,11 @@ admin-telegram-id:
   - 864662054
   - 839840272
   - 1061060541
+  - 1077531046
 admin-ip:
   - '192.168.21.2'
+  - '192.168.21.4'
+  - '192.168.21.5'
   - '192.168.100.181'
 ph-ip:
   - '192.168.21.6'
@@ -33,7 +35,7 @@ ph-ip:
 photo-use-year: true
 year: 2024
 shift: 1
-music-path: 'z:/музыка/дискотека 2.0'
+music-path: 'z:/музыка/голосование'
 photo-path: 'z:/фото'
 now-photo-path: 'z:/фото/{year}/{shift} поток'
 archives-path: 'z:/'
@@ -69,6 +71,7 @@ disco-dates:
   - 18.08.2023
   - 21.08.2023
   - 22.08.2023
+  - 10.06.2024
   - 11.06.2024
 
 album_ids:

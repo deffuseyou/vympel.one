@@ -5,7 +5,7 @@ import logging
 import threading
 from datetime import *
 from threading import Thread, Event
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 
@@ -22,7 +22,7 @@ from flask import render_template, send_file
 from flask_socketio import SocketIO
 from rsc_py import RSCPy
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-
+from flask_httpauth import HTTPBasicAuth
 from data_processing import *
 
 last_message_time = 0
@@ -56,7 +56,7 @@ db = SQLighter(database=config_read()['db']['database'],
 # sound_file = "bip.mp3"
 # pygame.mixer.music.load(sound_file)
 #
-
+auth = HTTPBasicAuth()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 app.config['DEBUG'] = True
@@ -67,8 +67,9 @@ bot = telegram.Bot(token=token)
 socketio = SocketIO(app)
 thread = Thread()
 thread_stop_event = Event()
+
 mqtt_broker = config_read()['mqtt']['host']
-mqtt_topic = "buttons"
+mqtt_topic = config_read()['mqtt']['buttons-topic']
 
 import time
 
@@ -148,14 +149,19 @@ def on_message(client, userdata, msg):
 
 
 mqtt_client = mqtt.Client()
-username = "server"
-password = "pusdes69"
+username = "user"
+password = "1"
 mqtt_client.username_pw_set(username, password)
 mqtt_client.on_connect = on_connect
 mqtt_client.on_message = on_message
+mqtt_client.connect(mqtt_broker, 1883, 60)
 
 
-# mqtt_client.connect(mqtt_broker, 1883, 60)
+@auth.verify_password
+def verify_password(username, password):
+    return username == '5' and password == 'vympel5'
+
+
 @app.route('/send_songs', methods=['POST'])
 def send_songs():
     ip = request.remote_addr
@@ -233,10 +239,9 @@ def stop_presentation():
     return perform_action("stop-presentation", path)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
     ip = request.remote_addr
-    print(ip)
     if ip != '127.0.0.1':
         try:
             logger.info(f'[{ip}] открыл главную страницу')
@@ -380,9 +385,11 @@ def balance_editor():
 def internet():
     if request.method == 'POST':
         password = request.form['password']
+        login = request.form['login']
         if password == os.environ['INTERNET_ACCESS_PASSWORD']:
-            give_internet_access(request.remote_addr)
-            return redirect('https://vk.com/dol_vympel')
+            if give_internet_access(login, request.remote_addr):
+                return redirect('https://vk.com/dol_vympel')
+            return jsonify({'message': 'IP already exist'})
         else:
             return redirect('/')
     return render_template('internet.html')
@@ -390,7 +397,7 @@ def internet():
 
 @app.route('/send-files')
 def send_files():
-    return redirect('http://' + config_read()['snapdrop-host'] + ':81')
+    return redirect('http://' + config_read()['snapdrop-host'])
 
 
 @app.route('/wallet')
@@ -400,7 +407,7 @@ def wallet():
 
 @app.route('/qw')
 def ddddd():
-    return render_template('fds.html')
+    return render_template('test.html')
 
 
 @app.route('/speech')
@@ -421,8 +428,8 @@ def get_music(filename):
     return send_from_directory(config_read()['music-path'], filename)
 
 
-@app.route('/wallet/5-old')
-def wallet_5_old():
+@app.route('/buttons')
+def buttons():
     return render_template('buttons.html')
 
 
@@ -545,6 +552,7 @@ def sub_download_photo(path):
 
 
 @app.route('/clicker')
+@auth.login_required
 def clicker():
     path = config_read()[f'presentation-path'].format(year=year, shift=shift)
     print(path)
@@ -558,6 +566,7 @@ def clicker():
 
 
 @app.route('/clicker/<path:path>')
+@auth.login_required
 def sub_clicker(path):
     new_path = config_read()[f'presentation-path'].format(year=year, shift=shift) + '/' + path
     print(new_path)
@@ -612,6 +621,5 @@ def not_found_error(e):
 
 
 if __name__ == "__main__":
-    # mqtt_client.loop_start()
-
+    mqtt_client.loop_start()
     socketio.run(app, host='0.0.0.0', port=80, allow_unsafe_werkzeug=True)

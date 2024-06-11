@@ -2,8 +2,8 @@
 <html>
 <head>
     <script src="static/js/jquery.min.js"></script>
-    <script type="text/javascript" src="static/js/socket.io.min.js"></script>
-    <script src="static/js/script.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/socket.io.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <style>
         @font-face {
