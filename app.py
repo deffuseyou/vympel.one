@@ -347,15 +347,16 @@ def reset_vote():
 @app.route('/add-songs', methods=['POST'])
 def add_songs():
     if request.remote_addr in config_read()['admin-ip']:
-        path = fr'{config_read()["music-path"]}'
-        songs = next(os.walk(path), (None, None, []))[2]
-
-        for song in songs:
-            try:
-                db.add_song(song.replace('.mp3', ''))
-                print(f'Песня "{song.replace(".mp3", "")}" добавлена')
-            except psycopg2.errors.UniqueViolation:
-                print(f'Песня "{song.replace(".mp3", "")}" уже добавлена')
+        parse_music_folder()
+        # path = fr'{config_read()["music-path"]}'
+        # songs = next(os.walk(path), (None, None, []))[2]
+        #
+        # for song in songs:
+        #     try:
+        #         db.add_song(song.replace('.mp3', ''))
+        #         print(f'Песня "{song.replace(".mp3", "")}" добавлена')
+        #     except psycopg2.errors.UniqueViolation:
+        #         print(f'Песня "{song.replace(".mp3", "")}" уже добавлена')
 
         return 'success'
     return 'error'

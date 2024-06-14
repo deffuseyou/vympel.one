@@ -11,7 +11,6 @@ import vk_api
 import yaml
 from PIL.ExifTags import TAGS
 from pillow_heif import register_heif_opener
-
 from PIL import Image
 import os
 from datetime import datetime, timezone, timedelta
@@ -31,9 +30,8 @@ def get_local_ip():
 
 
 def closest_disco_date(dates):
-    current_datetime = datetime.today()
+    current_datetime = datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
     converted_dates = [datetime.strptime(date, "%d.%m.%Y") for date in dates]
-
     # Удалите даты, которые предшествуют текущей дате
     converted_dates = [date for date in converted_dates if date >= current_datetime]
 
@@ -90,14 +88,63 @@ def transform_tuple(tuple_input):
     return transformed_tuple
 
 
+def copy_files(source_folder, destination_folder):
+    # Создаем папку назначения, если она не существует
+    if not os.path.exists(destination_folder):
+        os.makedirs(destination_folder)
+
+    # Копируем все файлы из исходной папки в папку назначения
+    for item in os.listdir(source_folder):
+        source_item = os.path.join(source_folder, item)
+        destination_item = os.path.join(destination_folder, item)
+
+        if os.path.isdir(source_item):
+            shutil.copytree(source_item, destination_item)
+        else:
+            shutil.copy2(source_item, destination_item)
+
+
+def clear_folder(folder_path):
+    # Удаляем все содержимое папки
+    if os.path.exists(folder_path):
+        for filename in os.listdir(folder_path):
+            file_path = os.path.join(folder_path, filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print(f'Не удалось удалить {file_path}. Причина: {e}')
+    else:
+        os.makedirs(folder_path)
+
+
 def parse_music_folder():
+    # Пути к папкам
+    source_folder1 = r'Z:\музыка\дискотека 2024'
+    source_folder2 = r'Z:\музыка\медляки'
+    destination_folder = r'Z:\музыка\голосование'
+
+    try:
+        clear_folder(destination_folder)
+    except:
+        pass
+
+    # Копируем файлы из первой папки
+    copy_files(source_folder1, destination_folder)
+
+    # Копируем файлы из второй папки
+    copy_files(source_folder2, destination_folder)
+
     path = fr'{config_read()["music-path"]}'
     songs = next(os.walk(path), (None, None, []))[2]
 
     for song in songs:
         try:
-            db.add_song(song.replace('.mp3', ''))
-            print(f'Песня "{song.replace(".mp3", "")}" добавлена')
+            if song.endswith('.mp3'):
+                db.add_song(song.replace('.mp3', ''))
+                print(f'Песня "{song.replace(".mp3", "")}" добавлена')
         except sqlite3.IntegrityError:
             pass
 
