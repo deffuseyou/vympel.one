@@ -32,7 +32,6 @@
             font-size: 18px; /* Настройте размер иконок по вашему усмотрению */
         }
 
-
         ul {
             list-style: none;
             padding: 0;
@@ -42,6 +41,7 @@
         li {
             padding: 10px;
             border-bottom: 1px solid #ccc;
+            cursor: pointer;
         }
 
         li:last-child {
@@ -88,16 +88,15 @@
         {% endif %}
 
         {% for folder in folders %}
-        <li>
+        <li data-folder="true" data-href="{{ url_for('sub_clicker', path = dir + '/' + folder) }}">
             <span class="icon">&#x1F4C1;</span>
-            <a href="{{ url_for('sub_clicker', path = dir + "/" + folder) }}">{{ folder }}</a>
+            <a href="{{ url_for('sub_clicker', path = dir + '/' + folder) }}">{{ folder }}</a>
         </li>
         {% endfor %}
 
         {% for file in files %}
         <li>
-            <a href="{{ url_for('sub_clicker', path = dir + '/' + file) }}">{{ file|replace('.pptx',
-                '')|replace('.ppt', '') }}</a>
+            <a href="{{ url_for('sub_clicker', path = dir + '/' + file) }}">{{ file|replace('.pptx', '')|replace('.ppt', '') }}</a>
             <div class="icon-container">
                 <i class="fas fa-backward" data-path="{{ dir + '/' + file }}"></i>
                 <i class="fas fa-play play-button" data-path="{{ dir + '/' + file }}"></i>
@@ -111,28 +110,30 @@
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const iconContainer = document.querySelector(".icon-container");
+        const iconContainers = document.querySelectorAll(".icon-container");
 
-        iconContainer.addEventListener("click", function (event) {
-            const target = event.target;
-            if (target.tagName === "I") {
-                const path = target.getAttribute("data-path");
-                let endpoint;
+        iconContainers.forEach(function (iconContainer) {
+            iconContainer.addEventListener("click", function (event) {
+                const target = event.target;
+                if (target.tagName === "I") {
+                    const path = target.getAttribute("data-path");
+                    let endpoint;
 
-                if (target.classList.contains("fa-play")) {
-                    endpoint = "/run-presentation";
-                } else if (target.classList.contains("fa-stop")) {
-                    endpoint = "/stop-presentation";
-                } else if (target.classList.contains("fa-forward")) {
-                    endpoint = "/next-slide";
-                } else if (target.classList.contains("fa-backward")) {
-                    endpoint = "/prev-slide";
+                    if (target.classList.contains("fa-play")) {
+                        endpoint = "/run-presentation";
+                    } else if (target.classList.contains("fa-stop")) {
+                        endpoint = "/stop-presentation";
+                    } else if (target.classList.contains("fa-forward")) {
+                        endpoint = "/next-slide";
+                    } else if (target.classList.contains("fa-backward")) {
+                        endpoint = "/prev-slide";
+                    }
+
+                    if (endpoint) {
+                        sendAjaxRequest(endpoint, { path: path });
+                    }
                 }
-
-                if (endpoint) {
-                    sendAjaxRequest(endpoint, {path: path});
-                }
-            }
+            });
         });
 
         function sendAjaxRequest(endpoint, data) {
@@ -151,6 +152,15 @@
                     console.error(error);
                 });
         }
+
+        const listItems = document.querySelectorAll("li[data-folder]");
+
+        listItems.forEach(function (listItem) {
+            listItem.addEventListener("click", function () {
+                const href = this.getAttribute("data-href");
+                window.location.href = href;
+            });
+        });
     });
 </script>
 </html>

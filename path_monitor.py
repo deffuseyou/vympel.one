@@ -1,8 +1,4 @@
-import time
-import telegram
-from watchdog.events import *
-from watchdog.observers import Observer
-from data_processing import *
+
 
 token = os.environ['TG_BOT_TOKEN']
 bot = telegram.Bot(token=token)
@@ -23,7 +19,7 @@ class PathHandler(FileSystemEventHandler):
 
 
 
-path = config_read()[f"monitor-path"]
+path = config_read()[f"monitor-path"].format(year=year, shift=shift)
 path_handler = PathHandler()
 observer = Observer()
 observer.schedule(path_handler, path, recursive=True)

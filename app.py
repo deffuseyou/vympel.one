@@ -59,7 +59,7 @@ db = SQLighter(database=config_read()['db']['database'],
 auth = HTTPBasicAuth()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-app.config['DEBUG'] = True
+app.config['DEBUG'] = False
 
 token = os.environ['TG_BOT_TOKEN']
 bot = telegram.Bot(token=token)
@@ -362,22 +362,22 @@ def add_songs():
     return 'error'
 
 
+@auth.login_required
 @app.route('/balance-editor', methods=['GET', 'POST'])
 def balance_editor():
     ip = request.remote_addr
-
-    if request.method == 'POST':
-        squads = list(set(transform_tuple(request.form.getlist('squad'))))
-
-        try:
-            amount = int(request.form['amount'])
-        except ValueError:
-            amount = 0
-
-        print(squads, amount)
-        db.update_balances(squads, amount)
-
     if ip in config_read()['admin-ip']:
+        if request.method == 'POST':
+            squads = list(set(transform_tuple(request.form.getlist('squad'))))
+
+            try:
+                amount = int(request.form['amount'])
+            except ValueError:
+                amount = 0
+
+            print(squads, amount)
+            db.update_balances(squads, amount)
+
         return render_template('balance_editor.html')
     return redirect('http://' + config_read()['host'])
 
@@ -409,12 +409,6 @@ def wallet():
 @app.route('/qw')
 def ddddd():
     return render_template('test.html')
-
-
-@app.route('/speech')
-def speech():
-    return render_template('speech.html')
-
 
 @app.route('/library')
 def library():
@@ -522,6 +516,12 @@ def handle_dialog(res, req):
 @app.route('/song-rating', methods=['GET'])
 def song_rating():
     return render_template('song_rating.html', chart=[[song, rating] for rating, song in reversed(db.get_songs_top())])
+
+
+@app.route('/ped', methods=['GET'])
+@auth.login_required
+def ped():
+    return render_template('ped.html')
 
 
 @app.route('/download-photo')
