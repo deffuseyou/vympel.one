@@ -17,8 +17,10 @@ from pillow_heif import register_heif_opener
 from PIL import Image
 import os
 from datetime import datetime, timezone, timedelta
-
+from dotenv import load_dotenv
 from sqlighter import SQLighter
+
+load_dotenv()
 
 
 def get_local_ip():
@@ -30,37 +32,6 @@ def get_local_ip():
                 return link['addr']
 
     return None
-
-
-def path_monitor(path):
-    token = os.environ['TG_BOT_TOKEN']
-    bot = telegram.Bot(token=token)
-
-    class PathHandler(FileSystemEventHandler):
-        def on_created(self, event):
-            path = event.src_path.replace(config_read()[f"monitor-path"] + "\\", "")
-            if 'TeraCopy' not in path:
-                for telegram_id in config_read()['admin-telegram-id']:
-                    bot.send_message(telegram_id, f'<b>{path}</b>', parse_mode='html')
-
-        # def on_modified(self, event):
-        #     path = event.src_path.replace(config_read()[f"monitor-path"] + "\\", "")
-        #     if 'TeraCopy' not in path:
-        #         for telegram_id in config_read()['admin-telegram-id']:
-        #             bot.send_message(telegram_id, f'изменено:\n<b>{path}\n</b>', parse_mode='html')
-
-    path_handler = PathHandler()
-    observer = Observer()
-    observer.schedule(path_handler, path, recursive=True)
-    observer.start()
-
-    try:
-        while True:
-            time.sleep(60)
-
-    except KeyboardInterrupt:
-        observer.stop()
-    observer.join()
 
 
 def closest_disco_date(dates):
@@ -120,6 +91,37 @@ def transform_tuple(tuple_input):
             transformed_tuple.append(element)
 
     return transformed_tuple
+
+
+def path_monitor(path=config_read()[f"monitor-path"].format(year=year, shift=shift)):
+    token = os.environ['TG_BOT_TOKEN']
+    bot = telegram.Bot(token=token)
+
+    class PathHandler(FileSystemEventHandler):
+        def on_created(self, event):
+            path = event.src_path.replace(config_read()[f"monitor-path"] + "\\", "")
+            if 'TeraCopy' not in path and 'crdownload' not in path and '~$' not in path and 'Thumbs.db' not in path:
+                for telegram_id in config_read()['admin-telegram-id']:
+                    bot.send_message(telegram_id, f'<b>{path}</b>'.replace('\\', '/'), parse_mode='html')
+
+        # def on_modified(self, event):
+        #     path = event.src_path.replace(config_read()[f"monitor-path"] + "\\", "")
+        #     if 'TeraCopy' not in path:
+        #         for telegram_id in config_read()['admin-telegram-id']:
+        #             bot.send_message(telegram_id, f'изменено:\n<b>{path}\n</b>', parse_mode='html')
+
+    path_handler = PathHandler()
+    observer = Observer()
+    observer.schedule(path_handler, path, recursive=True)
+    observer.start()
+
+    try:
+        while True:
+            time.sleep(60)
+
+    except KeyboardInterrupt:
+        observer.stop()
+    observer.join()
 
 
 def copy_files(source_folder, destination_folder):

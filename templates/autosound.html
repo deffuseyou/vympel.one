@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Scheduler</title>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+</head>
+<body>
+<h1>Music Scheduler</h1>
+<button id="update-button">Update Folders</button>
+<p id="status-message"></p>
+
+<script>
+    $(document).ready(function () {
+        $("#update-button").click(function () {
+            $.post("/update_folders", function (data) {
+                $("#status-message").text(data.status);
+            });
+        });
+    });
+</script>
+</body>
+</html>

@@ -6,11 +6,15 @@ import threading
 from datetime import *
 from threading import Thread, Event
 from flask import Flask, render_template, request, redirect, url_for, flash
+from playsound import playsound
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
-
+from pydub import AudioSegment
+from pydub.playback import play
 import schedule
+import sounddevice as sd
 import time
+import numpy as np
 import os
 import threading
 import paho.mqtt.client as mqtt
@@ -31,7 +35,7 @@ locale.setlocale(locale.LC_TIME, 'ru_RU.UTF-8')
 __author__ = 'deffuseyou'
 
 # TODO: обновить README
-
+output_device = None  # Задайте имя устройства воспроизведения
 
 logging.basicConfig(handlers=[logging.StreamHandler(),
                               logging.FileHandler('vympel.one.log')],
@@ -60,6 +64,17 @@ auth = HTTPBasicAuth()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 app.config['DEBUG'] = False
+
+# Настройка логгирования для вывода в консоль
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)
+formatter = logging.Formatter(
+    '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+)
+console_handler.setFormatter(formatter)
+app.logger.addHandler(console_handler)
+app.logger.setLevel(logging.INFO)
+app.logger.info('Application startup')
 
 token = os.environ['TG_BOT_TOKEN']
 bot = telegram.Bot(token=token)
@@ -410,6 +425,7 @@ def wallet():
 def ddddd():
     return render_template('test.html')
 
+
 @app.route('/library')
 def library():
     chart = []
@@ -446,6 +462,70 @@ def personal_wallet(squad):
                                balance=config_read()['squads'][f'squad_{squad}']['balance'])
     else:
         return render_template('404.html'), 404
+
+
+def read_cell_state():
+    try:
+        with open('cell_state.json', 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return {"st": {}, "ml": {}}
+
+
+def write_cell_state(data):
+    with open('cell_state.json', 'w') as file:
+        json.dump(data, file)
+
+
+@app.route('/ayariva-st', methods=['GET'])
+def ayariva_st():
+    ip = request.remote_addr
+    if ip in config_read()['admin-ip']:
+        rows = len(config_read()['ayariva-st']['categories'])
+        cols = config_read()['ayariva-st']['cols'] + 1
+        categories = config_read()['ayariva-st']['categories']
+        cell_state = read_cell_state()
+        return render_template('ayariva.html', rows=rows, cols=cols, categories=categories, squads='st',
+                               cell_state=cell_state)
+
+    return render_template('404.html'), 404
+
+
+@app.route('/ayariva-ml', methods=['GET'])
+def ayariva_ml():
+    ip = request.remote_addr
+    if ip in config_read()['admin-ip']:
+        rows = len(config_read()['ayariva-ml']['categories'])
+        cols = config_read()['ayariva-ml']['cols'] + 1
+        categories = config_read()['ayariva-ml']['categories']
+        cell_state = read_cell_state()
+        return render_template('ayariva.html', rows=rows, cols=cols, categories=categories, squads='ml',
+                               cell_state=cell_state)
+
+    return render_template('404.html'), 404
+
+
+@app.route('/update_cell_state', methods=['POST'])
+def update_cell_state():
+    data = request.json
+    row = str(data['row'])
+    col = str(data['col'])
+    squads = data['squads']
+
+    cell_state = read_cell_state()
+    if squads not in cell_state:
+        cell_state[squads] = {}
+    if row not in cell_state[squads]:
+        cell_state[squads][row] = []
+
+    if col in cell_state[squads][row]:
+        cell_state[squads][row].remove(col)
+    else:
+        cell_state[squads][row].append(col)
+
+    write_cell_state(cell_state)
+    socketio.emit('update', {'cell_state': cell_state}, namespace='/updater')
+    return jsonify({"success": True})
 
 
 @app.route('/squad-rating', methods=['GET'])
@@ -585,7 +665,8 @@ def sub_clicker(path):
 
 def content_update():
     while not thread_stop_event.is_set():
-        socketio.emit('update', {'balance': db.get_balance()}, namespace='/updater')
+        cell_state = read_cell_state()
+        socketio.emit('update', {'balance': db.get_balance(), 'cell_state': cell_state}, namespace='/updater')
         socketio.sleep(1)
 
 
@@ -602,6 +683,18 @@ def heic_datetime():
         return make_response(str(get_heic_datetime(io.BytesIO(file.read()))), 200)
     else:
         return jsonify({'error': 'Invalid file format'}), 400
+
+
+@app.route('/wheel', methods=['GET'])
+def wheel():
+    days = config_read().get('days', {})
+    today_date = datetime.today().strftime('%d.%m.%Y')
+
+    for key, value in days.items():
+        if value == today_date:
+            first_digit = key.split('_')[0]
+            return jsonify({'sector': first_digit})
+    return jsonify({'sector': '0'})
 
 
 @socketio.on('connect', namespace='/updater')
@@ -621,6 +714,107 @@ def not_found_error(e):
     return render_template('404.html'), 404
 
 
+folders = []
+BASE_PATH = config_read()['sound-folder']
+
+
+def get_folders_with_time_format(base_path=BASE_PATH):
+    folders = []
+    for item in os.listdir(base_path):
+        folder_path = os.path.join(base_path, item)
+        if os.path.isdir(folder_path) and item.isdigit() and len(item) == 4:
+            folders.append(item)
+    folders.sort()
+    return folders
+
+
+def play_music(file):
+    # Загрузка аудио с помощью pydub
+    audio = AudioSegment.from_file(file)
+
+    # Конвертация аудио в numpy массив
+    samples = np.array(audio.get_array_of_samples())
+    samples = samples.reshape((-1, audio.channels))
+
+    # Определение частоты дискретизации
+    sample_rate = audio.frame_rate
+
+    # Воспроизведение аудио через sounddevice
+    try:
+        sd.play(samples, samplerate=sample_rate, device=output_device)
+        sd.wait()  # Ждем завершения воспроизведения
+    except Exception as e:
+        logger.error(f"Error playing {file}: {e}")
+
+
+def update_folders():
+    global folders
+    folders = get_folders_with_time_format(BASE_PATH)
+    logger.info(f"Folders updated: {folders}")
+
+
+def main_loop():
+    global folders
+    while True:
+        current_time = datetime.now().strftime("%H%M")
+        if current_time in folders:
+            logger.info(f"It's {current_time}. Time to play music from folder {current_time}.")
+            folder_path = os.path.join(BASE_PATH, current_time)
+            files = [os.path.join(folder_path, f) for f in os.listdir(folder_path) if
+                     f.endswith(('.mp3', '.wav', '.flac'))]
+            files.sort()
+            for file in files:
+                # Воспроизведение музыки
+                play_music(file)
+                time.sleep(1)  # Добавим небольшую задержку, чтобы не запускать все сразу
+            time.sleep(60)  # Ждем минуту, чтобы избежать повторного запуска в ту же минуту
+        elif datetime.now().minute == 59:
+            update_folders()
+            time.sleep(60)  # Ждем минуту, чтобы не обновлять несколько раз в 59 минуту
+        else:
+            time.sleep(1)  # Проверяем каждую секунду
+
+
+def start_main_loop():
+    threading.Thread(target=main_loop, daemon=True).start()
+
+
+@app.route('/autosound')
+def autosound():
+    return render_template('autosound.html')
+
+
+@app.route('/update_folders', methods=['POST'])
+def update_folders_route():
+    update_folders()
+    return jsonify({"status": "Folders updated"}), 200
+
+
 if __name__ == "__main__":
+    path_monitor_thread = threading.Thread(target=path_monitor)
+    path_monitor_thread.start()
+
     mqtt_client.loop_start()
+
+    devices = sd.query_devices()
+    for device in devices:
+        print([device])
+    # Установка устройства воспроизведения по его идентификатору
+    output_device_name = "amplifier (Realtek(R) Audio)"  # Замените на имя вашего устройства
+    output_device_id = None
+
+    for idx, device in enumerate(devices):
+        if output_device_name in device['name']:
+            output_device_id = idx
+            print(output_device_id)
+            break
+
+    if output_device_id is None:
+        print(f"Output device '{output_device_name}' not found")
+    else:
+        output_device = output_device_id
+        print(f"Using output device ID: {output_device}")
+
+    folders = get_folders_with_time_format()
+    start_main_loop()
     socketio.run(app, host='0.0.0.0', port=80, allow_unsafe_werkzeug=True)
