@@ -45,6 +45,15 @@ class SQLighter:
             self.cursor.execute("SELECT path FROM uploaded_photo")
             return self.cursor.fetchall()
 
+    def get_specific_uploaded_photos(self, path):
+        with self.connection:
+            self.cursor.execute("""
+                SELECT url 
+                FROM uploaded_photo 
+                WHERE path LIKE %s
+            """, (f'%{path}%',))
+            return self.cursor.fetchall()
+
     def get_songs(self):
         with self.connection:
             self.cursor.execute("SELECT song FROM music_library ORDER BY song")

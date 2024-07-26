@@ -5,6 +5,7 @@ import sqlite3
 import zipfile
 from time import sleep
 import time
+import requests
 import telegram
 from watchdog.events import *
 from watchdog.observers import Observer
@@ -53,6 +54,24 @@ def closest_disco_date(dates):
 def config_read():
     config = yaml.load(open('config.yml', encoding='utf-8'), Loader=yaml.SafeLoader)
     return config
+
+
+def update_config_key(key, new_value):
+    config = config_read()
+
+    keys = key.split('.')
+    sub_config = config
+    for k in keys[:-1]:
+        sub_config = sub_config.get(k, {})
+
+    if keys[-1] in sub_config:
+        sub_config[keys[-1]] = new_value
+    else:
+        print(f"Ключ '{key}' не найден в конфигурации.")
+        return
+
+    with open('config.yml', 'w', encoding='utf-8') as file:
+        yaml.dump(config, file, allow_unicode=True)
 
 
 year = config_read()['year']
@@ -256,7 +275,10 @@ def photo_uploader():
 
     # путь к папке с фотографиями
     if config_read()['photo-use-year']:
-        folder_path = f"{config_read()['photo-path']}/{config_read()['year']}"
+        if config_read()['photo-use-shift']:
+            folder_path = f"{config_read()['photo-path']}/{config_read()['year']}/{config_read()['shift']} поток"
+        else:
+            folder_path = f"{config_read()['photo-path']}/{config_read()['year']}"
     else:
         folder_path = config_read()['photo-path']
 
@@ -280,6 +302,40 @@ def photo_uploader():
                                 upload_to_album(*value, full_path)
 
     into_folder(folder_path)
+    update_config_key('is-uploading', False)
+
+
+
+
+def delete_photo(photo_link, album_id, owner_id, hash_value, cookies):
+    url = "https://vk.com/al_photos.php"
+    headers = {
+        "Host": "vk.com",
+        "Connection": "keep-alive",
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "X-Requested-With": "XMLHttpRequest",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+        "Origin": "https://vk.com",
+        "Referer": f"https://vk.com/album{owner_id}_{album_id}?act=edit",
+        "Accept-Encoding": "gzip, deflate, br, zstd",
+        "Accept-Language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Cookie": cookies
+    }
+
+    # Извлечение идентификатора фотографии
+    photo_id = photo_link.split('/')[-1].replace('photo', '')
+    data = {
+        "act": "delete_photos",
+        "al": "1",
+        "album_id": album_id,
+        "hash": hash_value,
+        "owner_id": owner_id,
+        "photos": photo_id
+    }
+
+    print(data)  # Печать данных для проверки
+    response = requests.post(url, headers=headers, data=data)
+    return response
 
 
 def give_internet_access(login, ip_address):
@@ -327,3 +383,19 @@ def give_internet_access(login, ip_address):
     sftp_client.close()
     ssh_client.close()
     return False
+
+
+if __name__ == "__main__":
+    # Пример использования функции
+    # data = db.get_specific_uploaded_photos('/2024/3 поток/08_день (спартакиада)9999999')
+    # photo_links = [item[0] for item in data]
+    # print(photo_links)
+    # album_id = "301347182"
+    # owner_id = "-1771052"
+    # hash_value = "cbea8c6c5b5956b435"
+    # cookies = ''
+    # for photo_link in photo_links:
+    #     response = delete_photo(photo_link, album_id, owner_id, hash_value, cookies)
+    #     print(f"Response for {photo_link}: {response.text}")
+    # print(response.text)
+    print(config_read()['is-uploading'])

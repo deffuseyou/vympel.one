@@ -29,6 +29,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from flask_httpauth import HTTPBasicAuth
 from data_processing import *
 
+update_config_key('is-uploading', False)
 last_message_time = 0
 locale.setlocale(locale.LC_TIME, 'ru_RU.UTF-8')
 
@@ -312,10 +313,13 @@ def index():
 
 @app.route('/upload-photo', methods=['POST'])
 def upload_photo():
-    if request.remote_addr in config_read()['admin-ip'] or request.remote_addr in config_read()['ph-ip']:
+    if (request.remote_addr in config_read()['admin-ip'] or request.remote_addr in config_read()['ph-ip']) and not \
+            config_read()['is-uploading']:
+        print(config_read()['is-uploading'])
+        update_config_key('is-uploading', True)
         threading.Thread(target=photo_uploader).start()
         return 'success'
-    return 'error'
+    return 'нет доступа или фото уже загружаются'
 
 
 @app.route('/reset-buttons', methods=['POST'])
